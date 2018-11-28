@@ -1,0 +1,29 @@
+
+.modal-content p {
+    word-wrap: break-word;
+}
+
+p {
+    word-wrap: break-word;
+}
+
+h5 {
+    font-weight: bold;
+}
+
+#report-modal {
+    padding:10px;
+}
+
+#report-image {
+    width: 100%;
+    height: auto;
+}
+
+:focus {
+    outline: none;
+}
+
+.row {
+    margin: 0;
+}
