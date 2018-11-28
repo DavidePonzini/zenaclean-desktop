@@ -1,0 +1,19 @@
+<div class="sidebar">
+
+  <div id="fixed">
+    <h1> Reports: </h1>
+  </div>
+
+  <div id="scrollable">
+
+    <ul *ngIf="reports; else other_content">
+      <li *ngFor="let report of reports">
+        <p>{{ report.name }}</p>
+      </li>
+    </ul>
+
+    <!-- if there are not reports.. -->
+    <ng-template #other_content> Nessuna segnalazione presente </ng-template>
+
+  </div>
+</div>
