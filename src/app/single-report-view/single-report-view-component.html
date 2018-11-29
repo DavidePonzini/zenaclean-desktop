@@ -7,7 +7,7 @@
     </div>
     <div class="modal-body">
         <img id="report-image"
-             src="{{ report.picture }}">
+             src="{{ report.picture != null ? report.picture : '/assets/default_pic.png' }}">
         <hr>
         <div class="row">
             <div style="width: 50%"><h5>Data: {{report.timestamp}}</h5></div>

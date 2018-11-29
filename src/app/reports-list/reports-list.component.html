@@ -12,7 +12,7 @@
           <p>{{ report.description }}</p>
         <div class="row">
           <p>{{report.timestamp}}</p>
-          <img alt="Immagine non trovata"  src="{{ report.picture }}"/>
+          <img alt="Immagine non trovata"  src="{{ report.picture != null ? report.picture : '/assets/default_pic.png' }}"/>
         </div>
         <!-- chiamata api che converte coordinate in indirizzo??? -->
       </li>
