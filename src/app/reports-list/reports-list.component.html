@@ -8,7 +8,13 @@
 
     <ul *ngIf="reports; else other_content">
       <li *ngFor="let report of reports">
-        <p>{{ report.name }}</p>
+          <p>{{ report.title }}</p>
+          <p>{{ report.description }}</p>
+        <div class="row">
+          <p>{{report.timestamp}}</p>
+          <img alt="Immagine non trovata"  src="{{ report.picture }}"/>
+        </div>
+        <!-- chiamata api che converte coordinate in indirizzo??? -->
       </li>
     </ul>
 

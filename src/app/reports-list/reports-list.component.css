@@ -10,7 +10,6 @@ li {
   border-radius: 4px;
   margin-bottom: 7px;
   display: grid;
-  grid-template-columns: 60px auto;
 }
 
 p {

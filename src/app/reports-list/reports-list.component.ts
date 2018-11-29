@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { APIService } from '../services/api.service';
 
 @Component({
   selector: 'app-reports-list',
@@ -9,17 +10,12 @@ export class ReportsListComponent implements OnInit {
 
   reports: any;
 
-  constructor() { }
+  constructor(private apiService: APIService) { }
 
   ngOnInit() {
-    this.reports = [{name: 'segnalazione1'},
-                    {name: 'segnalazione2'},
-                    {name: 'segnalazione3'},
-                    {name: 'segnalazione4'},
-                    {name: 'segnalazione5'},
-                    {name: 'segnalazione6'},
-                    {name: 'segnalazione7'},
-                    {name: 'segnalazione8'}];
+      this.apiService.getReports().subscribe((data: Array<object>) => {
+          this.reports = data;
+      });
   }
 
 }
