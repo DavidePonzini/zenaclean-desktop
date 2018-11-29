@@ -7,7 +7,7 @@
   <div id="scrollable">
 
     <ul *ngIf="reports; else other_content">
-      <li *ngFor="let report of reports">
+      <li *ngFor="let report of reports" (click)="open(report)">
           <p>{{ report.title }}</p>
           <p>{{ report.description }}</p>
         <div class="row">

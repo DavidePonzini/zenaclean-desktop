@@ -1,0 +1,24 @@
+<div id="report-modal">
+    <div class="modal-header">
+        <h2 class="modal-title"> {{report.title}} </h2>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <img id="report-image"
+             src="{{ report.picture }}">
+        <hr>
+        <div class="row">
+            <div style="width: 50%"><h5>Data: {{report.timestamp}}</h5></div>
+            <div style="width: 50%"><h5>Ora: <!-- estrarre data e ora dal timestamp {{report.timestamp}}--></h5></div>
+        </div>
+        <h5>Luogo: <!-- chiamata api per convertire coordinate in indirizzo??? --> </h5>
+        <h5>Descrizione:</h5>
+        <p>
+            {{ report.description }}
+        </p>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
