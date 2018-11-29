@@ -11,6 +11,6 @@ export  class  APIService {
     API_URL  = config.apiUrl;
     constructor(private  httpClient:  HttpClient) {}
     getReports() {
-        return  this.httpClient.get(`${this.API_URL + 'data.json'}`);
+        return  this.httpClient.get(`${this.API_URL + 'markers.json'}`);
     }
 }
