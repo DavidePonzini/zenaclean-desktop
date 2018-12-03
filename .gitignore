@@ -41,3 +41,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Don't check in secret files
+*secret.js
+*secret.ts
