@@ -1,3 +1,9 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<!--
+<agm-map [latitude]="lat" [longitude]="lng" >
+  <agm-marker *ngfor="let report of reports" (click)="open(report)" [latitude]="report.latitude" [longitude]="report.longitude">
+  </agm-marker>
+
 </agm-map>
+-->
+
+<div id="map" class="map"></div>
