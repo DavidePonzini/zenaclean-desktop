@@ -7,8 +7,14 @@
   <div id="scrollable">
 
     <ul *ngIf="reports; else other_content">
-      <li *ngFor="let report of reports">
-        <p>{{ report.name }}</p>
+      <li *ngFor="let report of reports" (click)="open(report)">
+          <p>{{ report.title }}</p>
+          <p>{{ report.description }}</p>
+        <div class="row">
+          <p>{{report.timestamp}}</p>
+          <img alt="Immagine non trovata"  src="{{ report.picture != null ? report.picture : '/assets/default_pic.png' }}"/>
+        </div>
+        <!-- chiamata api che converte coordinate in indirizzo??? -->
       </li>
     </ul>
 

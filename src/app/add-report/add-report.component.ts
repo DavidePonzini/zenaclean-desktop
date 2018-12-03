@@ -4,9 +4,9 @@ import {NewReport} from './new-report';
 import {timestamp} from 'rxjs/operators';
 
 @Component({
-    // selector: 'app-ngbd-modal-content',
-    templateUrl: 'add-report-modal-component.html',
-    // styleUrls: ['single-report-view-component.css']
+    selector: 'app-add-report-modal',
+    templateUrl: 'add-report.component.html',
+    styleUrls: ['add-report.component.css']
 })
 
 export class AddReportContentComponent {
@@ -21,20 +21,5 @@ export class AddReportContentComponent {
     }
     newReport() {
         this.model = new NewReport('', '', '', 0, 0);
-    }
-}
-
-@Component({
-  selector: 'app-add-report',
-  templateUrl: './add-report.component.html',
-  styleUrls: ['./add-report.component.css']
-})
-export class AddReportComponent {
-
-    constructor(private modalService: NgbModal) {
-    }
-
-    open() {
-        const modalRef = this.modalService.open(AddReportContentComponent, {size: 'lg'});
     }
 }

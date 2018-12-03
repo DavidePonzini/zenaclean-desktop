@@ -1,15 +1,17 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import {NgModule} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import {AgmCoreModule} from '@agm/core';
+import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
 import {ReportsListComponent} from './reports-list/reports-list.component';
 import {ReportsBoardComponent} from './reports-board/reports-board.component';
-import {AddReportComponent, AddReportContentComponent} from './add-report/add-report.component';
+import {AddReportContentComponent} from './add-report/add-report.component';
 
+import config from '../../config.secret';
+import {SingleReportViewComponent} from './single-report-view/single-report-view.component';
 
 @NgModule({
     declarations: [
@@ -18,16 +20,20 @@ import {AddReportComponent, AddReportContentComponent} from './add-report/add-re
         ReportsListComponent,
         ReportsBoardComponent,
         AddReportContentComponent,
-        AddReportComponent,
+        SingleReportViewComponent,
     ],
     imports: [
         BrowserModule,
         NgbModule,
-        FormsModule
+        FormsModule,
+      AgmCoreModule.forRoot({
+        apiKey: config.googleMapsApiKey,
+      }),
+      HttpClientModule
     ],
-    entryComponents: [AddReportContentComponent],
-    providers: [],
-    bootstrap: [AppComponent]
+    entryComponents: [AddReportContentComponent, SingleReportViewComponent],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
