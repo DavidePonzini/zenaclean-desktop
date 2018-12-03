@@ -1,9 +1,10 @@
-<!--
-<agm-map [latitude]="lat" [longitude]="lng" >
-  <agm-marker *ngfor="let report of reports" (click)="open(report)" [latitude]="report.latitude" [longitude]="report.longitude">
-  </agm-marker>
-
-</agm-map>
--->
-
-<div id="map" class="map"></div>
+<div id="wrapper">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="12" (centerChange)="centerChange($event)">
+        <agm-marker *ngFor="let report of reports" (markerClick)="markerClick(report)" [latitude]="report.latitude" [longitude]="report.longitude">
+        </agm-marker>
+    </agm-map>
+    <div class="over_map">
+        <button type="button" class="btn btn-light" (click)="formView()">Aggiungi Segnalazione</button>
+    </div>
+</div>
+<!-- <div id="map" class="map"></div> -->

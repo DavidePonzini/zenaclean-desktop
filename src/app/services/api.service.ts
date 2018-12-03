@@ -9,8 +9,15 @@ import config from '../../../config.secret';
 export  class  APIService {
 
     API_URL  = config.apiUrl;
+    GOOGLE_MAPS_API_KEY = config.googleMapsApiKey;
     constructor(private  httpClient:  HttpClient) {}
+
     getReports() {
         return  this.httpClient.get(`${this.API_URL + 'markers.json'}`);
+    }
+
+    getAddress(lat, lng) {
+        // return this.httpClient.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + lat + ',' + lng + '&key=' + this.GOOGLE_MAPS_API_KEY);
+        return this.httpClient.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true/false');
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NewReport} from './new-report';
 import {timestamp} from 'rxjs/operators';
@@ -9,17 +9,23 @@ import {timestamp} from 'rxjs/operators';
     styleUrls: ['add-report.component.css']
 })
 
-export class AddReportContentComponent {
-    constructor(public activeModal: NgbActiveModal
-    ) {}
+export class AddReportContentComponent  implements OnInit {
+    model: any;
+    submitted: any;
 
-    model = new NewReport('', '', '', 2, 2);
-    submitted = false;
+    @Input() latlng;
+
+    constructor(public activeModal: NgbActiveModal) { }
+
+    ngOnInit() {
+
+        this.model = new NewReport('', '', '', this.latlng.latitude, this.latlng.longitude);
+        this.submitted = false;
+    }
+
+
     onSubmit() {
         this.submitted = true;
        // alert(JSON.stringify(this.model));
-    }
-    newReport() {
-        this.model = new NewReport('', '', '', 0, 0);
     }
 }

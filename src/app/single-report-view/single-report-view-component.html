@@ -7,13 +7,14 @@
     </div>
     <div class="modal-body">
         <img id="report-image"
-             src="{{ report.picture != null ? report.picture : '/assets/default_pic.png' }}">
+             src="{{ report.url != null ? report.url : '/assets/default_pic.png' }}">
         <hr>
         <div class="row">
-            <div style="width: 50%"><h5>Data: {{report.timestamp}}</h5></div>
-            <div style="width: 50%"><h5>Ora: <!-- estrarre data e ora dal timestamp {{report.timestamp}}--></h5></div>
+            <div style="width: 50%"><h5>Data:</h5><p>{{report.date}}</p></div>
+            <div style="width: 50%"><h5>Ora:</h5><p> {{report.time}}</p></div>
         </div>
-        <h5>Luogo: <!-- chiamata api per convertire coordinate in indirizzo??? --> </h5>
+        <h5>Luogo:</h5>
+        <p>LATITUDE: {{report.latitude}} - LONGITUDE: {{report.longitude}}</p>
         <h5>Descrizione:</h5>
         <p>
             {{ report.description }}
