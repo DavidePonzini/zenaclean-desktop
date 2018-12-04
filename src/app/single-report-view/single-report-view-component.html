@@ -1,24 +1,25 @@
 <div id="report-modal">
     <div class="modal-header">
-        <h2 class="modal-title"> {{report.title}} </h2>
+        <h3 class="modal-title"> {{report.title}} </h3>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <img id="report-image"
-             src="{{ report.url != null ? report.url : '/assets/default_pic.png' }}">
-        <hr>
         <div class="row">
-            <div style="width: 50%"><h5>Data:</h5><p>{{report.date}}</p></div>
-            <div style="width: 50%"><h5>Ora:</h5><p> {{report.time}}</p></div>
+            <img id="report-image"
+                src="{{ report.url != null ? report.url : '/assets/default_pic.png' }}">
         </div>
-        <h5>Luogo:</h5>
-        <p>LATITUDE: {{report.latitude}} - LONGITUDE: {{report.longitude}}</p>
-        <h5>Descrizione:</h5>
-        <p>
-            {{ report.description }}
-        </p>
+        <hr>
+
+        <p>{{report.date}}, {{report.time}}</p>
+        <hr>
+
+        <p>Segnalato in {{report.latitude}}, {{report.longitude}}</p>
+        <hr>
+
+        <p>{{report.description}}</p>
+
     </div>
     <div class="modal-footer">
     </div>

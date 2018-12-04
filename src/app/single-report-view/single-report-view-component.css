@@ -1,6 +1,25 @@
+.modal-header {
+    background-color: #009688;
+    color: white
+}
+
+.modal-body{
+    background-color: #f5f5f5;
+}
+
+.modal-footer{
+    border-top: 0px;
+    padding:0
+}
 
 .modal-content p {
     word-wrap: break-word;
+    border-radius: 100px;
+}
+
+.singleReportLabel{
+    color: #616161;
+    font-weight: bold;
 }
 
 p {
@@ -12,10 +31,6 @@ p {
 
 h5 {
     font-weight: bold;
-}
-
-#report-modal {
-    padding:10px;
 }
 
 #report-image {
@@ -32,6 +47,8 @@ h5 {
 }
 
 img {
-    max-height: 200px;
-    max-width: 300px;
+    max-height: 300px;
+    max-width: 400px;
+    margin-left:auto;
+    margin-right:auto;
 }
