@@ -10,41 +10,41 @@
             <form (ngSubmit)="onSubmit()" #modalAddReport="ngForm">
 
                 <div class="form-group">
-                    <label for="title">Titolo</label>
-                    <input type="text" class="form-control" id="title" required
-                           [(ngModel)]="model.title" name="title" #title="ngModel">
+                    <label for="form_title">Titolo</label>
+                    <input type="text" class="form-control" id="form_title" required
+                           [(ngModel)]="model.title" name="form_title" #form_title="ngModel">
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Indirizzo</label>
-                    <input type="text" class="form-control" id="address" disabled [(ngModel)]="model.address"
-                           name="address" #address="ngModel">
+                    <label for="form_address">Indirizzo</label>
+                    <input type="text" class="form-control" id="form_address" disabled [(ngModel)]="model.address"
+                           name="form_address" #form_address="ngModel">
                 </div>
 
                 <div class="row">
                     <div class="form-group col-sm-6">
-                        <label for="date">Data</label>
-                        <input type="text" class="form-control" id="date" disabled [(ngModel)]="model.today"
-                               name="date" #date="ngModel">
+                        <label for="form_date">Data</label>
+                        <input type="text" class="form-control" id="form_date" disabled [(ngModel)]="model.today"
+                               name="form_date" #form_date="ngModel">
                     </div>
                     <div class="form-group col-sm-6">
-                        <label for="hour">Ora</label>
-                        <input type="text" class="form-control" id="hour" disabled [(ngModel)]="model.hour"
-                               name="hour" #hour="ngModel">
+                        <label for="form_hour">Ora</label>
+                        <input type="text" class="form-control" id="form_hour" disabled [(ngModel)]="model.hour"
+                               name="form_hour" #form_hour="ngModel">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Descrizione</label>
-                    <input type="text" class="form-control" id="description" required
-                           [(ngModel)]="model.description" name="description" #description="ngModel">
+                    <label for="form_description">Descrizione</label>
+                    <input type="text" class="form-control" id="form_description" required
+                           [(ngModel)]="model.description" name="form_description" #description="ngModel">
                 </div>
 
-                <input type="file" name="pic" accept="image/*">
+                <input type="file" name="form_pic" accept="image/*">
                 <!--<button type="submit" class="btn">Carica immagine </button>-->
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" [disabled]="modalAddReport.invalid">Conferma</button>
+                    <button type="submit" class="btn btn-success" id="form_submit" [disabled]="modalAddReport.invalid">Conferma</button>
                 </div>
             </form>
         </div>
