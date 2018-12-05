@@ -2,6 +2,31 @@ agm-map {
   height: 100vh;
 }
 
+div.marker-callout:hover {
+  cursor: pointer;
+}
+
+.callout-info-container {
+  flex-direction: column;
+}
+
+.callout-title {
+  font-weight: bold;
+}
+
+.callout-timestamp {
+  color: gray;
+}
+
+.callout-photo-container {
+  padding: 10px;
+}
+
+.callout-img {
+  width: 50px;
+  height: 50px;
+}
+
 * {
   font-family: Roboto;
 }

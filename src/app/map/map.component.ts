@@ -5,6 +5,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddReportContentComponent} from '../add-report/add-report.component';
 import {google} from '@agm/core/services/google-maps-types';
 import dateUtils from '../utils/date-utils';
+import { AgmMarker } from '@agm/core';
 
 declare var L;
 
@@ -18,6 +19,7 @@ export class MapComponent implements OnInit {
     latitude = 44.4032971;
     longitude = 8.9701358;
     reports: any;
+    lastOpen: any;
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
     }
@@ -27,8 +29,19 @@ export class MapComponent implements OnInit {
 
         this.apiService.getReports().subscribe((data: Array<object>) => {
             this.reports = data;
+            this.reports.forEach(function(report) {
+                const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
+                report.date = date;
+                report.time = time;
+            });
         });
 
+    }
+    closeOthers(info) {
+        if (this.lastOpen != null) {
+            this.lastOpen.close();
+        }
+        this.lastOpen = info;
     }
 
     markerClick(report) {

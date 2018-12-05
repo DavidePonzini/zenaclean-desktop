@@ -14,7 +14,7 @@ const timestampToItalianDate = (timestamp) => {
     const minutes = datetime.getMinutes();
     const time = (hours + ':' + minutes);
     return { date, time };
-}
+};
 
 export default {
     timestampToItalianDate

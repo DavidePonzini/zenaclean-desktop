@@ -20,7 +20,7 @@ export class ReportsListComponent implements OnInit {
   ngOnInit() {
       this.apiService.getReports().subscribe((data: Array<object>) => {
           this.reports = data;
-          this.reports.forEach(function(report){
+          this.reports.forEach(function(report) {
               const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
               report.date = date;
               report.time = time;

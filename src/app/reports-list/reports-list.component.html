@@ -11,7 +11,7 @@
         <div class="row">
           <div class="info">
             <p class="title">{{ report.title }}</p>
-            <span><p>{{report.date}}</p><p>{{report.hour}}</p></span>
+            <p>{{report.date}} alle {{report.time}}</p>
             <p> {{ report.description.length>80? report.description.substring(0,80)+'...' : report.description }}</p>
           </div>
           <div class="photo">
