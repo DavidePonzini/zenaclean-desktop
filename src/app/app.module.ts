@@ -8,10 +8,11 @@ import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
 import {ReportsListComponent} from './reports-list/reports-list.component';
 import {ReportsBoardComponent} from './reports-board/reports-board.component';
-import {AddReportContentComponent} from './add-report/add-report.component';
+import {AddReportComponent} from './add-report/add-report.component';
 
 import config from '../../config.secret';
 import {SingleReportViewComponent} from './single-report-view/single-report-view.component';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
     declarations: [
@@ -19,8 +20,9 @@ import {SingleReportViewComponent} from './single-report-view/single-report-view
         MapComponent,
         ReportsListComponent,
         ReportsBoardComponent,
-        AddReportContentComponent,
+        AddReportComponent,
         SingleReportViewComponent,
+        PopupComponent,
     ],
     imports: [
         BrowserModule,
@@ -31,7 +33,7 @@ import {SingleReportViewComponent} from './single-report-view/single-report-view
       }),
       HttpClientModule
     ],
-    entryComponents: [AddReportContentComponent, SingleReportViewComponent],
+    entryComponents: [AddReportComponent, SingleReportViewComponent, PopupComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

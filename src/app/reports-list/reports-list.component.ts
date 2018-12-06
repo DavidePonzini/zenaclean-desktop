@@ -18,8 +18,8 @@ export class ReportsListComponent implements OnInit {
   constructor(private apiService: APIService, private modalService: NgbModal) { }
 
   ngOnInit() {
-      this.apiService.getReports().subscribe((data: Array<object>) => {
-          this.reports = data;
+      this.apiService.getReports().subscribe((data: object) => {
+          this.reports = Object.values(data);
           this.reports.forEach(function(report) {
               const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
               report.date = date;

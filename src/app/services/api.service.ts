@@ -21,4 +21,10 @@ export class APIService {
         //  .get('https://maps.googleapis.com/maps/api/geocode/json?address='
         //  + lat + ',' + lng + '&key=' + this.GOOGLE_MAPS_API_KEY);
     }
+
+    postReports(body) {
+        return this.httpClient.post(`${this.API_URL/*'http://google.google.g/'*/ + 'markers.json'}`, body);
+    }
+
+
 }

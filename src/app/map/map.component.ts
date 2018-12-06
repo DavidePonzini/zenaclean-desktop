@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SingleReportViewComponent} from '../single-report-view/single-report-view.component';
 import {APIService} from '../services/api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddReportContentComponent} from '../add-report/add-report.component';
+import {AddReportComponent} from '../add-report/add-report.component';
 import {google} from '@agm/core/services/google-maps-types';
 import dateUtils from '../utils/date-utils';
 import { AgmMarker } from '@agm/core';
@@ -27,8 +27,8 @@ export class MapComponent implements OnInit {
 
     ngOnInit() {
 
-        this.apiService.getReports().subscribe((data: Array<object>) => {
-            this.reports = data;
+        this.apiService.getReports().subscribe((data: object) => {
+            this.reports = Object.values(data);
             this.reports.forEach(function(report) {
                 const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
                 report.date = date;
@@ -53,7 +53,7 @@ export class MapComponent implements OnInit {
     }
 
     formView() {
-        const modalRef = this.modalService.open(AddReportContentComponent, {size: 'lg'});
+        const modalRef = this.modalService.open(AddReportComponent, {size: 'lg'});
         const latlng = {latitude: this.latitude,
                         longitude: this.longitude};
         modalRef.componentInstance.latlng = latlng;
