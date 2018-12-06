@@ -16,7 +16,7 @@ describe('workspace-project App', () => {
       // TODO set location: via Dodecaneso 35
 
       await form.writeTitle('');
-      await form.writeDescription('manca il titolo^');
+      await form.writeDescription('e2e Test');
 
 
 
@@ -30,9 +30,22 @@ describe('workspace-project App', () => {
 
         // TODO set location: via Dodecaneso 35
 
-        await form.writeTitle('Frigo');
+        await form.writeTitle('e2e Test');
         await form.writeDescription('');
 
         expect(await form.isConfirmButtonEnabled()).toBeFalsy();
+    });
+
+    it('should display a message when adding a new report', async () => {
+       await page.navigateTo();
+
+       const form = await page.clickAddReport();
+
+       await form.writeTitle('2e2 Test');
+       await form.writeDescription('e2e Test');
+
+       const popup = await form.clickConfirmButton();
+
+       expect(await popup.getMessageText()).toEqual('Segnalazione aggiunta!');
     });
 });
