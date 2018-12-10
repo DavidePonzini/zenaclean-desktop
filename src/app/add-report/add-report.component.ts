@@ -26,7 +26,7 @@ export class AddReportComponent  implements OnInit {
     }
 
     checkSize(event) {
-        if (event.target.files[0].size > 50) {
+        if (event.target.files[0].size > 5000000) {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Immagine troppo grande.';
             this.model.picture = '';
