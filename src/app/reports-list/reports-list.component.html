@@ -10,9 +10,9 @@
       <li *ngFor="let report of reports" (click)="open(report)">
         <div class="row">
           <div class="info">
-            <p class="title">{{ report.title }}</p>
+            <p class="report_title">{{ report.title }}</p>
             <p>{{report.date}} alle {{report.time}}</p>
-            <p> {{ report.description.length>80? report.description.substring(0,80)+'...' : report.description }}</p>
+            <p class="report_description"> {{ report.description.length>80? report.description.substring(0,80)+'...' : report.description }}</p>
           </div>
           <div class="photo">
             <img alt="Immagine non trovata"  src="{{ report.url != null ? report.url : '/assets/default_pic.png' }}"/>

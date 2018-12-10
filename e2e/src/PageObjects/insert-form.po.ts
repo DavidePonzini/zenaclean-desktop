@@ -28,4 +28,8 @@ export class InsertFormPo {
 
         return new PopupPo();
     }
+
+    async closeForm() {
+        return await element(by.id('close-new-report-form')).click();
+    }
 }
