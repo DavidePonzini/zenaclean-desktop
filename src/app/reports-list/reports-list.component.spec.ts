@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 
 import { ReportsListComponent } from './reports-list.component';
 import {AppComponent} from '../app.component';
@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import {AgmCoreModule} from '@agm/core';
 import config from '../../../config.secret';
 import {HttpClientModule} from '@angular/common/http';
+import {APIService} from '../services/api.service';
 
 describe('ReportsListComponent', () => {
   let component: ReportsListComponent;
@@ -38,6 +39,7 @@ describe('ReportsListComponent', () => {
             }),
             HttpClientModule
         ],
+        providers: [APIService]
     })
     .compileComponents();
   }));
@@ -51,4 +53,14 @@ describe('ReportsListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have the same number of reports as the DB',
+      inject([APIService], async (apiService: APIService) => {
+          apiService.getReports().subscribe(reports => {
+              const expectedCount = Object.keys(reports).length;
+              const count = component.reports.length;
+
+              expect(count).toEqual(expectedCount);
+          });
+      }));
 });

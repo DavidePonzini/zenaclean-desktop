@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {NgModule} from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AgmCoreModule} from '@agm/core';
 import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
@@ -34,7 +34,7 @@ import { PopupComponent } from './popup/popup.component';
       HttpClientModule
     ],
     entryComponents: [AddReportComponent, SingleReportViewComponent, PopupComponent],
-  providers: [],
+  providers: [NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule {
