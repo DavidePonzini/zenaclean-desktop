@@ -6,7 +6,7 @@ describe('AddReportComponent', () => {
   let component: AddReportComponent;
   let fixture: ComponentFixture<AddReportComponent>;
 
-  beforeEach(async(() => {
+  /*beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AddReportComponent ]
     })
@@ -21,5 +21,5 @@ describe('AddReportComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  });*/
 });
