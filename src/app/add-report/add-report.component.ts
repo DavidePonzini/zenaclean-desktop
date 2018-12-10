@@ -25,6 +25,13 @@ export class AddReportComponent  implements OnInit {
         this.submitted = false;
     }
 
+    checkSize(event) {
+        if (event.target.files[0].size > 50) {
+            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+            popup.componentInstance.message = 'Immagine troppo grande.';
+            this.model.picture = '';
+        }
+    }
 
     onSubmit() {
         const data = {
@@ -34,17 +41,26 @@ export class AddReportComponent  implements OnInit {
             longitude: this.model.longitude,
             picture: this.model.picture,
             timestamp: this.model.ts,
+        };
+
+        const dot_separator = data.picture.split('.');
+        const type = dot_separator[dot_separator.length - 1];
+
+        if (type !== 'png' && type !== 'jpg' && type !== '') {
+            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+            popup.componentInstance.message = 'Formato immagine non corretto.';
+        } else {
+            this.apiService.postReports(data).subscribe(res => {
+                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                popup.componentInstance.message = 'Segnalazione aggiunta!';
+                this.activeModal.close();
+            }, error => {
+                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                popup.componentInstance.message = 'Errore durante invio, riprova.';
+                console.error(error);
+            });
+
+            this.submitted = true;
         }
-
-        this.apiService.postReports(data).subscribe(res => {
-            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Segnalazione aggiunta!';
-        }, error => {
-            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Errore durante invio, riprova.';
-            console.error(error);
-        });
-
-        this.submitted = true;
     }
 }

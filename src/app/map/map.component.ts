@@ -9,6 +9,7 @@ import { AgmMarker } from '@agm/core';
 
 declare var L;
 
+// @ts-ignore
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',

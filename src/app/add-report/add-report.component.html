@@ -40,7 +40,8 @@
                            [(ngModel)]="model.description" name="form_description" #description="ngModel">
                 </div>
 
-                <input type="file" name="form_pic" accept="image/*">
+                <input id="image_input" type="file" (change)="checkSize($event)" name="form_pic" accept="image/*"
+                       [(ngModel)]="model.picture" name="form_picture" #picture="ngModel">
                 <!--<button type="submit" class="btn">Carica immagine </button>-->
 
                 <div class="modal-footer">
