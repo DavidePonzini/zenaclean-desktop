@@ -12,9 +12,12 @@ export class InsertFormPo {
         await element(by.id('form_description')).sendKeys(description);
     }
 
-    async uploadPitcure(picture) {
-        // TODO
-        return;
+    async uploadPitcure(picturePath) {
+        await element(by.id('image_input')).sendKeys(picturePath);
+    }
+
+    getPopupError() {
+        return new PopupPo();
     }
 
     async isConfirmButtonEnabled() {

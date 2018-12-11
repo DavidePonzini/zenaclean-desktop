@@ -1,5 +1,6 @@
 import { AppPagePo } from './PageObjects/app.po';
 import {browser, by, element} from 'protractor';
+const path = require('path')
 
 describe('workspace-project App', () => {
     let page: AppPagePo;
@@ -92,7 +93,7 @@ describe('workspace-project App', () => {
 
         const randomTitle = getRandomString();
         const randomDescription = getRandomString();
-        
+
         await form.writeTitle(randomTitle);
         await form.writeDescription(randomDescription);
 
@@ -109,5 +110,37 @@ describe('workspace-project App', () => {
         expect(await reportTitle).toEqual(randomTitle);
         expect(await reportDescription).toEqual(randomDescription);
 
+    });
+
+    it('should display an error message when adding a picture too big', async () => {
+        await page.navigateTo();
+
+        const form = await page.clickAddReport();
+
+        await form.writeTitle('2e2 Test adding picture');
+        await form.writeDescription('e2e Test adding picture');
+        const fileToUpload = '../imgTest/big_img.jpg',
+            absolutePath = path.resolve(__dirname, fileToUpload);
+        await form.uploadPitcure(absolutePath);
+
+        const popup = form.getPopupError();
+
+        expect(await popup.getMessageText()).toEqual('Immagine troppo grande.');
+    });
+
+    it('should display an error message when adding a file that is not a image', async () => {
+        await page.navigateTo();
+
+        const form = await page.clickAddReport();
+
+        await form.writeTitle('2e2 Test adding picture');
+        await form.writeDescription('e2e Test adding picture');
+        const fileToUpload = '../imgTest/not_a_image.txt',
+            absolutePath = path.resolve(__dirname, fileToUpload);
+        await form.uploadPitcure(absolutePath);
+
+        const popup = form.getPopupError();
+
+        expect(await popup.getMessageText()).toEqual('Formato immagine non corretto.');
     });
 });
