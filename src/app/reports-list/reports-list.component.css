@@ -1,9 +1,10 @@
-h1 {
+body {
   font-family: Roboto;
 }
 
 .title {
   font-weight: bold;
+  word-break: break-all;
 }
 
 ul {
@@ -13,48 +14,90 @@ ul {
 }
 
 li {
-  background: rgb(238, 238, 238);
-  padding: 2em;
-  border-radius: 4px;
-  margin-bottom: 7px;
+  background: #FAFAFA;
+  border-radius: 0px;
+  margin-bottom: 4%;
   display: grid;
+  box-shadow: 4px 4px #DFDFDF;
 }
 
+
 p {
-  padding-right: 10px;
-  font-family: Roboto;
-  padding-left: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
   font-size: 14px;
 }
 
+.report_descrition {
+  margin: 0;
+
+}
+
 div.sidebar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 35%;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  overflow-y: scroll;
 }
 
 div#fixed {
   padding: 10px;
 }
 
-div#scrollable {
-  overflow-y: scroll;
-  height: 91%;
-  padding: 10px;
-}
+
 
 img {
-  max-width:100%;
-  max-height:100%;
+  height: 150px;
+  width: 100%;
+  object-fit: fill;
+
 }
 
 .photo {
-  width: 50%;
+  padding:0;
+  height: 100%;
+  width: 100%;
 }
 
 .info {
-  width: 50%;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
+.report_title {
+  text-align: center;
+  color: white;
+  margin: 0;
+}
+
+.content_info {
+  margin: 0;
+  padding: 1em;
+  height: 100%;
+}
+
+.title_single_report {
+  background-color: #009688;
+  padding:12px;
+}
+
+.date {
+  margin: 0;
+  vertical-align: bottom;
+  color: #9E9E9E;
+}
+
+.info_details {
+  height: 80%;
+}
+
+.info_date {
+  height: 20%;
+}
+
+/*f4a152*/

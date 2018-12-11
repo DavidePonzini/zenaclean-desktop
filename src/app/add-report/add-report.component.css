@@ -19,3 +19,16 @@
     border-top: 0px;
     padding:0
 }
+
+:focus {
+    outline: none;
+}
+
+.close {
+    color: white;
+}
+
+.btn-add{
+    background-color: #009688;
+    border-color: #009688;
+}
