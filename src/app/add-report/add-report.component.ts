@@ -11,13 +11,14 @@ import {PopupComponent} from '../popup/popup.component';
     styleUrls: ['add-report.component.css']
 })
 
-export class AddReportComponent  implements OnInit {
+export class AddReportComponent implements OnInit {
     model: any;
     submitted: any;
 
     @Input() latlng;
 
-    constructor(private apiService: APIService, public activeModal: NgbActiveModal, public modalService: NgbModal) { }
+    constructor(private apiService: APIService, public activeModal: NgbActiveModal, public modalService: NgbModal) {
+    }
 
     ngOnInit() {
 
@@ -26,7 +27,14 @@ export class AddReportComponent  implements OnInit {
     }
 
     checkSize(event) {
-        if (event.target.files[0].size > 5000000) {
+        const dot_separator = this.model.picture.split('.');
+        const type = dot_separator[dot_separator.length - 1];
+
+        if (type !== 'png' && type !== 'jpg' && type !== '') {
+            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+            popup.componentInstance.message = 'Formato immagine non corretto.';
+            this.model.picture = '';
+        } else if (event.target.files[0].size > 4000000) {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Immagine troppo grande.';
             this.model.picture = '';
@@ -46,21 +54,18 @@ export class AddReportComponent  implements OnInit {
         const dot_separator = data.picture.split('.');
         const type = dot_separator[dot_separator.length - 1];
 
-        if (type !== 'png' && type !== 'jpg' && type !== '') {
-            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Formato immagine non corretto.';
-        } else {
-            this.apiService.postReports(data).subscribe(res => {
-                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-                popup.componentInstance.message = 'Segnalazione aggiunta!';
-                this.activeModal.close();
-            }, error => {
-                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-                popup.componentInstance.message = 'Errore durante invio, riprova.';
-                console.error(error);
-            });
 
-            this.submitted = true;
-        }
+        this.apiService.postReports(data).subscribe(res => {
+            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+            popup.componentInstance.message = 'Segnalazione aggiunta!';
+            this.activeModal.close();
+        }, error => {
+            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+            popup.componentInstance.message = 'Errore durante invio, riprova.';
+            console.error(error);
+        });
+
+        this.submitted = true;
+
     }
 }
