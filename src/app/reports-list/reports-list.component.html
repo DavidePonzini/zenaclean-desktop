@@ -1,21 +1,29 @@
-<div class="sidebar">
+<div class="sidebar" >
 
-  <div id="fixed">
-    <h1>Segnalazioni</h1>
-  </div>
+ <!-- <div id="fixed">
+    <h1> Segnalazioni: </h1>
+  </div>-->
 
   <div id="scrollable">
 
     <ul *ngIf="reports.length>0; else other_content">
       <li *ngFor="let report of reports" (click)="open(report)">
-        <div class="row">
-          <div class="info">
-            <p class="report_title">{{ report.title }}</p>
-            <p>{{report.date}} alle {{report.time}}</p>
-            <p class="report_description"> {{ report.description.length>80? report.description.substring(0,80)+'...' : report.description }}</p>
+        <div class="title_single_report">
+          <h4 class = "report_title">{{ report.title }} </h4>
+        </div>
+        <div class="row content_info">
+          <div class="info col-6">
+            <!--<p>{{report.address}}</p>-->
+            <div class = "info_details col-sm-12">
+              <p> lat:{{ report.latitude}} long:{{ report.longitude }}</p>
+              <p class="report_description"> {{ report.description.length>40? report.description.substring(0,40)+'...' : report.description }}</p>
+            </div>
+            <div class = "info_date col-sm-12">
+              <p class="date">{{report.date}}</p>
+            </div>
           </div>
-          <div class="photo">
-            <img alt="Immagine non trovata"  src="{{ report.url != null ? report.url : '/assets/default_pic.png' }}"/>
+          <div class="photo col-6">
+            <img alt="Immagine non trovata" src="{{ report.url != null ? report.url : '/assets/default_pic.png' }}"/>
           </div>
         </div>
       </li>

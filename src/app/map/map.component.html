@@ -1,6 +1,6 @@
 <div id="wrapper">
     <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="12" (centerChange)="centerChange($event)">
-        <agm-marker  (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude">
+        <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude">
             <agm-info-window  #info >
                 <div class="marker-callout" (click)="markerClick(report)" >
                     <div class="callout-info-container">
@@ -15,7 +15,7 @@
         </agm-marker>
     </agm-map>
     <div class="over_map">
-        <button id="add_report_button" type="button" class="btn btn-light" (click)="formView()">Aggiungi Segnalazione</button>
+        <button id="add_report_button" type="button" class="btn btn-light btn_add_report" (click)="formView()">Aggiungi Segnalazione</button>
     </div>
 </div>
 <!-- <div id="map" class="map"></div> -->
