@@ -12,6 +12,7 @@ div.marker-callout:hover {
 
 .callout-title {
   font-weight: bold;
+  color: #009688;
 }
 
 .callout-timestamp {
@@ -20,6 +21,7 @@ div.marker-callout:hover {
 
 .callout-photo-container {
   padding: 10px;
+  padding-left: 0;
 }
 
 .callout-img {
@@ -46,3 +48,9 @@ a {
   bottom: 25px;
   right: 70px;
 }
+
+.btn_add_report {
+  color: white;
+  background-color: #009688;
+}
+
