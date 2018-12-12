@@ -22,10 +22,11 @@ describe('SingleReportViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SingleReportViewComponent);
     component = fixture.componentInstance;
+    component.report = {title: 'Test', timestamp: 'timestamp', description: 'Test', latitude: 44.4032971, longitude: 8.9701358};
     fixture.detectChanges();
   });
 
-  /*it('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
-  });*/
+  });
 });

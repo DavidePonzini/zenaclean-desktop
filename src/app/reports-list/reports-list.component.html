@@ -6,7 +6,7 @@
 
   <div id="scrollable">
 
-    <ul *ngIf="reports; else other_content">
+    <ul *ngIf="reports.length>0; else other_content">
       <li *ngFor="let report of reports" (click)="open(report)">
         <div class="row">
           <div class="info">

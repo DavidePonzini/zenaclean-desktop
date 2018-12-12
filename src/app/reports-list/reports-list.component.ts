@@ -13,7 +13,7 @@ import dateUtils from '../utils/date-utils';
 
 export class ReportsListComponent implements OnInit {
 
-  reports: any;
+  reports: any = [];
 
   constructor(private apiService: APIService, private modalService: NgbModal) { }
 

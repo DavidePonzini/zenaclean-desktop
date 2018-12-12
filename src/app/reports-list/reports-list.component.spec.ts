@@ -7,7 +7,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {FixtureApiService} from '../services/fixture.api.service';
 import {APIService} from '../services/api.service';
 import {FixtureApiEmptyService} from '../services/fixture.api.empty.service';
-import {by, element} from 'protractor';
 
 describe('ReportsListComponent', () => {
   let component: ReportsListComponent;
