@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PopupComponent } from './popup.component';
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 describe('PopupComponent', () => {
   let component: PopupComponent;
@@ -8,7 +10,8 @@ describe('PopupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PopupComponent ]
+      declarations: [ PopupComponent, ],
+        providers: [ NgbActiveModal ]
     })
     .compileComponents();
   }));
@@ -20,6 +23,6 @@ describe('PopupComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

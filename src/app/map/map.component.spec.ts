@@ -1,6 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 
 import { MapComponent } from './map.component';
+import {AgmCoreModule} from '@agm/core';
+import config from '../../../config.secret';
+import {HttpClientModule} from '@angular/common/http';
+import {APIService} from '../services/api.service';
+import {FixtureApiService} from '../services/fixture.api.service';
+import {ReportsListComponent} from '../reports-list/reports-list.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -8,7 +14,15 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
+      declarations: [ MapComponent ],
+      imports: [
+          AgmCoreModule.forRoot({
+              apiKey: config.googleMapsApiKey,
+          }),
+          HttpClientModule
+      ],
+        providers: [ ReportsListComponent, { provide: APIService, useValue: FixtureApiService } ]
+
     })
     .compileComponents();
   }));
@@ -22,4 +36,18 @@ describe('MapComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+    it('should have the correct number of markers',
+        async (done) => {
+            await FixtureApiService.getReports().subscribe(reports => {
+                const expectedCount = Object.keys(reports).length;
+                const count = component.reports.length;
+                expect(count).toEqual(expectedCount);
+                done();
+            });
+        });
 });
+
+
+
+

@@ -1,12 +1,12 @@
 <div class="sidebar">
 
   <div id="fixed">
-    <h1> Segnalazioni: </h1>
+    <h1>Segnalazioni</h1>
   </div>
 
   <div id="scrollable">
 
-    <ul *ngIf="reports; else other_content">
+    <ul *ngIf="reports.length>0; else other_content">
       <li *ngFor="let report of reports" (click)="open(report)">
         <div class="row">
           <div class="info">
@@ -18,12 +18,11 @@
             <img alt="Immagine non trovata"  src="{{ report.url != null ? report.url : '/assets/default_pic.png' }}"/>
           </div>
         </div>
-        <!-- chiamata api che converte coordinate in indirizzo??? -->
       </li>
     </ul>
 
     <!-- if there are not reports.. -->
-    <ng-template #other_content> Nessuna segnalazione presente </ng-template>
+    <ng-template id="empty-list" #other_content> Nessuna segnalazione presente </ng-template>
 
   </div>
 </div>
