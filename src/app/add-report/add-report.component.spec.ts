@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddReportComponent } from './add-report.component';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 describe('AddReportComponent', () => {
   let component: AddReportComponent;
   let fixture: ComponentFixture<AddReportComponent>;
 
-  /*beforeEach(async(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddReportComponent ]
+      declarations: [ AddReportComponent ],
+        providers: [ NgbActiveModal ]
     })
     .compileComponents();
   }));
@@ -19,7 +21,7 @@ describe('AddReportComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  /*it('should create', () => {
+    expect(component).toBeDefined();
   });*/
 });

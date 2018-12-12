@@ -18,12 +18,11 @@
             <img alt="Immagine non trovata"  src="{{ report.url != null ? report.url : '/assets/default_pic.png' }}"/>
           </div>
         </div>
-        <!-- chiamata api che converte coordinate in indirizzo??? -->
       </li>
     </ul>
 
     <!-- if there are not reports.. -->
-    <ng-template #other_content> Nessuna segnalazione presente </ng-template>
+    <ng-template id="empty-list" #other_content> Nessuna segnalazione presente </ng-template>
 
   </div>
 </div>

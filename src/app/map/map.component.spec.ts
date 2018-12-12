@@ -5,6 +5,8 @@ import {AgmCoreModule} from '@agm/core';
 import config from '../../../config.secret';
 import {HttpClientModule} from '@angular/common/http';
 import {APIService} from '../services/api.service';
+import {FixtureApiService} from '../services/fixture.api.service';
+import {ReportsListComponent} from '../reports-list/reports-list.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -18,7 +20,9 @@ describe('MapComponent', () => {
               apiKey: config.googleMapsApiKey,
           }),
           HttpClientModule
-      ]
+      ],
+        providers: [ ReportsListComponent, { provide: APIService, useValue: FixtureApiService } ]
+
     })
     .compileComponents();
   }));
@@ -33,12 +37,17 @@ describe('MapComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have the same number of markers as the DB',
-      inject([APIService], async (apiService: APIService) => {
-          apiService.getReports().subscribe(reports => {
-              const expectedCount = Object.keys(reports).length;
-              const count = component.reports.length;
-              expect(count).toEqual(expectedCount);
-          });
-      }));
+    it('should have the correct number of markers',
+        async (done) => {
+            await FixtureApiService.getReports().subscribe(reports => {
+                const expectedCount = Object.keys(reports).length;
+                const count = component.reports.length;
+                expect(count).toEqual(expectedCount);
+                done();
+            });
+        });
 });
+
+
+
+

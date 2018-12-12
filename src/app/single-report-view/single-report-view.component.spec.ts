@@ -1,14 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SingleReportViewComponent } from './single-report-view.component';
+import {AgmCoreModule} from '@agm/core';
+import config from '../../../config.secret';
+import {HttpClientModule} from '@angular/common/http';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 describe('SingleReportViewComponent', () => {
   let component: SingleReportViewComponent;
   let fixture: ComponentFixture<SingleReportViewComponent>;
 
-  /*beforeEach(async(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SingleReportViewComponent ]
+      declarations: [ SingleReportViewComponent ],
+        providers: [ NgbActiveModal ]
+
     })
     .compileComponents();
   }));
@@ -19,7 +25,7 @@ describe('SingleReportViewComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  /*it('should create', () => {
     expect(component).toBeTruthy();
   });*/
 });
