@@ -1,6 +1,6 @@
 <div id="wrapper">
-    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="12" (centerChange)="centerChange($event)">
-        <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude">
+    <agm-map [latitude]="mapLatitude" [longitude]="mapLongitude" [zoom]="zoom" (centerChange)="centerChange($event)" (zoomChange)="zoomChange($event)" >
+        <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude" [markerDraggable]="draggable" (dragEnd)="markerMoved($event)">
             <agm-info-window  #info >
                 <div class="marker-callout" (click)="markerClick(report)" >
                     <div class="callout-info-container">
@@ -15,7 +15,11 @@
         </agm-marker>
     </agm-map>
     <div class="over_map">
-        <button id="add_report_button" type="button" class="btn btn-light btn_add_report" (click)="formView()">Aggiungi Segnalazione</button>
+        <button *ngIf="!draggable; else other_content" id="temp_report_button" type="button" class="btn btn-light btn_add_report" (click)="setMarker()">Aggiungi Segnalazione</button>
+        <ng-template #other_content>
+            <button id="cancel_report_button" type="button" class="btn btn-danger" (click)="cancel()"> Annulla </button>
+            <button id="add_report_button" type="button" class="btn btn-success" (click)="formView()"> Conferma </button>
+        </ng-template>
     </div>
 </div>
 <!-- <div id="map" class="map"></div> -->

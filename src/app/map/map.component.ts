@@ -3,9 +3,7 @@ import {SingleReportViewComponent} from '../single-report-view/single-report-vie
 import {APIService} from '../services/api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddReportComponent} from '../add-report/add-report.component';
-import {google} from '@agm/core/services/google-maps-types';
 import dateUtils from '../utils/date-utils';
-import { AgmMarker } from '@agm/core';
 
 declare var L;
 
@@ -17,12 +15,21 @@ declare var L;
 })
 export class MapComponent implements OnInit {
 
+    zoom = 12;
     latitude = 44.4032971;
     longitude = 8.9701358;
+    mapLatitude = this.latitude;
+    mapLongitude = this.longitude;
     reports: any;
     lastOpen: any;
+    newReport: any;
+    tempReports: any;
+    draggable = false;
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
+        this.apiService.listen().subscribe((data) => {
+            this.reports.push(data);
+        });
     }
 
 
@@ -53,17 +60,60 @@ export class MapComponent implements OnInit {
         modalRef.componentInstance.report = report;
     }
 
+    setMarker() {
+
+        this.tempReports = this.reports;
+        this.reports = [];
+        this.newReport = {
+            title: '',
+            description: '',
+            timestamp: new Date(),
+            latitude: this.mapLatitude,
+            longitude: this.mapLongitude};
+
+        this.reports.push(this.newReport);
+        this.draggable = true;
+    }
+
     formView() {
+
+        console.log(this.newReport);
+        const latlng = {latitude: this.newReport.latitude,
+                        longitude: this.newReport.longitude};
+
         const modalRef = this.modalService.open(AddReportComponent, {size: 'lg'});
-        const latlng = {latitude: this.latitude,
-                        longitude: this.longitude};
         modalRef.componentInstance.latlng = latlng;
+
+        this.draggable = false;
+        this.reports = this.tempReports;
+    }
+
+    cancel() {
+        this.draggable = false;
+        this.reports = this.tempReports;
+
+        this.mapLatitude = this.latitude;
+        this.mapLongitude = this.longitude;
+        this.zoom = 12;
     }
 
     centerChange(event: any) {
         if (event) {
-            this.latitude = event.lat;
-            this.longitude = event.lng;
+            this.mapLatitude = event.lat;
+            this.mapLongitude = event.lng;
+        }
+    }
+
+    zoomChange(event: any) {
+        if (event) {
+            this.zoom = event;
+        }
+    }
+
+    markerMoved(event: any) {
+        if (event) {
+            this.newReport.latitude = event.coords.lat;
+            this.newReport.longitude = event.coords.lng;
         }
     }
 }

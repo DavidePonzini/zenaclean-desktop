@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 
 export const fixtureMarkers: any = [{title: 'Test',
     description: 'Description Test',
@@ -14,7 +14,17 @@ export const fixtureMarkers: any = [{title: 'Test',
 
 export class FixtureApiService {
 
+    private static _listners: Subject<any>;
+
     constructor(myobservable: Observable<any>) {}
+
+    static listen(): Observable<any> {
+        return this._listners.asObservable();
+    }
+
+    static update(data: any) {
+        this._listners.next(data);
+    }
 
     static getReports() {
         return new Observable(function (observer) {

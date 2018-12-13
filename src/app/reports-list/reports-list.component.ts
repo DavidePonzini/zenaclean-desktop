@@ -15,7 +15,12 @@ export class ReportsListComponent implements OnInit {
 
   reports: any = [];
 
-  constructor(private apiService: APIService, private modalService: NgbModal) { }
+  constructor(private apiService: APIService, private modalService: NgbModal) {
+
+      this.apiService.listen().subscribe((data) => {
+          this.reports.push(data);
+      });
+  }
 
   ngOnInit() {
       this.apiService.getReports().subscribe((data: object) => {

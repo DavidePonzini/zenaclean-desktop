@@ -5,7 +5,6 @@ import {APIService} from '../services/api.service';
 import {PopupComponent} from '../popup/popup.component';
 import {PopupMultipleComponent} from '../popup-multiple/popup-multiple.component';
 
-
 @Component({
     selector: 'app-add-report-modal',
     templateUrl: 'add-report.component.html',
@@ -15,6 +14,7 @@ import {PopupMultipleComponent} from '../popup-multiple/popup-multiple.component
 export class AddReportComponent implements OnInit {
     model: any;
     submitted: any;
+    reports: any;
 
     @Input() latlng;
 
@@ -54,21 +54,21 @@ export class AddReportComponent implements OnInit {
         const dot_separator = data.picture.split('.');
         const type = dot_separator[dot_separator.length - 1];
 
-
-        this.apiService.postReports(data).subscribe(res => {
-            const self = this;
-            const popupMultiple = this.modalService.open(PopupMultipleComponent, {size: 'sm'});
-            popupMultiple.componentInstance.message = 'Vuoi procedere?';
-            popupMultiple.result.then(function () {
+        const self = this;
+        const popupMultiple = this.modalService.open(PopupMultipleComponent, {size: 'sm'});
+        popupMultiple.componentInstance.message = 'Vuoi procedere?';
+        popupMultiple.result.then(function () {
+            self.apiService.postReports(data).subscribe(res => {
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Segnalazione aggiunta!';
                 self.activeModal.close();
-            }, function () {
+                self.apiService.update(data);
+            }, error => {
+                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                popup.componentInstance.message = 'Errore durante invio, riprova.';
+                console.error(error);
             });
-        }, error => {
-            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Errore durante invio, riprova.';
-            console.error(error);
+        }, function () {
         });
 
         this.submitted = true;

@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopupComponent } from './popup.component';
-import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {PopupMultipleComponent} from './popup-multiple.component';
 
 
-describe('PopupComponent', () => {
-  let component: PopupComponent;
-  let fixture: ComponentFixture<PopupComponent>;
+describe('PopupMultipleComponent', () => {
+  let component: PopupMultipleComponent;
+  let fixture: ComponentFixture<PopupMultipleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PopupComponent, ],
+      declarations: [ PopupMultipleComponent, ],
         providers: [ NgbActiveModal ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PopupComponent);
+    fixture = TestBed.createComponent(PopupMultipleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
