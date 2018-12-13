@@ -14,6 +14,7 @@ import config from '../../config.secret';
 import {SingleReportViewComponent} from './single-report-view/single-report-view.component';
 import { PopupComponent } from './popup/popup.component';
 import { PopupMultipleComponent } from './popup-multiple/popup-multiple.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { PopupMultipleComponent } from './popup-multiple/popup-multiple.componen
         AddReportComponent,
         SingleReportViewComponent,
         PopupComponent,
-        PopupMultipleComponent
+        PopupMultipleComponent,
+        SignupFormComponent
     ],
     imports: [
         BrowserModule,
