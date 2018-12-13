@@ -7,7 +7,7 @@
     </div>
     <div class="modal-body">
         <div class="container">
-            <form (ngSubmit)="onSubmit()" #modalAddReport="ngForm">
+            <form (ngSubmit)="onSubmit()" #modalAddReport="ngForm" ngNativeValidate>
 
                 <div class="form-group">
                     <label for="form_title">Titolo</label>
@@ -21,6 +21,7 @@
                            name="form_address" #form_address="ngModel">
                 </div>
 
+                <!--
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label for="form_date">Data</label>
@@ -33,6 +34,7 @@
                                name="form_hour" #form_hour="ngModel">
                     </div>
                 </div>
+                -->
 
                 <div class="form-group">
                     <label for="form_description">Descrizione</label>
@@ -45,7 +47,7 @@
                 <!--<button type="submit" class="btn">Carica immagine </button>-->
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-add" id="form_submit" [disabled]="modalAddReport.invalid">Conferma</button>
+                    <button type="submit" class="btn btn-success btn-add" id="form_submit">Conferma</button>
                 </div>
             </form>
         </div>

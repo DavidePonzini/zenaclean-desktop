@@ -3,6 +3,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NewReport} from './new-report';
 import {APIService} from '../services/api.service';
 import {PopupComponent} from '../popup/popup.component';
+import {PopupMultipleComponent} from '../popup-multiple/popup-multiple.component';
 
 
 @Component({
@@ -21,7 +22,6 @@ export class AddReportComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.model = new NewReport('', '', '', this.latlng.latitude, this.latlng.longitude);
         this.submitted = false;
     }
@@ -56,9 +56,15 @@ export class AddReportComponent implements OnInit {
 
 
         this.apiService.postReports(data).subscribe(res => {
-            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Segnalazione aggiunta!';
-            this.activeModal.close();
+            const self = this;
+            const popupMultiple = this.modalService.open(PopupMultipleComponent, {size: 'sm'});
+            popupMultiple.componentInstance.message = 'Vuoi procedere?';
+            popupMultiple.result.then(function () {
+                const popup = self.modalService.open(PopupComponent, {size: 'sm'});
+                popup.componentInstance.message = 'Segnalazione aggiunta!';
+                self.activeModal.close();
+            }, function () {
+            });
         }, error => {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Errore durante invio, riprova.';
@@ -66,6 +72,5 @@ export class AddReportComponent implements OnInit {
         });
 
         this.submitted = true;
-
     }
 }

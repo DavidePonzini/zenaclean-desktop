@@ -13,6 +13,7 @@ import {AddReportComponent} from './add-report/add-report.component';
 import config from '../../config.secret';
 import {SingleReportViewComponent} from './single-report-view/single-report-view.component';
 import { PopupComponent } from './popup/popup.component';
+import { PopupMultipleComponent } from './popup-multiple/popup-multiple.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { PopupComponent } from './popup/popup.component';
         AddReportComponent,
         SingleReportViewComponent,
         PopupComponent,
+        PopupMultipleComponent
     ],
     imports: [
         BrowserModule,
@@ -33,7 +35,7 @@ import { PopupComponent } from './popup/popup.component';
       }),
       HttpClientModule
     ],
-    entryComponents: [AddReportComponent, SingleReportViewComponent, PopupComponent],
+    entryComponents: [AddReportComponent, SingleReportViewComponent, PopupComponent, PopupMultipleComponent],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent]
 })
