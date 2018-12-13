@@ -52,6 +52,10 @@ a {
 .btn_add_report {
   color: white;
   background-color: #3F51B5;
-  border-color: #3F51B5;
+}
+
+.btn {
+  margin-left: 10px;
+  border-color: white;/*#3F51B5;*/
 }
 
