@@ -1,12 +1,12 @@
 <div class="main-login main-center">
-  <form >
+  <form (ngSubmit)="onSubmit()" ngNativeValidate>
     <div class="form-group">
       <div class="col-sm">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
           </div>
-          <input type="text" class="form-control" name="email" id="email"  placeholder="Inserisci l'Email"/>
+          <input type="email" class="form-control" name="email" id="email" required placeholder="Inserisci l'Email"/>
         </div>
       </div>
     </div>
@@ -17,7 +17,8 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-address-card" aria-hidden="true"></i></span>
           </div>
-          <input type="text" class="form-control" name="username" id="username"  placeholder="Inserisci il Codice Fiscale"/>
+          <input type="text" class="form-control" pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$"
+                 name="code" id="code" required placeholder="Inserisci il Codice Fiscale"/>
         </div>
       </div>
     </div>
@@ -28,7 +29,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-key" aria-hidden="true"></i></span>
           </div>
-          <input type="password" class="form-control" name="password" id="password"  placeholder="Inserisci la Password"/>
+          <input type="password" class="form-control" name="password" id="password" required placeholder="Inserisci la Password"/>
         </div>
       </div>
     </div>
@@ -39,14 +40,14 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-key" aria-hidden="true"></i></span>
           </div>
-          <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Conferma la Password"/>
+          <input type="password" class="form-control" name="confirm" id="confirm" required placeholder="Conferma la Password"/>
         </div>
       </div>
     </div>
 
     <div class="form-group">
       <div class="col-sm">
-        <button type="button" class="btn btn-primary btn-lg btn-block login-button">Registrati</button>
+        <button id="submitSignupButton" type="submit" class="btn btn-primary btn-lg btn-block login-button">Registrati</button>
       </div>
     </div>
   </form>
