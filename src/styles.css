@@ -6,11 +6,11 @@ body {
 }
 
 .btn-primary{
-  background-color: #3F51B5;
-  border-color: #3F51B5;
+  background-color: dodgerblue;
+  border-color: dodgerblue
 }
 
 .modal-header {
-  background-color: #3F51B5;
+  background-color: dodgerblue;
   color: white
 }
