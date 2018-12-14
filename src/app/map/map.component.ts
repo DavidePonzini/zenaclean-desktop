@@ -16,10 +16,10 @@ declare var L;
 export class MapComponent implements OnInit {
 
     zoom = 12;
-    latitude = 44.4032971;
-    longitude = 8.9701358;
-    mapLatitude = this.latitude;
-    mapLongitude = this.longitude;
+    initialLatitude = 44.4032971;
+    initialLongitude = 8.9701358;
+    mapLatitude = this.initialLatitude;
+    mapLongitude = this.initialLongitude;
     reports: any;
     lastOpen: any;
     newReport: any;
@@ -69,20 +69,28 @@ export class MapComponent implements OnInit {
             description: '',
             timestamp: new Date(),
             latitude: this.mapLatitude,
-            longitude: this.mapLongitude};
+            longitude: this.mapLongitude
+        };
 
-        this.reports.push(this.newReport);
-        this.draggable = true;
-    }
+        const that = this;
+        this.apiService.getAddress(this.mapLatitude, this.mapLongitude).subscribe((address) => {
+            that.newReport.address = address;
+            that.reports.push(that.newReport);
+            that.draggable = true;
+        });
+
+        }
 
     formView() {
 
         console.log(this.newReport);
-        const latlng = {latitude: this.newReport.latitude,
-                        longitude: this.newReport.longitude};
+        const geolocation = {latitude: this.newReport.latitude,
+                        longitude: this.newReport.longitude,
+            address: this.newReport.address
+        };
 
         const modalRef = this.modalService.open(AddReportComponent, {size: 'lg'});
-        modalRef.componentInstance.latlng = latlng;
+        modalRef.componentInstance.geolocation = geolocation;
 
         this.draggable = false;
         this.reports = this.tempReports;
@@ -92,8 +100,8 @@ export class MapComponent implements OnInit {
         this.draggable = false;
         this.reports = this.tempReports;
 
-        this.mapLatitude = this.latitude;
-        this.mapLongitude = this.longitude;
+        this.initialLatitude = this.mapLatitude;
+        this.initialLongitude = this.mapLongitude;
         this.zoom = 12;
     }
 
@@ -112,8 +120,12 @@ export class MapComponent implements OnInit {
 
     markerMoved(event: any) {
         if (event) {
-            this.newReport.latitude = event.coords.lat;
-            this.newReport.longitude = event.coords.lng;
+            this.newReport.initialLatitude = event.coords.lat;
+            this.newReport.initialLongitude = event.coords.lng;
+            const that = this;
+            this.apiService.getAddress(event.coords.lat, event.coords.lng).subscribe((address) => {
+                that.newReport.address = address;
+            });
         }
     }
 }

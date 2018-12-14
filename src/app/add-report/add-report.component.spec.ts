@@ -34,7 +34,7 @@ describe('AddReportComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddReportComponent);
     component = fixture.componentInstance;
-    component.latlng = {latitude: 44.4032971, longitude: 8.9701358};
+    component.geolocation = {latitude: 44.4032971, longitude: 8.9701358};
     fixture.detectChanges();
   });
 

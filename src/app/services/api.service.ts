@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from '../../../config.secret';
 import {Observable, Subject} from 'rxjs';
+import {fixtureMarkers} from './fixture.api.service';
 
 @Injectable({
     providedIn:  'root'
@@ -28,13 +29,39 @@ export class APIService {
     }
 
     getAddress(lat, lng) {
-        // return this.httpClient
-        //  .get('https://maps.googleapis.com/maps/api/geocode/json?address='
-        //  + lat + ',' + lng + '&key=' + this.GOOGLE_MAPS_API_KEY);
+        const that = this;
+        return new Observable(function (observer) {
+            that.httpClient
+                .get('https://maps.googleapis.com/maps/api/geocode/json?address=' +
+                lat + ',' + lng + '&key=' + that.GOOGLE_MAPS_API_KEY).subscribe((responseJson) => {
+                observer.next(composeAddress(responseJson));
+            });
+        });
     }
 
     postReports(body) {
-        return this.httpClient.post(`${this.API_URL/*'http://google.google.g/'*/ + 'markers.json'}`, body);
+        return this.httpClient.post(`${this.API_URL + 'markers.json'}`, body);
     }
 
 }
+
+const composeAddress = (json) => {
+    const obj = json.results[0].address_components;
+    const inCaseOfFailure = 'Indirizzo sconosciuto';
+    try {
+        const rn = obj.find(component => component.types.includes('route'));
+        if (rn == null) {
+            return obj.find(component => component.types.includes('political')).short_name;
+        }
+        const roadName = rn.short_name;
+        if (roadName === 'Unnamed Road') {
+            return inCaseOfFailure;
+        }
+        const sn = obj.find(component => component.types.includes('street_number'));
+        const streetNumber = sn == null ? '' : sn.short_name;
+        return roadName + ' ' + streetNumber;
+    } catch (e) {
+        console.error(e);
+        return inCaseOfFailure;
+    }
+};

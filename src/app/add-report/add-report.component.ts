@@ -16,13 +16,13 @@ export class AddReportComponent implements OnInit {
     submitted: any;
     reports: any;
 
-    @Input() latlng;
+    @Input() geolocation;
 
     constructor(private apiService: APIService, public activeModal: NgbActiveModal, public modalService: NgbModal) {
     }
 
     ngOnInit() {
-        this.model = new NewReport('', '', '', this.latlng.latitude, this.latlng.longitude);
+        this.model = new NewReport('', '', '', this.geolocation.address, this.geolocation.latitude, this.geolocation.longitude);
         this.submitted = false;
     }
 
@@ -49,6 +49,7 @@ export class AddReportComponent implements OnInit {
             longitude: this.model.longitude,
             picture: this.model.picture,
             timestamp: this.model.ts,
+            address: this.model.address
         };
 
         const dot_separator = data.picture.split('.');
@@ -64,7 +65,7 @@ export class AddReportComponent implements OnInit {
                 self.activeModal.close();
                 self.apiService.update(data);
             }, error => {
-                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Errore durante invio, riprova.';
                 console.error(error);
             });

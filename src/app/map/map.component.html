@@ -1,5 +1,5 @@
 <div id="wrapper">
-    <agm-map [latitude]="mapLatitude" [longitude]="mapLongitude" [zoom]="zoom" (centerChange)="centerChange($event)" (zoomChange)="zoomChange($event)" >
+    <agm-map [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="zoom" (centerChange)="centerChange($event)" (zoomChange)="zoomChange($event)" >
         <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude" [markerDraggable]="draggable" (dragEnd)="markerMoved($event)">
             <agm-info-window  #info >
                 <div class="marker-callout" (click)="markerClick(report)" >
