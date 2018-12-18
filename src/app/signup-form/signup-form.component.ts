@@ -52,12 +52,31 @@ export class SignupFormComponent implements OnInit {
       this.apiService.postSignup(dataSignup).subscribe(
           res => {
             console.log(res);
-            this.submitted = true;
+
+            if (res.status === 'ok') {
+                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                popup.componentInstance.message = 'Registrazione effettuata con successo';
+                popup.componentInstance.btnText = 'OK';
+                popup.componentInstance.btnColor = 'green';
+                popup.componentInstance.btnBorderColor = 'green';
+            }
+            else if (res.status === 'error') {
+                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                popup.componentInstance.btnText = 'OK';
+                popup.componentInstance.btnColor = 'red';
+                popup.componentInstance.btnBorderColor = 'red';
+                popup.componentInstance.message = res.error;
+            }
             },
               error => {
                   const popup = this.modalService.open(PopupComponent, {size: 'sm'});
                   popup.componentInstance.message = 'Errore durante invio, riprova.';
+                  popup.componentInstance.btnText = 'OK';
+                  popup.componentInstance.btnColor = 'red';
+                  popup.componentInstance.btnBorderColor = 'red';
                   console.error(error);
               } );
-    }}
+    }
+    this.submitted = true;
+  }
 }
