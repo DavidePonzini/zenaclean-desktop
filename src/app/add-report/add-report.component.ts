@@ -33,10 +33,14 @@ export class AddReportComponent implements OnInit {
         if (type !== 'png' && type !== 'jpg' && type !== '') {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Formato immagine non corretto.';
+            popup.componentInstance.btnText = 'Chiudi';
+            popup.componentInstance.btnColor = 'red';
             this.model.picture = '';
         } else if (event.target.files[0].size > 4000000) {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Immagine troppo grande.';
+            popup.componentInstance.btnText = 'Chiudi';
+            popup.componentInstance.btnColor = 'red';
             this.model.picture = '';
         }
     }
@@ -62,11 +66,15 @@ export class AddReportComponent implements OnInit {
             self.apiService.postReports(data).subscribe(res => {
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Segnalazione aggiunta!';
+                popup.componentInstance.btnText = 'Fatto';
+                popup.componentInstance.btnColor = 'green';
                 self.activeModal.close();
                 self.apiService.update(data);
             }, error => {
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Errore durante invio, riprova.';
+                popup.componentInstance.btnText = 'Chiudi';
+                popup.componentInstance.btnColor = 'red';
                 console.error(error);
             });
         }, function () {
