@@ -1,10 +1,11 @@
 .aligner {
-    min-height: 87vh;
+    min-height: 88vh;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 0;
     margin-left: 0;
+    background-image: url("../../Assets/genova.png");
 }
 
 img {
