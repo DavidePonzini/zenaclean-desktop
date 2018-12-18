@@ -2,3 +2,13 @@
   padding: 0;
   margin: 0;
 }
+
+.main {
+  max-width: 100%;
+  margin:0px;
+  padding:0px;
+}
+
+.row{
+  max-height: 400px;
+}

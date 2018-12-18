@@ -1,5 +1,33 @@
-html,body{
-    height: 100%;
-    width: 100%;
-    font-family: Roboto;
+.container {
+    min-width:100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin:0px;
+    padding:0px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    height: 7vh;
+    min-height: 70px;
+    margin:0px;
+    padding:0px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    max-height:8vh;
+    flex: 1;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    height: 4vh;
+    min-height: 40px;
+    max-height: 4vh;
 }

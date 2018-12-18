@@ -1,0 +1,14 @@
+.navbar {
+    background-color: dodgerblue;
+    max-height:7vh;
+    height: 7vh;
+    min-height: 70px;
+}
+
+.navbar-brand{
+    color:white;
+}
+
+.login-form{
+    float:right;
+}

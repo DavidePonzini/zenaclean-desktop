@@ -1,12 +1,5 @@
-/*
-/* Created by Filipe Pina
- * Specific styles of signin, register, component
- */
-/*
- * General styles
- */
-
 .form-group{
+    margin-top: 10px;
     margin-right: 10px;
 }
 
@@ -37,4 +30,16 @@ input::-webkit-input-placeholder {
 .login-register{
     font-size: 11px;
     text-align: center;
+}
+
+.login-button{
+    height: 80%;
+    min-height: 80%;
+    background-color: gainsboro;
+    color:black;
+    width: 7vw;
+    height:5vh;
+    border: 2px solid #202020;
+    border-radius: 5px;
+
 }
