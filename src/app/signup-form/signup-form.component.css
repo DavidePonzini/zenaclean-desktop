@@ -43,6 +43,10 @@ input::-webkit-input-placeholder {
     text-align: center;
 }
 
+.error{
+    border-color: red;
+}
+
 .form-check-label {
     color: white;
 }
