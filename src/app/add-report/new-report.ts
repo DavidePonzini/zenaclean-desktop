@@ -1,20 +1,23 @@
+import dateUtils from '../utils/date-utils';
 
 export class NewReport {
-    public ts: Date;
-    public today: string;
-    public hour: string;
+    public date: string;
+    public time: string;
 
     constructor(public title: string,
                 public description: string,
-                public picture: string,
+                public url: string,
                 public address: string,
                 public latitude: number,
-                public longitude: number
+                public longitude: number,
+                public ts: Date
     ) {
 
-        this.ts = new Date();
-        this.today = this.ts.getDate() + '/' + this.ts.getMonth() + '/' + this.ts.getFullYear();
-        this.hour = this.ts.getHours() + ':' + this.ts.getMinutes() + ':' + this.ts.getSeconds();
+        /*this.date = this.ts.getDate() + '/' + this.ts.getMonth() + '/' + this.ts.getFullYear();
+        this.time = this.ts.getHours() + ':' + this.ts.getMinutes() + ':' + this.ts.getSeconds();*/
+        const {date, time} = dateUtils.timestampToItalianDate(this.ts.toISOString());
+        this.date = date;
+        this.time = time;
 
     }
 

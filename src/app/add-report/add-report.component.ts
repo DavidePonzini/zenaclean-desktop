@@ -4,6 +4,7 @@ import {NewReport} from './new-report';
 import {APIService} from '../services/api.service';
 import {PopupComponent} from '../popup/popup.component';
 import {PopupMultipleComponent} from '../popup-multiple/popup-multiple.component';
+import dateUtils from '../utils/date-utils';
 
 @Component({
     selector: 'app-add-report-modal',
@@ -22,37 +23,38 @@ export class AddReportComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.model = new NewReport('', '', '', this.geolocation.address, this.geolocation.latitude, this.geolocation.longitude);
+        this.model = new NewReport('', '', '', this.geolocation.address, this.geolocation.latitude, this.geolocation.longitude, new Date());
         this.submitted = false;
     }
 
     checkSize(event) {
-        const dot_separator = this.model.picture.split('.');
+        const dot_separator = this.model.url.split('.');
         const type = dot_separator[dot_separator.length - 1];
 
         if (type !== 'png' && type !== 'jpg' && type !== '') {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Formato immagine non corretto.';
-            this.model.picture = '';
+            this.model.url = '';
         } else if (event.target.files[0].size > 4000000) {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Immagine troppo grande.';
-            this.model.picture = '';
+            this.model.url = '';
         }
     }
 
     onSubmit() {
+
         const data = {
             title: this.model.title,
             description: this.model.description,
             latitude: this.model.latitude,
             longitude: this.model.longitude,
-            picture: this.model.picture,
+            url: this.model.url ? this.model.url : '/assets/default_pic.png',
             timestamp: this.model.ts,
             address: this.model.address
         };
 
-        const dot_separator = data.picture.split('.');
+        const dot_separator = data.url.split('.');
         const type = dot_separator[dot_separator.length - 1];
 
         const self = this;
@@ -60,10 +62,12 @@ export class AddReportComponent implements OnInit {
         popupMultiple.componentInstance.message = 'Vuoi procedere?';
         popupMultiple.result.then(function () {
             self.apiService.postReports(data).subscribe(res => {
+                const new_report = new NewReport(data.title, data.description, data.url, data.address,
+                                                    data.latitude, data.longitude, data.timestamp);
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Segnalazione aggiunta!';
                 self.activeModal.close();
-                self.apiService.update(data);
+                self.apiService.update(new_report);
             }, error => {
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Errore durante invio, riprova.';

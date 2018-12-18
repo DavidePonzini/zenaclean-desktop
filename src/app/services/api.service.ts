@@ -21,11 +21,12 @@ export class APIService {
     }
 
     update(data: any) {
+        console.log(data);
         this._listners.next(data);
     }
 
     getReports() {
-        return this.httpClient.get(`${this.API_URL + 'markers.json'}`);
+        return this.httpClient.get(`${this.API_URL + '/reports'}`);
     }
 
     getAddress(lat, lng) {
@@ -40,7 +41,7 @@ export class APIService {
     }
 
     postReports(body) {
-        return this.httpClient.post(`${this.API_URL + 'markers.json'}`, body);
+        return this.httpClient.post(`${this.API_URL + '/reports'}`, body);
     }
 
 }

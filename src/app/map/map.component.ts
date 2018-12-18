@@ -83,7 +83,6 @@ export class MapComponent implements OnInit {
 
     formView() {
 
-        console.log(this.newReport);
         const geolocation = {latitude: this.newReport.latitude,
                         longitude: this.newReport.longitude,
             address: this.newReport.address

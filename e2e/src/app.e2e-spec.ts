@@ -112,13 +112,13 @@ describe('workspace-project App', () => {
 
     });
 
-    it('should display an error message when adding a picture too big', async () => {
+    it('should display an error message when adding a url too big', async () => {
         await page.navigateTo();
 
         const form = await page.clickAddReport();
 
-        await form.writeTitle('2e2 Test adding picture');
-        await form.writeDescription('e2e Test adding picture');
+        await form.writeTitle('2e2 Test adding url');
+        await form.writeDescription('e2e Test adding url');
         const fileToUpload = '../imgTest/big_img.jpg',
             absolutePath = path.resolve(__dirname, fileToUpload);
         await form.uploadPitcure(absolutePath);
@@ -133,8 +133,8 @@ describe('workspace-project App', () => {
 
         const form = await page.clickAddReport();
 
-        await form.writeTitle('2e2 Test adding picture');
-        await form.writeDescription('e2e Test adding picture');
+        await form.writeTitle('2e2 Test adding url');
+        await form.writeDescription('e2e Test adding url');
         const fileToUpload = '../imgTest/not_a_image.txt',
             absolutePath = path.resolve(__dirname, fileToUpload);
         await form.uploadPitcure(absolutePath);
