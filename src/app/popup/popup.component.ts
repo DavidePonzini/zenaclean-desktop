@@ -27,5 +27,12 @@ export class PopupComponent implements OnInit {
     return styles;
   }
 
+  performAction() {
+    if (this.btnText === 'Registrati') {
+        location.href = '/';
+    } else {
+        this.activeModal.dismiss('Close button');
+    }
+  }
 
 }
