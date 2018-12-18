@@ -21,7 +21,7 @@ input::-webkit-input-placeholder {
 }
 
 .main-login{
-    background-color: #FFF;
+    background-color: rgba(0, 0, 0, 0.5);
     /* shadows and rounded borders */
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -41,4 +41,8 @@ input::-webkit-input-placeholder {
 .login-register{
     font-size: 11px;
     text-align: center;
+}
+
+.form-check-label {
+    color: white;
 }
