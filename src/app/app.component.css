@@ -27,7 +27,7 @@
 .footer {
     display: flex;
     flex-direction: column;
-    height: 4vh;
-    min-height: 40px;
-    max-height: 4vh;
+    min-height: 30px;
+    height: 3vh;
+    background-color: dodgerblue;
 }
