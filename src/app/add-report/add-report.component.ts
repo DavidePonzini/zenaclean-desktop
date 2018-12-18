@@ -34,23 +34,17 @@ export class AddReportComponent implements OnInit {
         if (type !== 'png' && type !== 'jpg' && type !== '') {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Formato immagine non corretto.';
-<<<<<<< HEAD
-            this.model.url = '';
-        } else if (event.target.files[0].size > 4000000) {
-            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Immagine troppo grande.';
-            this.model.url = '';
-=======
             popup.componentInstance.btnText = 'Chiudi';
             popup.componentInstance.btnColor = 'red';
-            this.model.picture = '';
+            popup.componentInstance.btnBorderColor = 'red';
+            this.model.url = '';
         } else if (event.target.files[0].size > 4000000) {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Immagine troppo grande.';
             popup.componentInstance.btnText = 'Chiudi';
             popup.componentInstance.btnColor = 'red';
-            this.model.picture = '';
->>>>>>> f1477f8f59f09c33c163271a8c1f892290f76510
+            popup.componentInstance.btnBorderColor = 'red';
+            this.model.url = '';
         }
     }
 
@@ -80,6 +74,7 @@ export class AddReportComponent implements OnInit {
                 popup.componentInstance.message = 'Segnalazione aggiunta!';
                 popup.componentInstance.btnText = 'Fatto';
                 popup.componentInstance.btnColor = 'green';
+                popup.componentInstance.btnBorderColor = 'green';
                 self.activeModal.close();
                 self.apiService.update(new_report);
             }, error => {
@@ -87,6 +82,7 @@ export class AddReportComponent implements OnInit {
                 popup.componentInstance.message = 'Errore durante invio, riprova.';
                 popup.componentInstance.btnText = 'Chiudi';
                 popup.componentInstance.btnColor = 'red';
+                popup.componentInstance.btnBorderColor = 'red';
                 console.error(error);
             });
         }, function () {

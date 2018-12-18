@@ -26,7 +26,7 @@ export class APIService {
     }
 
     getReports() {
-        return this.httpClient.get(`${this.API_URL + '/reports'}`);
+        return this.httpClient.get(`${this.API_URL + 'reports'}`);
     }
 
     getAddress(lat, lng) {
@@ -41,7 +41,7 @@ export class APIService {
     }
 
     postReports(body) {
-        return this.httpClient.post(`${this.API_URL + '/reports'}`, body);
+        return this.httpClient.post(`${this.API_URL + 'reports'}`, body);
     }
 
     postSignup(body) {
