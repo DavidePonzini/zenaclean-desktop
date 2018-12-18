@@ -19,6 +19,7 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { HomepageComponent } from './homepage/homepage.component';
         SignupFormComponent,
         LoginFormComponent,
         NavbarComponent,
-        HomepageComponent
+        HomepageComponent,
+        LogoutComponent
     ],
     imports: [
         BrowserModule,
