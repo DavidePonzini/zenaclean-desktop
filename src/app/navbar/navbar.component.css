@@ -3,6 +3,7 @@
     max-height:7vh;
     height: 7vh;
     min-height: 70px;
+    padding: 0 1rem;
 }
 
 .navbar-brand{

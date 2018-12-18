@@ -25,9 +25,15 @@
 }
 
 .footer {
-    display: flex;
+    position: fixed;
+    bottom: 0px;
     flex-direction: column;
-    min-height: 30px;
-    height: 3vh;
+    min-height: 26px;
+    width: 100%;
     background-color: dodgerblue;
+
+}
+p {
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
