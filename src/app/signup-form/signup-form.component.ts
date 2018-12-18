@@ -39,9 +39,7 @@ export class SignupFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.model.password < 6) { console.log('onSubmit'); }
-    else if (this.model.password !== this.model.confirm) { console.log('onSubmit2'); }
-    else {
+    if (this.model.password.length >= 8 && this.model.password === this.model.confirm) {
 
         const dataSignup = {
             ssn: this.model.ssn,
