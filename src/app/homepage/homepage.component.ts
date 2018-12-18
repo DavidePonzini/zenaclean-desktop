@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
+  show = false
+
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  showDemo() {
+    this.show = !this.show;
   }
 
 }

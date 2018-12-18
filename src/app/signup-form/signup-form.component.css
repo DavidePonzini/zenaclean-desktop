@@ -46,8 +46,3 @@ input::-webkit-input-placeholder {
 .form-check-label {
     color: white;
 }
-
-.form-check-input {
-    width: 3rem;
-    height: 3rem;
-}
