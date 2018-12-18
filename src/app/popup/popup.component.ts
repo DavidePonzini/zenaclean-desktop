@@ -9,10 +9,23 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class PopupComponent implements OnInit {
   @Input() message;
+  @Input() btnText;
+  @Input() btnColor;
+  @Input() btnBorderColor;
 
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
+
   }
+
+  applyStyles() {
+    const styles = {
+      backgroundColor : this.btnColor,
+      border : this.btnBorderColor,
+    };
+    return styles;
+  }
+
 
 }

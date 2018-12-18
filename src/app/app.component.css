@@ -1,5 +1,39 @@
-html,body{
-    height: 100%;
+.container {
+    min-width:100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin:0;
+    padding:0;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    height: 7vh;
+    min-height: 70px;
+    margin:0px;
+    padding:0px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    max-height:8vh;
+    flex: 1;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    flex-direction: column;
+    min-height: 26px;
     width: 100%;
-    font-family: Roboto;
+    background-color: #3F51B5;
+    color: white;
+}
+p {
+    margin-block-start: 0;
+    margin-block-end: 0;
 }

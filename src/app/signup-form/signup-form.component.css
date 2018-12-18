@@ -21,7 +21,7 @@ input::-webkit-input-placeholder {
 }
 
 .main-login{
-    background-color: #FFF;
+    background-color: rgba(0, 0, 0, 0.5);
     /* shadows and rounded borders */
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -45,4 +45,8 @@ input::-webkit-input-placeholder {
 
 .error{
     border-color: red;
+}
+
+.form-check-label {
+    color: white;
 }

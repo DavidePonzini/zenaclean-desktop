@@ -1,12 +1,5 @@
-/*
-/* Created by Filipe Pina
- * Specific styles of signin, register, component
- */
-/*
- * General styles
- */
-
 .form-group{
+    margin-top: 10px;
     margin-right: 10px;
 }
 
