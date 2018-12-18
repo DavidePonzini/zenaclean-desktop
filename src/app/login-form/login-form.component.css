@@ -31,13 +31,3 @@ input::-webkit-input-placeholder {
     font-size: 11px;
     text-align: center;
 }
-
-.login-button{
-    min-height: 80%;
-    background-color: gainsboro;
-    color:black;
-    width: 7vw;
-    height:5vh;
-    border: 2px solid #202020;
-    border-radius: 5px;
-}
