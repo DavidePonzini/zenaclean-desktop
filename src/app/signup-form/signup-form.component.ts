@@ -53,19 +53,19 @@ export class SignupFormComponent implements OnInit {
           res => {
             console.log(res);
 
-            if (res.status === 'ok') {
+            if (res['status'] === 'ok') {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Registrazione effettuata con successo';
                 popup.componentInstance.btnText = 'OK';
                 popup.componentInstance.btnColor = 'green';
                 popup.componentInstance.btnBorderColor = 'green';
             }
-            else if (res.status === 'error') {
+            else if (res['status'] === 'error') {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.btnText = 'OK';
                 popup.componentInstance.btnColor = 'red';
                 popup.componentInstance.btnBorderColor = 'red';
-                popup.componentInstance.message = res.error;
+                popup.componentInstance.message = res['error'];
             }
             },
               error => {
