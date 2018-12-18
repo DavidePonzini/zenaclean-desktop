@@ -1,0 +1,13 @@
+.aligner {
+    min-height: 87vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+img {
+    height: 200px;
+    width: 200px;
+}

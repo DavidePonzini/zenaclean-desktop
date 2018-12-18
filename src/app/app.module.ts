@@ -17,6 +17,7 @@ import { PopupMultipleComponent } from './popup-multiple/popup-multiple.componen
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import { NavbarComponent } from './navbar/navbar.component';
         SignupFormComponent,
         LoginFormComponent,
         NavbarComponent,
+        HomepageComponent,
     ],
     imports: [
         BrowserModule,
