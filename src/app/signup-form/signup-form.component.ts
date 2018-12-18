@@ -41,15 +41,14 @@ export class SignupFormComponent implements OnInit {
   onSubmit() {
     if (this.model.password.length >= 8 && this.model.password === this.model.confirm) {
 
-        const dataSignup = {
+      const dataSignup = {
             ssn: this.model.ssn,
             email: this.model.email,
             password: this.model.password
-        };
+      };
 
       this.apiService.postSignup(dataSignup).subscribe(
           res => {
-            console.log(res);
 
             if (res['status'] === 'ok') {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});

@@ -48,6 +48,10 @@ export class APIService {
         return this.httpClient.post(`${this.API_URL + 'users/register'}`, body);
     }
 
+    postLogin(body) {
+        return this.httpClient.post(`${this.API_URL + 'users/login'}`, body);
+    }
+
 }
 
 const composeAddress = (json) => {
