@@ -1,6 +1,5 @@
 import { AppPagePo } from './PageObjects/app.po';
-import {browser, by, element} from 'protractor';
-const path = require('path')
+const path = require('path');
 
 describe('workspace-project App', () => {
     let page: AppPagePo;
@@ -20,7 +19,7 @@ describe('workspace-project App', () => {
         page = new AppPagePo();
     });
 
-    it('should check for button be disabled if title is missing', async () => {
+    it('should check for confirm popUp is not opened if title is missing', async () => {
         await page.navigateTo();
 
         const form = await page.clickAddReport();
@@ -29,13 +28,12 @@ describe('workspace-project App', () => {
 
         await form.writeTitle('');
         await form.writeDescription('e2e Test');
+        await form.clickConfirmButton();
 
-
-
-        expect(await form.isConfirmButtonEnabled()).toBeFalsy();
+        expect(await form.isConfirmPopUpOpened()).toBeFalsy();
     });
 
-    it('should check for button be disabled if description is missing', async () => {
+    it('should check for confirm popUp is not opened if description is missing', async () => {
         await page.navigateTo();
 
         const form = await page.clickAddReport();
@@ -44,8 +42,9 @@ describe('workspace-project App', () => {
 
         await form.writeTitle('e2e Test');
         await form.writeDescription('');
+        await form.clickConfirmButton();
 
-        expect(await form.isConfirmButtonEnabled()).toBeFalsy();
+        expect(await form.isConfirmPopUpOpened()).toBeFalsy();
     });
 
     it('should display a message when adding a new report', async () => {
@@ -56,7 +55,7 @@ describe('workspace-project App', () => {
         await form.writeTitle('2e2 Test');
         await form.writeDescription('e2e Test');
 
-        const popup = await form.clickConfirmButton();
+        const popup = await form.submitForm();
 
         expect(await popup.getMessageText()).toEqual('Segnalazione aggiunta!');
     });
@@ -97,7 +96,7 @@ describe('workspace-project App', () => {
         await form.writeTitle(randomTitle);
         await form.writeDescription(randomDescription);
 
-        const popup = await form.clickConfirmButton();
+        const popup = await form.submitForm();
 
         const closePopup = await popup.closePopup();
 

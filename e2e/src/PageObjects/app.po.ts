@@ -5,13 +5,15 @@ import {SingleReportView} from './singleReportView.po';
 export class AppPagePo {
 
     async navigateTo() {
-        return await browser.get('/');
+        await browser.get('/');
+        return await element(by.id('demoButton')).click();
     }
 
     async clickAddReport() {
-        const button = element(by.id('add_report_button'));
+        const button = element(by.id('temp_report_button'));
         await button.click();
-
+        const confirmButton = element(by.id('add_report_button'));
+        await confirmButton.click();
         return new InsertFormPo();
     }
 
@@ -23,22 +25,18 @@ export class AppPagePo {
     }
 
     async getTitleFirstListElement() {
-        const title = await element.all(by.className('report_title')).get(0).getText();
-        return title;
+        return await element.all(by.className('report_title')).get(0).getText();
     }
 
     async getDescriptionFirstListElement() {
-        const descr = await element.all(by.className('report_description')).get(0).getText();
-        return descr;
+        return await element.all(by.className('report_description')).get(0).getText();
     }
 
     async getMyReportTitle(expectedTitle) {
-        const title = await element.all(by.cssContainingText('.report_title', expectedTitle)).get(0).getText();
-        return title;
+        return await element.all(by.cssContainingText('.report_title', expectedTitle)).get(0).getText();
     }
 
     async getMyReportDescription(expectedDescription) {
-        const descr = await element.all(by.cssContainingText('.report_description', expectedDescription)).get(0).getText();
-        return descr;
+        return await element.all(by.cssContainingText('.report_description', expectedDescription)).get(0).getText();
     }
 }

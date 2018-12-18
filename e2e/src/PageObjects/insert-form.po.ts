@@ -20,16 +20,23 @@ export class InsertFormPo {
         return new PopupPo();
     }
 
-    async isConfirmButtonEnabled() {
+
+    async isConfirmPopUpOpened() {
+        return await element(by.id('popup-yes-button')).isPresent();
+    }
+
+    async submitForm() {
         const button = element(by.id('form_submit'));
-        return await button.isEnabled();
+        await button.click();
+        const confirm = element(by.id('popup-yes-button'));
+        await confirm.click();
+
+        return new PopupPo();
     }
 
     async clickConfirmButton() {
         const button = element(by.id('form_submit'));
-        await button.click();
-
-        return new PopupPo();
+        return await button.click();
     }
 
     async closeForm() {
