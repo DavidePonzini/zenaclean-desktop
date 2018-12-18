@@ -3,6 +3,7 @@ import {SingleReportViewComponent} from '../single-report-view/single-report-vie
 import {APIService} from '../services/api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddReportComponent} from '../add-report/add-report.component';
+import {PopupComponent} from '../popup/popup.component';
 import dateUtils from '../utils/date-utils';
 
 declare var L;
@@ -25,6 +26,7 @@ export class MapComponent implements OnInit {
     newReport: any;
     tempReports: any;
     draggable = false;
+    isLogged = true;
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.listen().subscribe((data) => {
@@ -58,6 +60,18 @@ export class MapComponent implements OnInit {
         report.date = date;
         report.time = time;
         modalRef.componentInstance.report = report;
+    }
+
+    loginCheck() {
+        if (this.isLogged) {
+            this.setMarker();
+        } else {
+            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+            popup.componentInstance.message = 'Occore essere registrati per compiere questa azione.';
+            popup.componentInstance.btnText = 'Registrati';
+            popup.componentInstance.btnColor = 'green';
+            popup.componentInstance.btnBorderColor = 'green';
+        }
     }
 
     setMarker() {
@@ -98,7 +112,6 @@ export class MapComponent implements OnInit {
     cancel() {
         this.draggable = false;
         this.reports = this.tempReports;
-
         this.initialLatitude = this.mapLatitude;
         this.initialLongitude = this.mapLongitude;
         this.zoom = 12;

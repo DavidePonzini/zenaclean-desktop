@@ -14,6 +14,7 @@ import dateUtils from '../utils/date-utils';
 export class ReportsListComponent implements OnInit {
 
   reports: any = [];
+  resultString = '';
 
   constructor(private apiService: APIService, private modalService: NgbModal) {
 
@@ -30,8 +31,10 @@ export class ReportsListComponent implements OnInit {
               report.date = date;
               report.time = time;
           });
+          if (this.reports.length === 0) {
+              this.resultString = 'Nessuna segnalazione trovata';
+          }
       });
-
 
   }
   open(report) {

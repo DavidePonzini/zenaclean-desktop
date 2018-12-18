@@ -15,7 +15,7 @@
         </agm-marker>
     </agm-map>
     <div class="over_map">
-        <button *ngIf="!draggable; else other_content" id="temp_report_button" type="button" class="btn btn-light btn_add_report" (click)="setMarker()">Aggiungi Segnalazione</button>
+        <button *ngIf="!draggable; else other_content" id="temp_report_button" type="button" class="btn btn-light btn_add_report" (click)="loginCheck()">Aggiungi Segnalazione</button>
         <ng-template #other_content>
             <button id="cancel_report_button" type="button" class="btn btn-danger" (click)="cancel()"> Annulla </button>
             <button id="add_report_button" type="button" class="btn btn-success" (click)="formView()"> Conferma </button>

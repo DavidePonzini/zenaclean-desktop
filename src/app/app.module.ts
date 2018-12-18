@@ -9,6 +9,7 @@ import {MapComponent} from './map/map.component';
 import {ReportsListComponent} from './reports-list/reports-list.component';
 import {ReportsBoardComponent} from './reports-board/reports-board.component';
 import {AddReportComponent} from './add-report/add-report.component';
+import { CommonModule } from '@angular/common';
 
 import config from '../../config.secret';
 import {SingleReportViewComponent} from './single-report-view/single-report-view.component';
@@ -16,6 +17,9 @@ import { PopupComponent } from './popup/popup.component';
 import { PopupMultipleComponent } from './popup-multiple/popup-multiple.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
     declarations: [
@@ -28,12 +32,16 @@ import { LoginFormComponent } from './login-form/login-form.component';
         PopupComponent,
         PopupMultipleComponent,
         SignupFormComponent,
-        LoginFormComponent
+        LoginFormComponent,
+        NavbarComponent,
+        HomepageComponent,
+        LogoutComponent
     ],
     imports: [
         BrowserModule,
         NgbModule,
         FormsModule,
+        CommonModule,
       AgmCoreModule.forRoot({
         apiKey: config.googleMapsApiKey,
       }),

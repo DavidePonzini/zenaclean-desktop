@@ -1,5 +1,6 @@
 agm-map {
-  height: 100vh;
+  height: 88vh;
+  min-height: 88vh;
 }
 
 div.marker-callout:hover {
