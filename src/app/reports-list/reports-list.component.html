@@ -13,9 +13,8 @@
         </div>
         <div class="row content_info">
           <div class="info col-6">
-            <!--<p>{{report.address}}</p>-->
             <div class = "info_details col-sm-12">
-              <p> lat:{{ report.latitude}} long:{{ report.longitude }}</p>
+              <p> {{ report.address}}</p>
               <p class="report_description"> {{ report.description.length>40? report.description.substring(0,40)+'...' : report.description }}</p>
             </div>
             <div class = "info_date col-sm-12">
@@ -23,7 +22,7 @@
             </div>
           </div>
           <div class="photo col-6">
-            <img alt="Immagine non trovata" src="{{ report.url }}"/>
+            <img alt="Immagine non trovata" src="{{ report.url ? report.url : '/assets/default_pic.png'}}"/>
           </div>
         </div>
       </li>

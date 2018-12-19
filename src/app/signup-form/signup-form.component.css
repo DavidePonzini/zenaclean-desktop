@@ -6,8 +6,14 @@
  * General styles
  */
 
+.password_error {
+    margin: -18px;
+    text-align: center;
+    font-size: 14px;
+}
+
 .form-group{
-    margin-bottom: 15px;
+    margin-bottom: 26px;
 }
 
 label{

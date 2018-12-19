@@ -8,14 +8,14 @@
     <div class="modal-body">
         <div class="row">
             <img id="report-image"
-                src="{{ report.url }}">
+                src="{{ report.url ? report.url : '/assets/default_pic.png'}}">
         </div>
         <hr>
 
         <p>{{report.date}}, {{report.time}}</p>
         <hr>
 
-        <p>Segnalato in {{report.latitude}}, {{report.longitude}}</p>
+        <p>Segnalato in {{report.address}}</p>
         <hr>
 
         <p id="modal_report_description">{{report.description}}</p>

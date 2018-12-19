@@ -13,3 +13,7 @@
 .login-form{
     float:right;
 }
+
+img {
+    cursor: pointer;
+}

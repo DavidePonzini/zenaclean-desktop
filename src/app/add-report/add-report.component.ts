@@ -23,7 +23,8 @@ export class AddReportComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.model = new NewReport('', '', '', this.geolocation.address, this.geolocation.latitude, this.geolocation.longitude, new Date());
+        this.model = new NewReport('', '', null, this.geolocation.address, this.geolocation.latitude,
+                                        this.geolocation.longitude, new Date());
         this.submitted = false;
     }
 
@@ -35,16 +36,16 @@ export class AddReportComponent implements OnInit {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Formato immagine non corretto.';
             popup.componentInstance.btnText = 'Chiudi';
-            popup.componentInstance.btnColor = 'red';
-            popup.componentInstance.btnBorderColor = 'red';
-            this.model.url = '';
+            /*popup.componentInstance.btnColor = 'dodgerblue';
+            popup.componentInstance.btnBorderColor = 'white';*/
+            this.model.url = null;
         } else if (event.target.files[0].size > 4000000) {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Immagine troppo grande.';
             popup.componentInstance.btnText = 'Chiudi';
-            popup.componentInstance.btnColor = 'red';
-            popup.componentInstance.btnBorderColor = 'red';
-            this.model.url = '';
+            /*popup.componentInstance.btnColor = 'dodgerblue';
+            popup.componentInstance.btnBorderColor = 'white';*/
+            this.model.url = null;
         }
     }
 
@@ -55,13 +56,13 @@ export class AddReportComponent implements OnInit {
             description: this.model.description,
             latitude: this.model.latitude,
             longitude: this.model.longitude,
-            url: this.model.url ? this.model.url : '/assets/default_pic.png',
+            url: this.model.url,
             timestamp: this.model.ts,
             address: this.model.address
         };
 
-        const dot_separator = data.url.split('.');
-        const type = dot_separator[dot_separator.length - 1];
+        // const dot_separator = data.url.split('.');
+        // const type = dot_separator[dot_separator.length - 1];
 
         const self = this;
         const popupMultiple = this.modalService.open(PopupMultipleComponent, {size: 'sm'});
@@ -73,16 +74,16 @@ export class AddReportComponent implements OnInit {
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Segnalazione aggiunta!';
                 popup.componentInstance.btnText = 'Fatto';
-                popup.componentInstance.btnColor = 'green';
-                popup.componentInstance.btnBorderColor = 'green';
+                /*popup.componentInstance.btnColor = 'dodgerblue';
+                popup.componentInstance.btnBorderColor = 'white';*/
                 self.activeModal.close();
                 self.apiService.update(new_report);
             }, error => {
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Errore durante invio, riprova.';
                 popup.componentInstance.btnText = 'Chiudi';
-                popup.componentInstance.btnColor = 'red';
-                popup.componentInstance.btnBorderColor = 'red';
+                /*popup.componentInstance.btnColor = 'dodgerblue';
+                popup.componentInstance.btnBorderColor = 'white';*/
                 console.error(error);
             });
         }, function () {

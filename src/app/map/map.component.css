@@ -30,10 +30,6 @@ div.marker-callout:hover {
   height: 50px;
 }
 
-* {
-  font-family: Roboto;
-}
-
 a {
   color: darkblue;
 }
@@ -58,5 +54,11 @@ a {
 .btn {
   margin-left: 10px;
   border-color: white;/*#3F51B5;*/
+}
+
+.btn-circle {
+  text-align: center;
+  padding: 6px 6px;
+  border-radius: 5px;
 }
 
