@@ -1,9 +1,9 @@
-import { AppPagePo } from './PageObjects/app.po';
+import { HomePagePo } from './PageObjects/home.po';
 import * as WebRequest from 'web-request';
 const path = require('path');
 
 describe('workspace-project App', () => {
-    let page: AppPagePo;
+    let homePage: HomePagePo;
 
     function getRandomString() {
         let string = '';
@@ -17,7 +17,7 @@ describe('workspace-project App', () => {
     }
 
     beforeEach(() => {
-        page = new AppPagePo();
+        homePage = new HomePagePo();
     });
 
 
@@ -27,9 +27,10 @@ describe('workspace-project App', () => {
     });
 
     it('should check for confirm popUp is not opened if title is missing', async () => {
-        await page.navigateTo();
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.goToDemo();
 
-        const form = await page.clickAddReport();
+        const form = await reportMapPage.clickAddReport();
 
         // TODO set location: via Dodecaneso 35
 
@@ -41,10 +42,10 @@ describe('workspace-project App', () => {
     });
 
     it('should check for confirm popUp is not opened if description is missing', async () => {
-        await page.navigateTo();
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.goToDemo();
 
-        const form = await page.clickAddReport();
-
+        const form = await reportMapPage.clickAddReport();
         // TODO set location: via Dodecaneso 35
 
         await form.writeTitle('Test');
@@ -55,9 +56,10 @@ describe('workspace-project App', () => {
     });
 
     it('should display a message when adding a new report', async () => {
-        await page.navigateTo();
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.goToDemo();
 
-        const form = await page.clickAddReport();
+        const form = await reportMapPage.clickAddReport();
 
         await form.writeTitle('Test');
         await form.writeDescription('Test');
@@ -68,22 +70,24 @@ describe('workspace-project App', () => {
     });
 
     it ('should appear particular existing report in list', async() => {
-        await page.navigateTo();
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.goToDemo();
 
-        const reportTitle = await page.getTitleFirstListElement();
-        const reportDescription = await page.getDescriptionFirstListElement();
+        const reportTitle = await reportMapPage.getTitleFirstListElement();
+        const reportDescription = await reportMapPage.getDescriptionFirstListElement();
 
         expect(await reportTitle).toEqual('divano abbandonato');
         expect(await reportDescription).toEqual('fortunatamente e` molto comodo!');
     });
 
     it ('should appear popup for single report view, when i click on list element', async() => {
-        await page.navigateTo();
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.goToDemo();
 
-        const reportTitle = await page.getTitleFirstListElement();
-        const reportDescription = await page.getDescriptionFirstListElement();
+        const reportTitle = await reportMapPage.getTitleFirstListElement();
+        const reportDescription = await reportMapPage.getDescriptionFirstListElement();
 
-        const singleReportView = await page.openFirstListElement();
+        const singleReportView = await reportMapPage.openFirstListElement();
 
         const modalTitle = await singleReportView.getTitle();
         const modalDescr = await singleReportView.getDescription();
@@ -93,25 +97,26 @@ describe('workspace-project App', () => {
     });
 
     it ('should see a report in the list that i have just added', async() => {
-        await page.navigateTo();
+        await homePage.navigateTo();
+        let reportMapPage = await homePage.goToDemo();
 
-        const form = await page.clickAddReport();
+        const form = await reportMapPage.clickAddReport();
 
         const randomTitle = getRandomString();
-        const randomDescription = getRandomString();
 
         await form.writeTitle(randomTitle);
         await form.writeDescription('Test');
 
         const popup = await form.submitForm();
 
-        const closePopup = await popup.closePopup();
+        await popup.closePopup();
 
-        await page.navigateTo();
+        await homePage.navigateTo();
+        reportMapPage = await homePage.goToDemo();
 
         // check that string is present in list
-        const reportTitle = await page.getMyReportTitle(randomTitle);
-        const reportDescription = await page.getMyReportDescription('Test');
+        const reportTitle = await reportMapPage.getMyReportTitle(randomTitle);
+        const reportDescription = await reportMapPage.getMyReportDescription('Test');
 
         expect(await reportTitle).toEqual(randomTitle);
         expect(await reportDescription).toEqual('Test');
@@ -119,9 +124,10 @@ describe('workspace-project App', () => {
     });
 
     it('should display an error message when adding a url too big', async () => {
-        await page.navigateTo();
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.goToDemo();
 
-        const form = await page.clickAddReport();
+        const form = await reportMapPage.clickAddReport();
 
         await form.writeTitle('Test');
         await form.writeDescription('Test');
@@ -135,9 +141,10 @@ describe('workspace-project App', () => {
     });
 
     it('should display an error message when adding a file that is not a image', async () => {
-        await page.navigateTo();
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.goToDemo();
 
-        const form = await page.clickAddReport();
+        const form = await reportMapPage.clickAddReport();
 
         await form.writeTitle('Test');
         await form.writeDescription('Test');

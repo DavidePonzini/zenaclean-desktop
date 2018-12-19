@@ -2,7 +2,7 @@ import { browser, by, element } from 'protractor';
 import {InsertFormPo} from './insert-form.po';
 import {SingleReportView} from './singleReportView.po';
 
-export class AppPagePo {
+export class ReportMapPagePo {
 
     async navigateTo() {
         await browser.get('/');
