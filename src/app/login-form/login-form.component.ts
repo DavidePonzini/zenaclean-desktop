@@ -32,7 +32,7 @@ export class LoginFormComponent implements OnInit {
           res => {
             if (res['status']) {
               // redirect to page
-              console.log(status['id']);
+              console.log(res['id']);
             }
           },
           error => {
