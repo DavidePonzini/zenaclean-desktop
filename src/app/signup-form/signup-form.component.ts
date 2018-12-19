@@ -13,6 +13,8 @@ export class SignupFormComponent implements OnInit {
 
     model: any;
     submitted: any;
+    passwordLengthError = false;
+    passwordMatchingError = false;
 
   constructor(private apiService: APIService, public modalService: NgbModal) { }
 
@@ -24,8 +26,10 @@ export class SignupFormComponent implements OnInit {
   checkLength() {
     if (this.model.password.length < 8) {
       document.getElementById('password').classList.add('error');
+      this.passwordLengthError = true;
     } else {
         document.getElementById('password').classList.remove('error');
+        this.passwordLengthError = false;
     }
       this.checkEqual();
   }
@@ -33,8 +37,10 @@ export class SignupFormComponent implements OnInit {
   checkEqual() {
       if (this.model.password !== this.model.confirm) {
           document.getElementById('confirm').classList.add('error');
+          this.passwordMatchingError = true;
       } else {
           document.getElementById('confirm').classList.remove('error');
+          this.passwordMatchingError = false;
       }
   }
 

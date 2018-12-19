@@ -1,6 +1,8 @@
 import { browser, by, element } from 'protractor';
 import {InsertFormPo} from './insert-form.po';
 import {SingleReportView} from './singleReportView.po';
+import {HomePagePo} from './home.po';
+import {PopupPo} from './popup.po';
 
 export class ReportMapPagePo {
 
@@ -9,7 +11,13 @@ export class ReportMapPagePo {
         return await element(by.id('demoButton')).click();
     }
 
-    async clickAddReport() {
+    async clickAddReportNotLogged() {
+        const button = element(by.id('temp_report_button'));
+        await button.click();
+        return new PopupPo();
+    }
+
+    async clickAddReportLogged() {
         const button = element(by.id('temp_report_button'));
         await button.click();
         const confirmButton = element(by.id('add_report_button'));
@@ -38,5 +46,18 @@ export class ReportMapPagePo {
 
     async getMyReportDescription(expectedDescription) {
         return await element.all(by.cssContainingText('.report_description', expectedDescription)).get(0).getText();
+    }
+
+    async isMapPresent() {
+        return await element(by.tagName('agm-map')).isPresent();
+    }
+
+    async isLogoutButtonPresent() {
+        return await element(by.id('logoutButton')).isPresent();
+    }
+
+    async clickLogout() {
+        await element(by.id('logoutButton')).click();
+        return new HomePagePo();
     }
 }
