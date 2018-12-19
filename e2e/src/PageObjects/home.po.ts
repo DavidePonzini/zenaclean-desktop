@@ -27,4 +27,11 @@ export class HomePagePo {
         return new PopupPo();
     }
 
+    async isLogoutButtonPresent() {
+        return await element(by.id('logoutButton')).isPresent();
+    }
+
+    async isLoginButtonPresent() {
+        return await element(by.id('login-button')).isPresent();
+    }
 }

@@ -1,9 +1,13 @@
 import { HomePagePo } from './PageObjects/home.po';
 import * as WebRequest from 'web-request';
+import Config from '../../config.secret';
+
+import {SignupFormPo} from './PageObjects/signup-form.po';
 const path = require('path');
 
 describe('workspace-project App', () => {
     let homePage: HomePagePo;
+    let signupPage: SignupFormPo;
 
     function getRandomString() {
         let string = '';
@@ -18,11 +22,14 @@ describe('workspace-project App', () => {
 
     beforeEach(() => {
         homePage = new HomePagePo();
+        signupPage = new SignupFormPo();
     });
 
 
     afterEach(async () => {
-        const result = await WebRequest.get('http://webdev.dibris.unige.it:8080/reports/cleanup');
+        const result = await WebRequest.get(Config.apiUrl + 'reports/cleanup');
+        const result_2 =  await WebRequest.get(Config.apiUrl + 'users/cleanup');
+
         // console.log(result.content);
     });
 
@@ -30,7 +37,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
-        const form = await reportMapPage.clickAddReport();
+        const form = await reportMapPage.clickAddReportLogged();
 
         // TODO set location: via Dodecaneso 35
 
@@ -45,7 +52,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
-        const form = await reportMapPage.clickAddReport();
+        const form = await reportMapPage.clickAddReportLogged();
         // TODO set location: via Dodecaneso 35
 
         await form.writeTitle('Test');
@@ -59,7 +66,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
-        const form = await reportMapPage.clickAddReport();
+        const form = await reportMapPage.clickAddReportLogged();
 
         await form.writeTitle('Test');
         await form.writeDescription('Test');
@@ -100,7 +107,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         let reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
-        const form = await reportMapPage.clickAddReport();
+        const form = await reportMapPage.clickAddReportLogged();
 
         const randomTitle = getRandomString();
 
@@ -127,7 +134,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
-        const form = await reportMapPage.clickAddReport();
+        const form = await reportMapPage.clickAddReportLogged();
 
         await form.writeTitle('Test');
         await form.writeDescription('Test');
@@ -144,7 +151,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
-        const form = await reportMapPage.clickAddReport();
+        const form = await reportMapPage.clickAddReportLogged();
 
         await form.writeTitle('Test');
         await form.writeDescription('Test');
@@ -160,7 +167,6 @@ describe('workspace-project App', () => {
     it('should open the map demo page when clicking on demo button', async () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.goToDemo();
-
 
         expect(await reportMapPage.isMapPresent()).toBe(true);
     });
@@ -182,5 +188,145 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const popup = await homePage.doWrongLogin('indirizzo@email.com', 'wrongpassword');
         expect(await popup.getMessageText()).toEqual('Email e/o password errati');
+    });
+
+    it('should signup to website when providing correct parameters and then be able to login', async () =>  {
+        const email = 'test@test.com';
+        const password = 'password1';
+
+        await signupPage.navigateTo();
+        await signupPage.compileSignupForm('ABCDEF00A99A000Z', email, password, password);
+        await signupPage.acceptPrivacy();
+
+        const popup = await signupPage.clickOnSignup();
+
+        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo');
+
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.doCorrectLogin(email, password);
+
+        expect(await reportMapPage.isLogoutButtonPresent()).toBe(true);
+
+    });
+
+    it('should signup to website when providing correct parameters and then be able to login', async () =>  {
+        const email = 'test@test.com';
+        const password = 'password1';
+
+        await signupPage.navigateTo();
+        await signupPage.compileSignupForm('ABCDEF00A99A000Z', email, password, password);
+        await signupPage.acceptPrivacy();
+
+        const popup = await signupPage.clickOnSignup();
+
+        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo');
+
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.doCorrectLogin(email, password);
+
+        expect(await reportMapPage.isLogoutButtonPresent()).toBe(true);
+
+    });
+
+    it ('should give error when trying to signup with already existing email', async() => {
+
+        /* First registration */
+        const email = 'test@test.com';
+        const password = 'password1';
+        let SSN = 'ABCDEF00A99A000Z';
+
+        await signupPage.navigateTo();
+        await signupPage.compileSignupForm(SSN, email, password, password);
+        await signupPage.acceptPrivacy();
+
+        let popup = await signupPage.clickOnSignup();
+
+        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo');
+
+        /* Second registration  */
+        SSN = 'ABCDEF00A99A000U';
+        await signupPage.navigateTo();
+        await signupPage.compileSignupForm(SSN, email, password, password);
+        await signupPage.acceptPrivacy();
+        popup = await signupPage.clickOnSignup();
+        expect(await popup.getMessageText()).toEqual('Utente o codice fiscale già registrato');
+
+    });
+
+
+    it ('should give error when trying to signup with already existing SSN', async() => {
+
+        /* First registration */
+        let email = 'test@test.com';
+        const password = 'password1';
+        const SSN = 'ABCDEF00A99A000Z';
+
+        await signupPage.navigateTo();
+        await signupPage.compileSignupForm(SSN, email, password, password);
+        await signupPage.acceptPrivacy();
+
+        let popup = await signupPage.clickOnSignup();
+
+        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo');
+
+        /* third registration  */
+        email =  'test2@test.com';
+        await signupPage.navigateTo();
+        await signupPage.compileSignupForm(SSN, email, password, password);
+        await signupPage.acceptPrivacy();
+        popup = await signupPage.clickOnSignup();
+        expect(await popup.getMessageText()).toEqual('Utente o codice fiscale già registrato');
+    });
+
+    it ('should give error when trying to signup password and confirmation are different', async() => {
+        /* First registration */
+        const email = 'test@test.com';
+        const password = 'password1';
+        const confirm_password = 'password2';
+        const SSN = 'ABCDEF00A99A000Z';
+        await signupPage.navigateTo();
+        await signupPage.compileSignupForm(SSN, email, password, confirm_password);
+
+        await signupPage.acceptPrivacy();
+        await signupPage.clickOnSignup();
+
+        expect(await signupPage.getErrorConfirmationPassword()).toEqual('Le password non combaciano.');
+    });
+
+    it ('should give error when trying to signup with password shorter then 8 chars', async() => {
+        /* First registration */
+        const email = 'test@test.com';
+        const password = 'passw';
+        const SSN = 'ABCDEF00A99A000Z';
+
+        await signupPage.navigateTo();
+        await signupPage.compileSignupForm(SSN, email, password, password);
+        await signupPage.acceptPrivacy();
+        await signupPage.clickOnSignup();
+
+        expect(await signupPage.getErrorLengthPassword()).toEqual('Lunghezza minima: 8 caratteri.');
+    });
+
+    it ('should redirect to homepage, be able to login, not able to logout when clicking on logout', async () => {
+        await homePage.navigateTo();
+
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const homePageNew = await reportMapPage.clickLogout();
+
+        expect(homePageNew.isLogoutButtonPresent()).toEqual(false);
+        expect(homePageNew.isLoginButtonPresent()).toEqual(true);
+    });
+
+    it ('should show popup and redirect to homepage when clicking on add-report if not logged in ', async() => {
+        await homePage.navigateTo();
+
+        const demoPage = await homePage.goToDemo();
+        const popup = await demoPage.clickAddReportNotLogged();
+
+        expect(popup.getMessageText()).toEqual('Occore essere registrati per compiere questa azione.');
+
+        popup.closePopup();
+
+        expect(homePage.isLoginButtonPresent()).toEqual(true);
     });
 });
