@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LogoutComponent } from './logout.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {AgmCoreModule} from '@agm/core';
+import config from '../../../config.secret';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('LogoutComponent', () => {
   let component: LogoutComponent;
@@ -8,7 +15,17 @@ describe('LogoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogoutComponent ]
+      declarations: [ LogoutComponent ],
+        imports: [
+            BrowserModule,
+            NgbModule,
+            FormsModule,
+            CommonModule,
+            AgmCoreModule.forRoot({
+                apiKey: config.googleMapsApiKey,
+            }),
+            HttpClientModule
+        ]
     })
     .compileComponents();
   }));

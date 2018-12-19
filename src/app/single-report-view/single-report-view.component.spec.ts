@@ -4,7 +4,10 @@ import { SingleReportViewComponent } from './single-report-view.component';
 import {AgmCoreModule} from '@agm/core';
 import config from '../../../config.secret';
 import {HttpClientModule} from '@angular/common/http';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 describe('SingleReportViewComponent', () => {
   let component: SingleReportViewComponent;
@@ -13,6 +16,16 @@ describe('SingleReportViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SingleReportViewComponent ],
+        imports: [
+            BrowserModule,
+            NgbModule,
+            FormsModule,
+            CommonModule,
+            AgmCoreModule.forRoot({
+                apiKey: config.googleMapsApiKey,
+            }),
+            HttpClientModule
+        ],
         providers: [ NgbActiveModal ]
 
     })

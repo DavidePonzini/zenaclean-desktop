@@ -12,6 +12,12 @@ import {FormsModule} from '@angular/forms';
 import {AgmCoreModule} from '@agm/core';
 import config from '../../config.secret';
 import {HttpClientModule} from '@angular/common/http';
+import {NavbarComponent} from './navbar/navbar.component';
+import {HomepageComponent} from './homepage/homepage.component';
+import {PopupMultipleComponent} from './popup-multiple/popup-multiple.component';
+import {SignupFormComponent} from './signup-form/signup-form.component';
+import {LoginFormComponent} from './login-form/login-form.component';
+import {LogoutComponent} from './logout/logout.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -24,6 +30,12 @@ describe('AppComponent', () => {
             AddReportComponent,
             SingleReportViewComponent,
             PopupComponent,
+            PopupMultipleComponent,
+            SignupFormComponent,
+            LoginFormComponent,
+            NavbarComponent,
+            HomepageComponent,
+            LogoutComponent
         ],
         imports: [
             BrowserModule,
