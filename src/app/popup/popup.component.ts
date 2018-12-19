@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {APIService} from '../services/api.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class PopupComponent implements OnInit {
   @Input() btnColor;
   @Input() btnBorderColor;
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal, private apiService: APIService) { }
 
   ngOnInit() {
 
@@ -29,10 +30,10 @@ export class PopupComponent implements OnInit {
 
   performAction() {
     if (this.btnText === 'Registrati') {
-        // location.href = '/';
-    } else {
-        this.activeModal.dismiss('Close button');
+        this.apiService.showDemo(false);
     }
+
+    this.activeModal.dismiss('Close button');
   }
 
 }

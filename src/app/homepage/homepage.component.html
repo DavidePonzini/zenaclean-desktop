@@ -1,38 +1,20 @@
-<div [ngSwitch]="show">
-
-    <div *ngSwitchCase="false" class="row aligner">
-        <div class="col-md-6 main text-center">
-            <p>
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum."
-            </p>
-            <button id="demoButton" type="submit" class="btn btn-primary btn-lg" (click)="showDemo()">Prova ora</button>
-        </div>
-        <div class="col-md-6">
-            <app-signup-form></app-signup-form>
-        </div>
+<div *ngIf="!showDemo(); else other_content" class="row aligner">
+    <div class="col-md-6 main text-center">
+        <p>
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+            deserunt mollit anim id est laborum."
+        </p>
+        <button id="demoButton" type="submit" class="btn btn-primary btn-lg" (click)="setDemo()">Prova ora</button>
     </div>
-
-    <div *ngSwitchCase="true">
-        <app-reports-board></app-reports-board>
-    </div>
-
-    <div *ngSwitchDefault class="row aligner">
-        <div class="col-md-6 main text-center">
-            <p>
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum."
-            </p>
-            <button id="demoButton2" type="submit" class="btn btn-primary btn-lg" (click)="showDemo()">Prova ora</button>
-        </div>
-        <div class="col-md-6">
-            <app-signup-form></app-signup-form>
-        </div>
+    <div class="col-md-6">
+        <app-signup-form></app-signup-form>
     </div>
 </div>
+<ng-template #other_content>
+    <div>
+        <app-reports-board></app-reports-board>
+    </div>
+</ng-template>

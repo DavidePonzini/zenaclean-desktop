@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {APIService} from '../services/api.service';
 
 @Component({
   selector: 'app-homepage',
@@ -7,16 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  show = false
-
-  constructor() { }
+  constructor(private apiService: APIService) {
+  }
 
   ngOnInit() {
 
   }
 
   showDemo() {
-    this.show = !this.show;
+    return this.apiService.demo;
+  }
+
+  setDemo() {
+      this.apiService.showDemo(true);
   }
 
 }
