@@ -34,6 +34,9 @@
           <input type="password" class="form-control" [(ngModel)]="model.password" (change)="checkLength()" name="password" id="password"
                  required placeholder="Inserisci la Password"/>
         </div>
+        <div *ngIf="passwordLengthError;">
+          <p id = "pwdLengthError" class = "password_error" style="color: red">Lunghezza minima: 8 caratteri.</p>
+        </div>
       </div>
     </div>
 
@@ -47,6 +50,9 @@
                  (change)="checkEqual()" name="confirm" id="confirm" required placeholder="Conferma la Password"/>
           <!-- <span class="text-error" data-ng-show="addRelation.submitted && addRelation.FirstName.$invalid">First Name is required</span><br/>
     -->
+        </div>
+        <div *ngIf="passwordMatchingError && this.model.confirm.length > 0;">
+          <p id = "pwdMatchingError" class = "password_error" style="color: red">Le password non combaciano.</p>
         </div>
       </div>
     </div>
