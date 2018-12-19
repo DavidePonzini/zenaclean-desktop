@@ -1,4 +1,5 @@
 import { AppPagePo } from './PageObjects/app.po';
+import * as WebRequest from 'web-request';
 const path = require('path');
 
 describe('workspace-project App', () => {
@@ -19,6 +20,12 @@ describe('workspace-project App', () => {
         page = new AppPagePo();
     });
 
+
+    afterEach(async () => {
+        const result = await WebRequest.get('http://webdev.dibris.unige.it:8080/reports/cleanup');
+        // console.log(result.content);
+    });
+
     it('should check for confirm popUp is not opened if title is missing', async () => {
         await page.navigateTo();
 
@@ -27,7 +34,7 @@ describe('workspace-project App', () => {
         // TODO set location: via Dodecaneso 35
 
         await form.writeTitle('');
-        await form.writeDescription('e2e Test');
+        await form.writeDescription('Test');
         await form.clickConfirmButton();
 
         expect(await form.isConfirmPopUpOpened()).toBeFalsy();
@@ -40,7 +47,7 @@ describe('workspace-project App', () => {
 
         // TODO set location: via Dodecaneso 35
 
-        await form.writeTitle('e2e Test');
+        await form.writeTitle('Test');
         await form.writeDescription('');
         await form.clickConfirmButton();
 
@@ -52,8 +59,8 @@ describe('workspace-project App', () => {
 
         const form = await page.clickAddReport();
 
-        await form.writeTitle('2e2 Test');
-        await form.writeDescription('e2e Test');
+        await form.writeTitle('Test');
+        await form.writeDescription('Test');
 
         const popup = await form.submitForm();
 
@@ -66,8 +73,8 @@ describe('workspace-project App', () => {
         const reportTitle = await page.getTitleFirstListElement();
         const reportDescription = await page.getDescriptionFirstListElement();
 
-        expect(await reportTitle).toEqual('Problema stradale');
-        expect(await reportDescription).toEqual('In mezzo alla strada');
+        expect(await reportTitle).toEqual('divano abbandonato');
+        expect(await reportDescription).toEqual('fortunatamente e` molto comodo!');
     });
 
     it ('should appear popup for single report view, when i click on list element', async() => {
@@ -94,7 +101,7 @@ describe('workspace-project App', () => {
         const randomDescription = getRandomString();
 
         await form.writeTitle(randomTitle);
-        await form.writeDescription(randomDescription);
+        await form.writeDescription('Test');
 
         const popup = await form.submitForm();
 
@@ -104,10 +111,10 @@ describe('workspace-project App', () => {
 
         // check that string is present in list
         const reportTitle = await page.getMyReportTitle(randomTitle);
-        const reportDescription = await page.getMyReportDescription(randomDescription);
+        const reportDescription = await page.getMyReportDescription('Test');
 
         expect(await reportTitle).toEqual(randomTitle);
-        expect(await reportDescription).toEqual(randomDescription);
+        expect(await reportDescription).toEqual('Test');
 
     });
 
@@ -116,8 +123,8 @@ describe('workspace-project App', () => {
 
         const form = await page.clickAddReport();
 
-        await form.writeTitle('2e2 Test adding url');
-        await form.writeDescription('e2e Test adding url');
+        await form.writeTitle('Test');
+        await form.writeDescription('Test');
         const fileToUpload = '../imgTest/big_img.jpg',
             absolutePath = path.resolve(__dirname, fileToUpload);
         await form.uploadPitcure(absolutePath);
@@ -132,8 +139,8 @@ describe('workspace-project App', () => {
 
         const form = await page.clickAddReport();
 
-        await form.writeTitle('2e2 Test adding url');
-        await form.writeDescription('e2e Test adding url');
+        await form.writeTitle('Test');
+        await form.writeDescription('Test');
         const fileToUpload = '../imgTest/not_a_image.txt',
             absolutePath = path.resolve(__dirname, fileToUpload);
         await form.uploadPitcure(absolutePath);
