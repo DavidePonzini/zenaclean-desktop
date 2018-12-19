@@ -75,6 +75,18 @@ export class APIService {
         });
     }
 
+    checkSession(){
+        return this.httpClient.post(`${this.API_URL + 'users2/check'}`, {}, {
+            withCredentials: true
+        });
+    }
+
+    logoutSession(){
+        return this.httpClient.post(`${this.API_URL + 'users2/logout'}`, {}, {
+            withCredentials: true
+        });
+    }
+
 }
 
 const composeAddress = (json) => {
