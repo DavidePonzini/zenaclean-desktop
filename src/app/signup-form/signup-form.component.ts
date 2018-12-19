@@ -66,8 +66,8 @@ export class SignupFormComponent implements OnInit {
             }
             else if (res['status'] === 'error') {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                popup.componentInstance.message = res['error'];
                 popup.componentInstance.btnText = 'OK';
-                popup.componentInstance.btnColor = 'red';
                 /*popup.componentInstance.btnColor = 'dodgerblue';
                   popup.componentInstance.btnBorderColor = 'white';*/
             }
