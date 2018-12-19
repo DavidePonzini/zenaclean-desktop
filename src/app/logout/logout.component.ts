@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {APIService} from '../services/api.service';
 
 @Component({
   selector: 'app-logout',
@@ -7,13 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: APIService) { }
 
   ngOnInit() {
   }
 
   performAction() {
-      location.href = '/';
+      // location.href = '/';
+      this.apiService.setAuth(false);
+      this.apiService.setUser(null);
   }
 
 }

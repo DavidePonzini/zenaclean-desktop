@@ -7,7 +7,7 @@
           <div class="input-group-prepend">
               <span class="input-group-text"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
             </div>
-            <input type="email" class="form-control" name="email" id="login-email" required placeholder="Inserisci l'Email"/>
+            <input type="email" class="form-control" [(ngModel)]="model.email" name="email" id="login-email" required placeholder="Inserisci l'Email"/>
         </div>
       </div>
 
@@ -16,7 +16,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-key" aria-hidden="true"></i></span>
           </div>
-          <input type="password" class="form-control" name="password" id="login-password" required placeholder="Inserisci la Password"/>
+          <input type="password" class="form-control" [(ngModel)]="model.password" name="password" id="login-password" required placeholder="Inserisci la Password"/>
         </div>
       </div>
 

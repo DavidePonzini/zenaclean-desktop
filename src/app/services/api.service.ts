@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from '../../../config.secret';
 import {Observable, Subject} from 'rxjs';
-import {fixtureMarkers} from './fixture.api.service';
 
 @Injectable({
     providedIn:  'root'
@@ -13,8 +12,22 @@ export class APIService {
     API_URL  = config.apiUrl;
     GOOGLE_MAPS_API_KEY = config.googleMapsApiKey;
     _listners = new Subject<any>();
+    logged = false;
+    user: string;
 
     constructor(private  httpClient:  HttpClient) {}
+
+    isLogged() {
+        return this.logged;
+    }
+
+    setAuth(auth) {
+        this.logged = auth;
+    }
+
+    setUser(user) {
+        this.user = user;
+    }
 
     listen(): Observable<any> {
         return this._listners.asObservable();
@@ -46,6 +59,10 @@ export class APIService {
 
     postSignup(body) {
         return this.httpClient.post(`${this.API_URL + 'users/register'}`, body);
+    }
+
+    postLogin(body) {
+        return this.httpClient.post(`${this.API_URL + 'users/login'}`, body);
     }
 
 }

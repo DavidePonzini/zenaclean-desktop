@@ -26,7 +26,6 @@ export class MapComponent implements OnInit {
     newReport: any;
     tempReports: any;
     draggable = false;
-    isLogged = true;
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.listen().subscribe((data) => {
@@ -63,7 +62,7 @@ export class MapComponent implements OnInit {
     }
 
     loginCheck() {
-        if (this.isLogged) {
+        if (this.apiService.isLogged()) {
             this.setMarker();
         } else {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
