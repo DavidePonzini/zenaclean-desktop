@@ -60,15 +60,19 @@ export class APIService {
     }
 
     postReports(body) {
-        return this.httpClient.post(`${this.API_URL + 'reports'}`, body);
+        return this.httpClient.post(`${this.API_URL + 'reports2'}`, body, {
+            withCredentials: true
+        });
     }
 
     postSignup(body) {
-        return this.httpClient.post(`${this.API_URL + 'users/register'}`, body);
+        return this.httpClient.post(`${this.API_URL + 'users2/register'}`, body);
     }
 
     postLogin(body) {
-        return this.httpClient.post(`${this.API_URL + 'users/login'}`, body);
+        return this.httpClient.post(`${this.API_URL + 'users2/login'}`, body, {
+            withCredentials: true
+        });
     }
 
 }
