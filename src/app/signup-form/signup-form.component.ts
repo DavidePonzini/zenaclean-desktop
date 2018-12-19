@@ -62,6 +62,7 @@ export class SignupFormComponent implements OnInit {
                 popup.componentInstance.btnText = 'OK';
                 /*popup.componentInstance.btnColor = 'dodgerblue';
                   popup.componentInstance.btnBorderColor = 'white';*/
+                this.submitted = true;
             }
             else if (res['status'] === 'error') {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
@@ -80,6 +81,5 @@ export class SignupFormComponent implements OnInit {
                   console.error(error);
               } );
     }
-    this.submitted = true;
   }
 }
