@@ -54,23 +54,23 @@ export class SignupFormComponent implements OnInit {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Registrazione effettuata con successo';
                 popup.componentInstance.btnText = 'OK';
-                popup.componentInstance.btnColor = 'green';
-                popup.componentInstance.btnBorderColor = 'green';
+                /*popup.componentInstance.btnColor = 'dodgerblue';
+                  popup.componentInstance.btnBorderColor = 'white';*/
             }
             else if (res['status'] === 'error') {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.btnText = 'OK';
                 popup.componentInstance.btnColor = 'red';
-                popup.componentInstance.btnBorderColor = 'red';
-                popup.componentInstance.message = res['error'];
+                /*popup.componentInstance.btnColor = 'dodgerblue';
+                  popup.componentInstance.btnBorderColor = 'white';*/
             }
             },
               error => {
                   const popup = this.modalService.open(PopupComponent, {size: 'sm'});
                   popup.componentInstance.message = 'Errore durante invio, riprova.';
                   popup.componentInstance.btnText = 'OK';
-                  popup.componentInstance.btnColor = 'red';
-                  popup.componentInstance.btnBorderColor = 'red';
+                  /*popup.componentInstance.btnColor = 'dodgerblue';
+                  popup.componentInstance.btnBorderColor = 'white';*/
                   console.error(error);
               } );
     }

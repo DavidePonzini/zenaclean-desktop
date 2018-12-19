@@ -1,8 +1,8 @@
 <header class="navbar">
-      <a class="navbar-brand" href="/">
-          <img src="../../assets/logo2.png" style="width: 40px;">
+      <div class="navbar-brand">
+          <img src="../../assets/logo2.png" style="width: 40px;" (click)="hideDemo()">
         Zenaclean
-      </a>
+      </div>
 
       <div *ngIf="!isLogged(); else other_content" class="login-form">
         <app-login-form></app-login-form>

@@ -37,16 +37,16 @@ export class LoginFormComponent implements OnInit {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Email e/o password errati';
                 popup.componentInstance.btnText = 'OK';
-                popup.componentInstance.btnColor = 'red';
-                popup.componentInstance.btnBorderColor = 'red';
+                /*popup.componentInstance.btnColor = 'dodgerblue';
+                  popup.componentInstance.btnBorderColor = 'white';*/
             }
           },
           error => {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Errore durante invio, riprova.';
             popup.componentInstance.btnText = 'OK';
-            popup.componentInstance.btnColor = 'red';
-            popup.componentInstance.btnBorderColor = 'red';
+              /*popup.componentInstance.btnColor = 'dodgerblue';
+                popup.componentInstance.btnBorderColor = 'white';*/
             console.error(error);
           } );
     }

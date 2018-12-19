@@ -8,17 +8,15 @@ import {APIService} from '../services/api.service';
 })
 export class NavbarComponent implements OnInit {
 
-    navbarOpen = false;
-
     constructor(private apiService: APIService) {
-    }
-
-    toggleNavbar() {
-        this.navbarOpen = !this.navbarOpen;
     }
 
     isLogged() {
         return this.apiService.isLogged();
+    }
+
+    hideDemo() {
+        this.apiService.showDemo(false);
     }
 
     ngOnInit() {

@@ -6,8 +6,6 @@ import {AddReportComponent} from '../add-report/add-report.component';
 import {PopupComponent} from '../popup/popup.component';
 import dateUtils from '../utils/date-utils';
 
-declare var L;
-
 // @ts-ignore
 @Component({
   selector: 'app-map',
@@ -26,6 +24,12 @@ export class MapComponent implements OnInit {
     newReport: any;
     tempReports: any;
     draggable = false;
+
+    protected map: any;
+
+    protected mapReady(map) {
+        this.map = map;
+    }
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.listen().subscribe((data) => {
@@ -68,8 +72,8 @@ export class MapComponent implements OnInit {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Occore essere registrati per compiere questa azione.';
             popup.componentInstance.btnText = 'Registrati';
-            popup.componentInstance.btnColor = 'green';
-            popup.componentInstance.btnBorderColor = 'green';
+            /*popup.componentInstance.btnColor = 'dodgerblue';
+              popup.componentInstance.btnBorderColor = 'white';*/
         }
     }
 
@@ -111,9 +115,8 @@ export class MapComponent implements OnInit {
     cancel() {
         this.draggable = false;
         this.reports = this.tempReports;
-        this.initialLatitude = this.mapLatitude;
-        this.initialLongitude = this.mapLongitude;
-        this.zoom = 12;
+        this.map.setCenter({lat: this.initialLatitude , lng: this.initialLongitude});
+        this.map.zoom = this.zoom;
     }
 
     centerChange(event: any) {
@@ -131,8 +134,8 @@ export class MapComponent implements OnInit {
 
     markerMoved(event: any) {
         if (event) {
-            this.newReport.initialLatitude = event.coords.lat;
-            this.newReport.initialLongitude = event.coords.lng;
+            this.newReport.latitude = event.coords.lat;
+            this.newReport.longitude = event.coords.lng;
             const that = this;
             this.apiService.getAddress(event.coords.lat, event.coords.lng).subscribe((address) => {
                 that.newReport.address = address;
