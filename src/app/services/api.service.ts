@@ -14,6 +14,7 @@ export class APIService {
     _listners = new Subject<any>();
     logged = false;
     user: string;
+    demo = false;
 
     constructor(private  httpClient:  HttpClient) {}
 
@@ -28,6 +29,11 @@ export class APIService {
     setUser(user) {
         this.user = user;
     }
+
+    showDemo(demo) {
+        this.demo = demo;
+    }
+
 
     listen(): Observable<any> {
         return this._listners.asObservable();
