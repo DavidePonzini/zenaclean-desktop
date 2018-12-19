@@ -4,7 +4,12 @@
         Zenaclean
       </a>
 
-      <div class="login-form">
+      <div *ngIf="!isLogged(); else other_content" class="login-form">
         <app-login-form></app-login-form>
       </div>
+      <ng-template #other_content>
+        <div>
+            <app-logout></app-logout>
+        </div>
+      </ng-template>
 </header>

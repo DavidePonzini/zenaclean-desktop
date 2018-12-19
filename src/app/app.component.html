@@ -1,9 +1,15 @@
 <div class="container" style="width:100%;">
     <app-navbar></app-navbar>
 
-    <div>
+    <div *ngIf="!isLogged(); else other_content">
         <app-homepage></app-homepage>
     </div>
+    <ng-template #other_content>
+        <div>
+            <app-reports-board></app-reports-board>
+        </div>
+    </ng-template>
+
 
     <footer class="footer text-center">
         <p>Zenaclean copyrights</p>

@@ -30,9 +30,15 @@ export class LoginFormComponent implements OnInit {
 
       this.apiService.postLogin(dataLogin).subscribe(
           res => {
-            if (res['status']) {
-              // redirect to page
-              console.log(res['id']);
+            if (res['status'] === 'ok' ) {
+              this.apiService.setAuth(true);
+              this.apiService.setUser(res['id']);
+            } else {
+                const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                popup.componentInstance.message = 'Email e/o password errati';
+                popup.componentInstance.btnText = 'OK';
+                popup.componentInstance.btnColor = 'red';
+                popup.componentInstance.btnBorderColor = 'red';
             }
           },
           error => {

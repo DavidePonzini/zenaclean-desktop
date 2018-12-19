@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {APIService} from '../services/api.service';
 
 @Component({
     selector: 'app-navbar',
@@ -9,11 +10,15 @@ export class NavbarComponent implements OnInit {
 
     navbarOpen = false;
 
-    constructor() {
+    constructor(private apiService: APIService) {
     }
 
     toggleNavbar() {
         this.navbarOpen = !this.navbarOpen;
+    }
+
+    isLogged() {
+        return this.apiService.isLogged();
     }
 
     ngOnInit() {
