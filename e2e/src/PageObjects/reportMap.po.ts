@@ -39,4 +39,12 @@ export class ReportMapPagePo {
     async getMyReportDescription(expectedDescription) {
         return await element.all(by.cssContainingText('.report_description', expectedDescription)).get(0).getText();
     }
+
+    async isMapPresent() {
+        return await element(by.tagName('agm-map')).isPresent();
+    }
+
+    async isLogoutButtonPresent() {
+        return await element(by.id('logoutButton')).isPresent();
+    }
 }

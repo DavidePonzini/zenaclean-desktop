@@ -28,7 +28,7 @@ describe('workspace-project App', () => {
 
     it('should check for confirm popUp is not opened if title is missing', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.goToDemo();
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
         const form = await reportMapPage.clickAddReport();
 
@@ -38,12 +38,12 @@ describe('workspace-project App', () => {
         await form.writeDescription('Test');
         await form.clickConfirmButton();
 
-        expect(await form.isConfirmPopUpOpened()).toBeFalsy();
+        expect(await form.isConfirmPopUpOpened()).toBe(false);
     });
 
     it('should check for confirm popUp is not opened if description is missing', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.goToDemo();
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
         const form = await reportMapPage.clickAddReport();
         // TODO set location: via Dodecaneso 35
@@ -52,12 +52,12 @@ describe('workspace-project App', () => {
         await form.writeDescription('');
         await form.clickConfirmButton();
 
-        expect(await form.isConfirmPopUpOpened()).toBeFalsy();
+        expect(await form.isConfirmPopUpOpened()).toBe(false);
     });
 
     it('should display a message when adding a new report', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.goToDemo();
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
         const form = await reportMapPage.clickAddReport();
 
@@ -71,7 +71,7 @@ describe('workspace-project App', () => {
 
     it ('should appear particular existing report in list', async() => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.goToDemo();
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
         const reportTitle = await reportMapPage.getTitleFirstListElement();
         const reportDescription = await reportMapPage.getDescriptionFirstListElement();
@@ -82,7 +82,7 @@ describe('workspace-project App', () => {
 
     it ('should appear popup for single report view, when i click on list element', async() => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.goToDemo();
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
         const reportTitle = await reportMapPage.getTitleFirstListElement();
         const reportDescription = await reportMapPage.getDescriptionFirstListElement();
@@ -98,7 +98,7 @@ describe('workspace-project App', () => {
 
     it ('should see a report in the list that i have just added', async() => {
         await homePage.navigateTo();
-        let reportMapPage = await homePage.goToDemo();
+        let reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
         const form = await reportMapPage.clickAddReport();
 
@@ -125,7 +125,7 @@ describe('workspace-project App', () => {
 
     it('should display an error message when adding a url too big', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.goToDemo();
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
         const form = await reportMapPage.clickAddReport();
 
@@ -142,7 +142,7 @@ describe('workspace-project App', () => {
 
     it('should display an error message when adding a file that is not a image', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.goToDemo();
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
         const form = await reportMapPage.clickAddReport();
 
@@ -155,5 +155,32 @@ describe('workspace-project App', () => {
         const popup = form.getPopupError();
 
         expect(await popup.getMessageText()).toEqual('Formato immagine non corretto.');
+    });
+
+    it('should open the map demo page when clicking on demo button', async () => {
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.goToDemo();
+
+
+        expect(await reportMapPage.isMapPresent()).toBe(true);
+    });
+
+    it('should login when providing correct credentials', async () => {
+        await homePage.navigateTo();
+        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+
+        expect(await reportMapPage.isLogoutButtonPresent()).toBe(true);
+    });
+
+    it('should not login and display an error message when providing wrong email', async () => {
+        await homePage.navigateTo();
+        const popup = await homePage.doWrongLogin('wrong@email.com', 'password');
+        expect(await popup.getMessageText()).toEqual('Email e/o password errati');
+    });
+
+    it('should not login and display an error message when providing wrong password', async () => {
+        await homePage.navigateTo();
+        const popup = await homePage.doWrongLogin('indirizzo@email.com', 'wrongpassword');
+        expect(await popup.getMessageText()).toEqual('Email e/o password errati');
     });
 });
