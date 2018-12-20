@@ -15,11 +15,30 @@ export const fixtureMarkers: any = [{title: 'Test',
 export class FixtureApiService {
 
     private static _listners: Subject<any>;
+    private static logged = false;
+    private static user: string;
+    private static demo = false;
 
     constructor(myobservable: Observable<any>) {}
 
+    static isLogged() {
+        return this.logged;
+    }
+
+    static setAuth(auth) {
+        this.logged = auth;
+    }
+
+    static setUser(user) {
+        this.user = user;
+    }
+
+    static showDemo(demo) {
+        this.demo = demo;
+    }
+
     static listen(): Observable<any> {
-        return this._listners.asObservable();
+        return; // this._listners.asObservable();
     }
 
     static update(data: any) {
@@ -32,11 +51,6 @@ export class FixtureApiService {
         });
     }
 
-    static getAddress(lat, lng) {
-        // return this.httpClient
-        //  .get('https://maps.googleapis.com/maps/api/geocode/json?address='
-        //  + lat + ',' + lng + '&key=' + this.GOOGLE_MAPS_API_KEY);
-    }
 
     static postReports(body) {
         return true;
@@ -44,3 +58,24 @@ export class FixtureApiService {
 
 
 }
+
+const composeAddress = (json) => {
+    const obj = json.results[0].address_components;
+    const inCaseOfFailure = 'Indirizzo sconosciuto';
+    try {
+        const rn = obj.find(component => component.types.includes('route'));
+        if (rn == null) {
+            return obj.find(component => component.types.includes('political')).short_name;
+        }
+        const roadName = rn.short_name;
+        if (roadName === 'Unnamed Road') {
+            return inCaseOfFailure;
+        }
+        const sn = obj.find(component => component.types.includes('street_number'));
+        const streetNumber = sn == null ? '' : sn.short_name;
+        return roadName + ' ' + streetNumber;
+    } catch (e) {
+        console.error(e);
+        return inCaseOfFailure;
+    }
+};

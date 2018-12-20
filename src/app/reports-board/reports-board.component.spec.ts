@@ -9,6 +9,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AgmCoreModule} from '@agm/core';
 import config from '../../../config.secret';
 import {HttpClientModule} from '@angular/common/http';
+import {NavbarComponent} from '../navbar/navbar.component';
+import {HomepageComponent} from '../homepage/homepage.component';
+import {LoginFormComponent} from '../login-form/login-form.component';
+import {LogoutComponent} from '../logout/logout.component';
+import {SignupFormComponent} from '../signup-form/signup-form.component';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 describe('ReportsBoardComponent', () => {
   let component: ReportsBoardComponent;
@@ -20,11 +27,18 @@ describe('ReportsBoardComponent', () => {
             AppComponent,
             MapComponent,
             ReportsListComponent,
-            ReportsBoardComponent
+            ReportsBoardComponent,
+            NavbarComponent,
+            HomepageComponent,
+            LoginFormComponent,
+            LogoutComponent,
+            SignupFormComponent
         ],
         imports: [
             BrowserModule,
             NgbModule,
+            FormsModule,
+            CommonModule,
             AgmCoreModule.forRoot({
                 apiKey: config.googleMapsApiKey,
             }),

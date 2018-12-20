@@ -26,11 +26,7 @@ describe('SignupFormComponent', () => {
         ],
         providers: [ NgbActiveModal ]
     })
-    .compileComponents(); /*.then(() => {
-        fixture = TestBed.createComponent(SignupFormComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });*/
+    .compileComponents();
   }));
 
     beforeEach(() => {
@@ -39,12 +35,6 @@ describe('SignupFormComponent', () => {
         fixture.detectChanges();
     });
 
-/*
-  afterEach(function() {
-      if (this.fixture) {
-          this.fixture.destroy();
-      }
-  });*/
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -53,19 +43,6 @@ describe('SignupFormComponent', () => {
   it('should have empty email', () => {
     expect(component.model.email).toEqual('');
   });
-/*
-    it('no submit with empty ssn', async(() => {
-        component.model.email = 't@test.com';
-        component.model.ssn = '';
-        component.model.password = '12345678';
-        component.model.confirm = '12345678';
-        component.onSubmit();
-        fixture.whenStable().then(() => {
-            fixture.detectChanges();
-            expect(component.submitted).toEqual(false);
-        });
-        component.ngOnInit();
-    }));*/
 
     it('no submit with empty email', () => {
         component.model.email = '';
