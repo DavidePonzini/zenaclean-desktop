@@ -58,11 +58,16 @@ export class SignupFormComponent implements OnInit {
 
             if (res['status'] === 'ok') {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-                popup.componentInstance.message = 'Registrazione effettuata con successo';
+                popup.componentInstance.message = 'Registrazione effettuata con successo, effettua il login in alto a destra';
                 popup.componentInstance.btnText = 'OK';
                 /*popup.componentInstance.btnColor = 'dodgerblue';
                   popup.componentInstance.btnBorderColor = 'white';*/
                 this.submitted = true;
+                this.model.ssn = '';
+                this.model.email = '';
+                this.model.password = '';
+                this.model.confirm = '';
+
             }
             else if (res['status'] === 'error') {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});

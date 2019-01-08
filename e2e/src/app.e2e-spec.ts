@@ -200,7 +200,7 @@ describe('workspace-project App', () => {
 
         const popup = await signupPage.clickOnSignup();
 
-        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo');
+        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(email, password);
@@ -219,7 +219,7 @@ describe('workspace-project App', () => {
 
         const popup = await signupPage.clickOnSignup();
 
-        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo');
+        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(email, password);
@@ -241,7 +241,7 @@ describe('workspace-project App', () => {
 
         let popup = await signupPage.clickOnSignup();
 
-        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo');
+        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
         /* Second registration  */
         SSN = 'ABCDEF00A99A000U';
@@ -267,7 +267,7 @@ describe('workspace-project App', () => {
 
         let popup = await signupPage.clickOnSignup();
 
-        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo');
+        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
         /* third registration  */
         email =  'test2@test.com';
