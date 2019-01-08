@@ -12,8 +12,7 @@ import dateUtils from '../utils/date-utils';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
-
+export class MapComponent implements OnInit{
     zoom = 12;
     initialLatitude = 44.4032971;
     initialLongitude = 8.9701358;
@@ -31,25 +30,24 @@ export class MapComponent implements OnInit {
         this.map = map;
     }
 
+    ngOnInit() {
+        this.apiService.getReports(44.4741594739302, 9.082056335564403, 44.332348787411924, 8.858215264435557)
+            .subscribe((data: object) => {
+                this.reports = Object.values(data);
+                this.reports.forEach(function(report) {
+                    const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
+                    report.date = date;
+                    report.time = time;
+                });
+            });
+    }
+
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.listen().subscribe((data) => {
             this.reports.push(data);
         });
     }
 
-
-    ngOnInit() {
-
-        this.apiService.getReports().subscribe((data: object) => {
-            this.reports = Object.values(data);
-            this.reports.forEach(function(report) {
-                const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
-                report.date = date;
-                report.time = time;
-            });
-        });
-
-    }
     closeOthers(info) {
         if (this.lastOpen != null) {
             this.lastOpen.close();
@@ -78,7 +76,6 @@ export class MapComponent implements OnInit {
     }
 
     setMarker() {
-
         this.tempReports = this.reports;
         this.reports = [];
         this.newReport = {
@@ -95,15 +92,16 @@ export class MapComponent implements OnInit {
             that.reports.push(that.newReport);
             that.draggable = true;
         });
-
     }
 
     formView() {
-
-        const geolocation = {latitude: this.newReport.latitude,
-                        longitude: this.newReport.longitude,
-            address: this.newReport.address
+        const geolocation = {
+            latitude: this.newReport.latitude,
+            longitude: this.newReport.longitude,
+            address: this.newReport.address,
         };
+
+        console.log(geolocation);
 
         const modalRef = this.modalService.open(AddReportComponent, {size: 'lg'});
         modalRef.componentInstance.geolocation = geolocation;
@@ -142,13 +140,18 @@ export class MapComponent implements OnInit {
             });
         }
     }
+
+    getMapBoundaries() {
+        const bounds = this.map.getBounds();
+
+        const ne = bounds.getNorthEast();
+        const sw = bounds.getSouthWest();
+
+        return {
+            ne_lat: ne.lat(),
+            ne_lng: ne.lng(),
+            sw_lat: sw.lat(),
+            sw_lng: sw.lng()
+        };
+    }
 }
-
-
-
-
-
-
-
-
-

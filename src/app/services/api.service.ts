@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import config from '../../../config.secret';
 import {Observable, Subject} from 'rxjs';
 
@@ -44,8 +44,15 @@ export class APIService {
         this._listners.next(data);
     }
 
-    getReports() {
-        return this.httpClient.get(`${this.API_URL + 'reports'}`);
+    getReports(ne_lat, ne_lng, sw_lat, sw_lng) {
+        let params = new HttpParams();
+
+        params = params.append('ne_lat', ne_lat);
+        params = params.append('ne_lng', ne_lng);
+        params = params.append('sw_lat', sw_lat);
+        params = params.append('sw_lng', sw_lng);
+
+        return this.httpClient.get(`${this.API_URL + 'reports'}`, {params: params});
     }
 
     getAddress(lat, lng) {

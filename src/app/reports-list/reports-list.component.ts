@@ -24,13 +24,14 @@ export class ReportsListComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.apiService.getReports().subscribe((data: object) => {
-          this.reports = Object.values(data);
-          this.reports.forEach(function(report) {
-              const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
-              report.date = date;
-              report.time = time;
-          });
+      this.apiService.getReports(44.4741594739302, 9.082056335564403, 44.332348787411924, 8.858215264435557)
+          .subscribe((data: object) => {
+              this.reports = Object.values(data);
+              this.reports.forEach(function(report) {
+                  const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
+                  report.date = date;
+                  report.time = time;
+              });
           if (this.reports.length === 0) {
               this.resultString = 'Nessuna segnalazione trovata';
           }
