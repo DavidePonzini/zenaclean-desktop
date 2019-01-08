@@ -3,6 +3,8 @@ import {NewSignup} from './new-signup';
 import {APIService} from '../services/api.service';
 import {PopupComponent} from '../popup/popup.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddReportComponent} from '../add-report/add-report.component';
+import {GdprComponent} from '../gdpr/gdpr.component';
 
 @Component({
   selector: 'app-signup-form',
@@ -21,6 +23,10 @@ export class SignupFormComponent implements OnInit {
   ngOnInit() {
       this.model = new NewSignup('', '', '', '');
       this.submitted = false;
+  }
+
+  openGDPR() {
+        const modalRef = this.modalService.open(GdprComponent, {size: 'lg'});
   }
 
   checkLength() {

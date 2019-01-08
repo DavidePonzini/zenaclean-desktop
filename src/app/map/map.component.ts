@@ -96,7 +96,7 @@ export class MapComponent implements OnInit {
             that.draggable = true;
         });
 
-        }
+    }
 
     formView() {
 

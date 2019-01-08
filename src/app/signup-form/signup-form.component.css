@@ -16,6 +16,16 @@
     margin-bottom: 26px;
 }
 
+.gdpr-link {
+    color: white;
+    text-decoration: underline;
+
+}
+
+.gdpr-link:hover {
+    color: dodgerblue;
+}
+
 label{
     margin-bottom: 15px;
 }
@@ -55,4 +65,5 @@ input::-webkit-input-placeholder {
 
 .form-check-label {
     color: white;
+    margin-bottom: 0px;
 }

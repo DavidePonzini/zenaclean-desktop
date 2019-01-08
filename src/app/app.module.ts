@@ -20,6 +20,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LogoutComponent } from './logout/logout.component';
+import { GdprComponent } from './gdpr/gdpr.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { LogoutComponent } from './logout/logout.component';
         LoginFormComponent,
         NavbarComponent,
         HomepageComponent,
-        LogoutComponent
+        LogoutComponent,
+        GdprComponent
     ],
     imports: [
         BrowserModule,
@@ -47,7 +49,7 @@ import { LogoutComponent } from './logout/logout.component';
       }),
       HttpClientModule
     ],
-    entryComponents: [AddReportComponent, SingleReportViewComponent, PopupComponent, PopupMultipleComponent],
+    entryComponents: [AddReportComponent, SingleReportViewComponent, PopupComponent, PopupMultipleComponent, GdprComponent],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent]
 })

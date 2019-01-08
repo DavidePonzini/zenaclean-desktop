@@ -38,7 +38,6 @@ export class ReportsListComponent implements OnInit {
 
   }
   open(report) {
-      console.log(report);
     const modalRef = this.modalService.open(SingleReportViewComponent, {size: 'lg'});
     modalRef.componentInstance.report = report;
   }
