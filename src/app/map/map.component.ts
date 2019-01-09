@@ -101,8 +101,6 @@ export class MapComponent implements OnInit{
             address: this.newReport.address,
         };
 
-        console.log(geolocation);
-
         const modalRef = this.modalService.open(AddReportComponent, {size: 'lg'});
         modalRef.componentInstance.geolocation = geolocation;
 
