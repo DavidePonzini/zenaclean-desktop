@@ -40,6 +40,14 @@ export class ReportMapPagePo {
         return await element.all(by.className('report_description')).get(0).getText();
     }
 
+    async getTitleLastListElement() {
+        return await element.all(by.className('report_title')).last().getText();
+    }
+
+    async getDescriptionLastListElement() {
+        return await element.all(by.className('report_description')).last().getText();
+    }
+
     async getMyReportTitle(expectedTitle) {
         return await element.all(by.cssContainingText('.report_title', expectedTitle)).get(0).getText();
     }

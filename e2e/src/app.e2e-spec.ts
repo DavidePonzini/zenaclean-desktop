@@ -80,8 +80,8 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
-        const reportTitle = await reportMapPage.getTitleFirstListElement();
-        const reportDescription = await reportMapPage.getDescriptionFirstListElement();
+        const reportTitle = await reportMapPage.getTitleLastListElement();
+        const reportDescription = await reportMapPage.getDescriptionLastListElement();
 
         expect(await reportTitle).toEqual('divano abbandonato');
         expect(await reportDescription).toEqual('fortunatamente e` molto comodo!');

@@ -19,7 +19,7 @@ export class ReportsListComponent implements OnInit {
   constructor(private apiService: APIService, private modalService: NgbModal) {
 
       this.apiService.listen().subscribe((data) => {
-          this.reports.push(data);
+          this.reports.unshift(data);
       });
   }
 

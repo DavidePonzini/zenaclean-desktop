@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GdprComponent } from './gdpr.component';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 describe('GdprComponent', () => {
   let component: GdprComponent;
@@ -8,7 +9,8 @@ describe('GdprComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GdprComponent ]
+      declarations: [ GdprComponent ],
+      providers: [ NgbActiveModal ]
     })
     .compileComponents();
   }));

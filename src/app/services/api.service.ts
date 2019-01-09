@@ -40,7 +40,7 @@ export class APIService {
     }
 
     update(data: any) {
-        console.log(data);
+        // console.log(data);
         this._listners.next(data);
     }
 
