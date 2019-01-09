@@ -66,6 +66,10 @@ export class APIService {
         });
     }
 
+    checkSession() {
+        return this.httpClient.post(`${this.API_URL + 'users/check'}`, {}, {withCredentials: true});
+    }
+
     postReports(body) {
         return this.httpClient.post(`${this.API_URL + 'reports'}`, body);
     }
@@ -75,7 +79,11 @@ export class APIService {
     }
 
     postLogin(body) {
-        return this.httpClient.post(`${this.API_URL + 'users/login'}`, body);
+        return this.httpClient.post(`${this.API_URL + 'users/login'}`, body, {withCredentials: true});
+    }
+
+    logoutSession() {
+        return this.httpClient.post(`${this.API_URL + 'users/logout'}`, {}, {withCredentials: true});
     }
 
 }
