@@ -152,4 +152,18 @@ export class MapComponent implements OnInit{
             sw_lng: sw.lng()
         };
     }
+
+    updateReports() {
+        const boundaries = this.getMapBoundaries();
+
+        console.log(boundaries);
+
+        this.apiService.getReports(boundaries.ne_lat, boundaries.ne_lng, boundaries.sw_lat, boundaries.sw_lng)
+            .subscribe(reports => {
+                console.log(reports);
+
+                // TODO empty list/map and repopulate
+        });
+    }
 }
+

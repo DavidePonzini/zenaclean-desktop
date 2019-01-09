@@ -40,10 +40,16 @@ a {
   position: relative;
 }
 
-.over_map {
+.over_map_bottom_right {
   position: absolute;
   bottom: 25px;
   right: 70px;
+}
+
+.over_map_top_right {
+  position: absolute;
+  top: 25px;
+  right: 25px;
 }
 
 .btn_add_report {
