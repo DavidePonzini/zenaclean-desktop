@@ -7,9 +7,11 @@
       <div *ngIf="!isLogged(); else other_content" class="login-form">
         <app-login-form></app-login-form>
       </div>
+
       <ng-template #other_content>
-        <div>
-            <app-logout></app-logout>
-        </div>
+          <button id="profileButton" class="btn btn-primary btn-sm " (click)="setViewProfile()">
+              {{  getViewProfile() ? 'Torna alla mappa' : 'Il mio profilo' }}
+          </button>
       </ng-template>
+
 </header>

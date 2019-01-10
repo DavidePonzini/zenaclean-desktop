@@ -13,6 +13,7 @@ export class APIService {
     GOOGLE_MAPS_API_KEY = config.googleMapsApiKey;
     _listners = new Subject<any>();
     logged = false;
+    viewProfile = false;
     user: string;
     demo = false;
 
@@ -22,12 +23,24 @@ export class APIService {
         return this.logged;
     }
 
+    getViewProfile() {
+        return this.viewProfile;
+    }
+
+    setViewProfile() {
+        this.viewProfile = !this.viewProfile;
+    }
+
     setAuth(auth) {
         this.logged = auth;
     }
 
     setUser(user) {
         this.user = user;
+    }
+
+    getUser() {
+        return this.user;
     }
 
     showDemo(demo) {

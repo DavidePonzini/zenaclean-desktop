@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {APIService} from '../services/api.service';
+
 
 @Component({
   selector: 'app-reports-board',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportsBoardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: APIService) {
+  }
 
   ngOnInit() {
+  }
+
+  showProfile() {
+        return this.apiService.getViewProfile();
   }
 
 }

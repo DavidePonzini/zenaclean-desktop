@@ -1,11 +1,34 @@
-<div class="row" flex>
+<!--<div class="row" flex>
     <div class="col-md-4 main" >
-        <!--<div style="width: 35%">-->
+        &lt;!&ndash;<div style="width: 35%">&ndash;&gt;
         <app-reports-list></app-reports-list>
     </div>
 
     <div class="col-md-8 main">
-        <!--<div style="width: 65%">-->
+        &lt;!&ndash;<div style="width: 65%">&ndash;&gt;
         <app-map></app-map>
     </div>
+</div>-->
+
+
+<div *ngIf="!showProfile(); else other_content">
+    <div class="row" flex>
+        <div class="col-md-4 main" >
+            <!--<div style="width: 35%">-->
+            <app-reports-list></app-reports-list>
+        </div>
+
+        <div class="col-md-8 main">
+            <!--<div style="width: 65%">-->
+            <app-map></app-map>
+        </div>
+    </div>
 </div>
+
+<ng-template #other_content>
+    <div class="row justify-content-md-center" flex>
+        <div class="col-md-6 text-center">
+            <app-profile></app-profile>
+        </div>
+    </div>
+</ng-template>

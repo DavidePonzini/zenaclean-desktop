@@ -21,6 +21,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LogoutComponent } from './logout/logout.component';
 import { GdprComponent } from './gdpr/gdpr.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { GdprComponent } from './gdpr/gdpr.component';
         NavbarComponent,
         HomepageComponent,
         LogoutComponent,
-        GdprComponent
+        GdprComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,
