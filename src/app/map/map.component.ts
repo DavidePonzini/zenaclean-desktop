@@ -72,7 +72,7 @@ export class MapComponent implements OnInit{
             this.setMarker();
         } else {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Occore essere registrati per compiere questa azione.';
+            popup.componentInstance.message = 'Occorre essere registrati per compiere questa azione.';
             popup.componentInstance.btnText = 'Registrati';
             /*popup.componentInstance.btnColor = 'dodgerblue';
               popup.componentInstance.btnBorderColor = 'white';*/
