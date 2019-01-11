@@ -11,7 +11,8 @@ export class APIService {
 
     API_URL  = config.apiUrl;
     GOOGLE_MAPS_API_KEY = config.googleMapsApiKey;
-    _listners = new Subject<any>();
+    _onReportAdd = new Subject<any>();          // show reports added by current user without refreshing page
+    _onReportsUpdate = new Subject<any>();      // show reports when repeating search in a given zone on the map
     logged = false;
     user: string;
     demo = false;
@@ -35,13 +36,20 @@ export class APIService {
     }
 
 
-    listen(): Observable<any> {
-        return this._listners.asObservable();
+    onReportAdd(): Observable<any> {
+        return this._onReportAdd.asObservable();
     }
 
-    update(data: any) {
-        // console.log(data);
-        this._listners.next(data);
+    showNewReport(data: any) {
+        this._onReportAdd.next(data);
+    }
+
+    onReportsUpdate(): Observable<any> {
+        return this._onReportsUpdate.asObservable();
+    }
+
+    updateReports(reports: any) {
+        this._onReportsUpdate.next(reports);
     }
 
     getReports(ne_lat, ne_lng, sw_lat, sw_lng) {

@@ -77,7 +77,7 @@ export class AddReportComponent implements OnInit {
                 /*popup.componentInstance.btnColor = 'dodgerblue';
                 popup.componentInstance.btnBorderColor = 'white';*/
                 self.activeModal.close();
-                self.apiService.update(new_report);
+                self.apiService.showNewReport(new_report);
             }, error => {
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Errore durante invio, riprova.';

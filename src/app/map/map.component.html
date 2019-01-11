@@ -14,7 +14,13 @@
             </agm-info-window>
         </agm-marker>
     </agm-map>
-    <div class="over_map">
+    <div class="over_map_top_right">
+        <button id="update_reports_button" type="button" class="btn btn-danger" (click)="updateReports()">
+            <i class="fas fa-sync-alt" aria-hidden="true"></i>
+            Ripeti la ricerca qui
+        </button>
+    </div>
+    <div class="over_map_bottom_right">
         <button *ngIf="!draggable; else other_content" id="temp_report_button" type="button" class="btn btn_add_report" (click)="loginCheck()">Aggiungi Segnalazione</button>
         <ng-template #other_content>
             <button id="cancel_report_button" type="button" class="btn btn-primary btn-circle" (click)="cancel()"><i class="fas fa-trash-alt"></i> Annulla </button>

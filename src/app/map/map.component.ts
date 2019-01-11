@@ -43,8 +43,12 @@ export class MapComponent implements OnInit{
     }
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
-        this.apiService.listen().subscribe((data) => {
+        this.apiService.onReportAdd().subscribe((data) => {
             this.reports.push(data);
+        });
+
+        this.apiService.onReportsUpdate().subscribe(reports => {
+            this.reports = reports;
         });
     }
 
@@ -152,4 +156,14 @@ export class MapComponent implements OnInit{
             sw_lng: sw.lng()
         };
     }
+
+    updateReports() {
+        const boundaries = this.getMapBoundaries();
+
+        this.apiService.getReports(boundaries.ne_lat, boundaries.ne_lng, boundaries.sw_lat, boundaries.sw_lng)
+            .subscribe(reports => this.apiService.updateReports(reports));
+    }
+
+
 }
+
