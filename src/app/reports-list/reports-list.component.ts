@@ -18,24 +18,32 @@ export class ReportsListComponent implements OnInit {
 
   constructor(private apiService: APIService, private modalService: NgbModal) {
 
-      this.apiService.listen().subscribe((data) => {
+      this.apiService.onReportAdd().subscribe((data) => {
           this.reports.unshift(data);
       });
+
+      this.apiService.onReportsUpdate().subscribe(reports => {
+          this.displayReports(reports);
+      });
+  }
+
+  displayReports(reports) {
+      this.reports = reports;
+      this.reports.forEach(function(report) {
+          const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
+          report.date = date;
+          report.time = time;
+      });
+      if (this.reports.length === 0) {
+          this.resultString = 'Nessuna segnalazione trovata';
+      }
   }
 
   ngOnInit() {
       this.apiService.getReports(44.4741594739302, 9.082056335564403, 44.332348787411924, 8.858215264435557)
           .subscribe((data: object) => {
-              this.reports = Object.values(data);
-              this.reports.forEach(function(report) {
-                  const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
-                  report.date = date;
-                  report.time = time;
-              });
-          if (this.reports.length === 0) {
-              this.resultString = 'Nessuna segnalazione trovata';
-          }
-      });
+              this.displayReports(data);
+          });
 
   }
   open(report) {

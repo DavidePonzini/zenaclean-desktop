@@ -38,7 +38,7 @@ export class FixtureApiService {
     }
 
     static listen(): Observable<any> {
-        return; // this._listners.asObservable();
+        return; // this._onReportAdd.asObservable();
     }
 
     static update(data: any) {
