@@ -35,7 +35,6 @@ export class APIService {
         this.demo = demo;
     }
 
-
     onReportAdd(): Observable<any> {
         return this._onReportAdd.asObservable();
     }

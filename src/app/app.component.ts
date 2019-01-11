@@ -11,9 +11,7 @@ export class AppComponent implements OnInit {
     title = 'ADoSS';
 
     constructor(private apiService: APIService) {
-        this.apiService.checkSession().subscribe(res => {
-            if (res['status'] === 'ok') {this.apiService.setAuth(true); }
-        }, error => {});
+
     }
 
     isLogged() {
