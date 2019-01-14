@@ -1,3 +1,4 @@
+
 <div id="wrapper">
     <agm-map [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="zoom" (mapReady)="mapReady($event)" (centerChange)="centerChange($event)" (zoomChange)="zoomChange($event)" >
         <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude" [visible]="visible" >            <agm-info-window  #info >
@@ -13,6 +14,9 @@
             </agm-info-window>
         </agm-marker>
     </agm-map>
+    <div class="over_map_top_left">
+        <app-autocomplete></app-autocomplete>
+    </div>
     <div class="over_map_top_right">
         <button id="update_reports_button" type="button" class="btn btn-danger" (click)="updateReports()">
             <i class="fas fa-sync-alt" aria-hidden="true"></i>

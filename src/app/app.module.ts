@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AgmCoreModule} from '@agm/core';
@@ -22,6 +22,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LogoutComponent } from './logout/logout.component';
 import { GdprComponent } from './gdpr/gdpr.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 
 @NgModule({
     declarations: [
@@ -39,15 +40,18 @@ import { ProfileComponent } from './profile/profile.component';
         HomepageComponent,
         LogoutComponent,
         GdprComponent,
-        ProfileComponent
+        ProfileComponent,
+        AutocompleteComponent
     ],
     imports: [
         BrowserModule,
         NgbModule,
         FormsModule,
+        ReactiveFormsModule,
         CommonModule,
       AgmCoreModule.forRoot({
         apiKey: config.googleMapsApiKey,
+          libraries: ['places']
       }),
       HttpClientModule
     ],

@@ -46,6 +46,12 @@ a {
   right: 70px;
 }
 
+.over_map_top_left {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
 .over_map_top_right {
   position: absolute;
   top: 25px;

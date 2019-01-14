@@ -13,6 +13,7 @@ export class APIService {
     GOOGLE_MAPS_API_KEY = config.googleMapsApiKey;
     _onReportAdd = new Subject<any>();          // show reports added by current user without refreshing page
     _onReportsUpdate = new Subject<any>();      // show reports when repeating search in a given zone on the map
+    _onMoveMap = new Subject<any>();
     logged = false;
     viewProfile = false;
     user: any;
@@ -62,6 +63,14 @@ export class APIService {
 
     updateReports(reports: any) {
         this._onReportsUpdate.next(reports);
+    }
+
+    onMoveMap(): Observable<any> {
+        return this._onMoveMap.asObservable();
+    }
+
+    moveMap(coords: any) {
+        this._onMoveMap.next(coords);
     }
 
     getReports(ne_lat, ne_lng, sw_lat, sw_lng) {

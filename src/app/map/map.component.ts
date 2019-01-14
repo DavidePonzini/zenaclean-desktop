@@ -29,6 +29,24 @@ export class MapComponent implements OnInit{
         this.map = map;
     }
 
+    constructor(private apiService: APIService, private modalService: NgbModal) {
+        this.apiService.onReportAdd().subscribe((data) => {
+            // this.reports.push(data);
+            this.visible = true;
+            this.updateReports();
+        });
+
+        this.apiService.onReportsUpdate().subscribe(reports => {
+            this.reports = reports;
+        });
+
+        this.apiService.onMoveMap().subscribe(coords => {
+            this.map.setCenter(coords);
+            this.zoom = 18;
+        });
+    }
+
+
     ngOnInit() {
         this.apiService.getReports(44.4741594739302, 9.082056335564403, 44.332348787411924, 8.858215264435557)
             .subscribe((data: object) => {
@@ -39,19 +57,6 @@ export class MapComponent implements OnInit{
                     report.time = time;
                 });
             });
-    }
-
-    constructor(private apiService: APIService, private modalService: NgbModal) {
-        this.apiService.onReportAdd().subscribe((data) => {
-            // this.reports.push(data);
-            this.visible = true;
-            this.updateReports();
-        });
-
-
-        this.apiService.onReportsUpdate().subscribe(reports => {
-            this.reports = reports;
-        });
     }
 
     closeOthers(info) {
@@ -82,9 +87,7 @@ export class MapComponent implements OnInit{
     }
 
     setMarker() {
-
         this.visible = false;
-
     }
 
     formView() {
