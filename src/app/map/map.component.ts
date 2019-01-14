@@ -12,7 +12,7 @@ import dateUtils from '../utils/date-utils';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit{
+export class MapComponent implements OnInit {
     zoom = 12;
     initialLatitude = 44.4032971;
     initialLongitude = 8.9701358;
@@ -43,6 +43,7 @@ export class MapComponent implements OnInit{
         this.apiService.onMoveMap().subscribe(coords => {
             this.map.setCenter(coords);
             this.zoom = 18;
+            this.updateReports();
         });
     }
 
@@ -59,11 +60,40 @@ export class MapComponent implements OnInit{
             });
     }
 
+    locateAndMoveMap() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.showPosition(position);
+            });
+        } else {
+            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+            popup.componentInstance.message = 'Occorre essere registrati per compiere questa azione.';
+            popup.componentInstance.btnText = 'Registrati';
+        }
+    }
+
+    async showPosition(position) {
+        // console.log('Latitude:' + position.coords.latitude +
+        //    ' Longitude: ' + position.coords.longitude);
+
+        const coords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+
+        this.apiService.moveMap(coords);
+        // this.mapLatitude = coords.lat;
+        // this.mapLongitude = coords.lng;
+    }
     closeOthers(info) {
         if (this.lastOpen != null) {
             this.lastOpen.close();
         }
         this.lastOpen = info;
+    }
+
+    locateAndCenter() {
+
     }
 
     markerClick(report) {
@@ -79,10 +109,8 @@ export class MapComponent implements OnInit{
             this.setMarker();
         } else {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Occorre essere registrati per compiere questa azione.';
-            popup.componentInstance.btnText = 'Registrati';
-            /*popup.componentInstance.btnColor = 'dodgerblue';
-              popup.componentInstance.btnBorderColor = 'white';*/
+            popup.componentInstance.message = 'Localizzazione non attiva sul tuo dispositivo';
+            popup.componentInstance.btnText = 'Ok';
         }
     }
 
