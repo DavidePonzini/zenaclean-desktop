@@ -4,3 +4,18 @@
     margin-top: 2vh;
     margin-bottom: 2vh;
 }
+
+.user-ssn {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.user-mail {
+    text-align: center;
+}
+
+.btn-logout{
+    display:flex;
+    align-items: center!important;
+    justify-content: center!important;
+}

@@ -14,7 +14,7 @@ export class APIService {
     _listners = new Subject<any>();
     logged = false;
     viewProfile = false;
-    user: string;
+    user: any;
     demo = false;
 
     constructor(private  httpClient:  HttpClient) {}

@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
 
   getUser() {
     return this.apiService.getUser();
+
   }
 
 }

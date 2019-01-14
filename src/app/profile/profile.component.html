@@ -1,3 +1,14 @@
 <img src="../../assets/user.png" alt="user_logo" class="user_logo">
 
-<app-logout></app-logout>
+<p>Codice Fiscale</p>
+<p class = "user-ssn"> {{getUser().ssn}} </p>
+
+<div class="form-group">
+    <label class="required">Email</label>
+    <input type="email" class="form-control user-mail" id="" required rows="1" value="{{ getUser().email}}"
+               name="user-mail" disabled/>
+</div>
+
+<div class="btn-logout">
+    <app-logout></app-logout>
+</div>

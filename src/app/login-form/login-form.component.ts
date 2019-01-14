@@ -32,7 +32,7 @@ export class LoginFormComponent implements OnInit {
           res => {
             if (res['status'] === 'ok' ) {
               this.apiService.setAuth(true);
-              this.apiService.setUser(res['id']);
+              this.apiService.setUser(res['user']);
             } else {
                 const popup = this.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Email e/o password errati';
