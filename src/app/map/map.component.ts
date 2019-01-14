@@ -21,8 +21,7 @@ export class MapComponent implements OnInit{
     reports: any;
     lastOpen: any;
     newReport: any;
-    tempReports: any;
-    draggable = false;
+    visible = true;
 
     protected map: any;
 
@@ -44,8 +43,11 @@ export class MapComponent implements OnInit{
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.onReportAdd().subscribe((data) => {
-            this.reports.push(data);
+            // this.reports.push(data);
+            this.visible = true;
+            this.updateReports();
         });
+
 
         this.apiService.onReportsUpdate().subscribe(reports => {
             this.reports = reports;
@@ -80,43 +82,41 @@ export class MapComponent implements OnInit{
     }
 
     setMarker() {
-        this.tempReports = this.reports;
-        this.reports = [];
+
+        this.visible = false;
+
+    }
+
+    formView() {
+
         this.newReport = {
             title: '',
             description: '',
-            timestamp: new Date(),
             latitude: this.mapLatitude,
             longitude: this.mapLongitude
         };
 
         const that = this;
-        this.apiService.getAddress(this.mapLatitude, this.mapLongitude).subscribe((address) => {
+
+        this.apiService.getAddress(that.newReport.latitude, that.newReport.longitude).subscribe((address) => {
             that.newReport.address = address;
-            that.reports.push(that.newReport);
-            that.draggable = true;
+
+            const geolocation = {
+                latitude: that.newReport.latitude,
+                longitude: that.newReport.longitude,
+                address: that.newReport.address
+            };
+
+            const modalRef = this.modalService.open(AddReportComponent, {size: 'lg'});
+            modalRef.componentInstance.geolocation = geolocation;
         });
-    }
 
-    formView() {
-        const geolocation = {
-            latitude: this.newReport.latitude,
-            longitude: this.newReport.longitude,
-            address: this.newReport.address,
-        };
-
-        const modalRef = this.modalService.open(AddReportComponent, {size: 'lg'});
-        modalRef.componentInstance.geolocation = geolocation;
-
-        this.draggable = false;
-        this.reports = this.tempReports;
     }
 
     cancel() {
-        this.draggable = false;
-        this.reports = this.tempReports;
-        this.map.setCenter({lat: this.initialLatitude , lng: this.initialLongitude});
-        this.map.zoom = this.zoom;
+        this.visible = true;
+        // this.map.setCenter({lat: this.initialLatitude , lng: this.initialLongitude});
+        // this.map.zoom = this.zoom;
     }
 
     centerChange(event: any) {
@@ -132,7 +132,7 @@ export class MapComponent implements OnInit{
         }
     }
 
-    markerMoved(event: any) {
+    /*markerMoved(event: any) {
         if (event) {
             this.newReport.latitude = event.coords.lat;
             this.newReport.longitude = event.coords.lng;
@@ -141,7 +141,7 @@ export class MapComponent implements OnInit{
                 that.newReport.address = address;
             });
         }
-    }
+    }*/
 
     getMapBoundaries() {
         const bounds = this.map.getBounds();
