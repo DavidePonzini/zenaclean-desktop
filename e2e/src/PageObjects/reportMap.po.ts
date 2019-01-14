@@ -3,6 +3,7 @@ import {InsertFormPo} from './insert-form.po';
 import {SingleReportView} from './singleReportView.po';
 import {HomePagePo} from './home.po';
 import {PopupPo} from './popup.po';
+import {ProfilePagePo} from './ProfilePage.po';
 
 export class ReportMapPagePo {
 
@@ -60,12 +61,12 @@ export class ReportMapPagePo {
         return await element(by.tagName('agm-map')).isPresent();
     }
 
-    async isLogoutButtonPresent() {
-        return await element(by.id('logoutButton')).isPresent();
+    async isProfileButtonPresent() {
+        return await element(by.id('profileButton')).isPresent();
     }
 
-    async clickLogout() {
-        await element(by.id('logoutButton')).click();
-        return new HomePagePo();
+    async clickProfileButton() {
+        await element(by.id('profileButton')).click();
+        return new ProfilePagePo();
     }
 }

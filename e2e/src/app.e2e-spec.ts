@@ -175,7 +175,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
 
-        expect(await reportMapPage.isLogoutButtonPresent()).toBe(true);
+        expect(await reportMapPage.isProfileButtonPresent()).toBe(true);
     });
 
     it('should not login and display an error message when providing wrong email', async () => {
@@ -205,7 +205,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(email, password);
 
-        expect(await reportMapPage.isLogoutButtonPresent()).toBe(true);
+        expect(await reportMapPage.isProfileButtonPresent()).toBe(true);
 
     });
 
@@ -224,7 +224,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(email, password);
 
-        expect(await reportMapPage.isLogoutButtonPresent()).toBe(true);
+        expect(await reportMapPage.isProfileButtonPresent()).toBe(true);
 
     });
 
@@ -307,13 +307,14 @@ describe('workspace-project App', () => {
         expect(await signupPage.getErrorLengthPassword()).toEqual('Lunghezza minima: 8 caratteri.');
     });
 
-    it ('should redirect to homepage, be able to login, not able to logout when clicking on logout', async () => {
+    it ('should redirect to homepage after logout, be able to login, not able to view profile', async () => {
         await homePage.navigateTo();
 
         const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
-        const homePageNew = await reportMapPage.clickLogout();
+        const profilePage = await reportMapPage.clickProfileButton();
+        const homePageNew = await profilePage.clickLogout();
 
-        expect(homePageNew.isLogoutButtonPresent()).toEqual(false);
+        expect(homePageNew.isProfileButtonPresent()).toEqual(false);
         expect(homePageNew.isLoginButtonPresent()).toEqual(true);
     });
 

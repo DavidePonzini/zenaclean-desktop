@@ -27,8 +27,8 @@ export class HomePagePo {
         return new PopupPo();
     }
 
-    async isLogoutButtonPresent() {
-        return await element(by.id('logoutButton')).isPresent();
+    async isProfileButtonPresent() {
+        return await element(by.id('profileButton')).isPresent();
     }
 
     async isLoginButtonPresent() {
