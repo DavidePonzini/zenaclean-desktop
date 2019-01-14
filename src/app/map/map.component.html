@@ -1,7 +1,6 @@
 <div id="wrapper">
     <agm-map [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="zoom" (mapReady)="mapReady($event)" (centerChange)="centerChange($event)" (zoomChange)="zoomChange($event)" >
-        <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude" [markerDraggable]="draggable" (dragEnd)="markerMoved($event)">
-            <agm-info-window  #info >
+        <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude" [visible]="visible" >            <agm-info-window  #info >
                 <div class="marker-callout" (click)="markerClick(report)" >
                     <div class="callout-info-container">
                         <div class="callout-title">{{ report.title }}</div>
@@ -14,11 +13,17 @@
             </agm-info-window>
         </agm-marker>
     </agm-map>
-    <div class="over_map">
-        <button *ngIf="!draggable; else other_content" id="temp_report_button" type="button" class="btn btn_add_report" (click)="loginCheck()">Aggiungi Segnalazione</button>
-        <ng-template #other_content>
+    <div class="over_map_top_right">
+        <button id="update_reports_button" type="button" class="btn btn-danger" (click)="updateReports()">
+            <i class="fas fa-sync-alt" aria-hidden="true"></i>
+            Ripeti la ricerca qui
+        </button>
+    </div>
+    <div class="over_map_bottom_right">
+        <button *ngIf="visible; else other_content" id="temp_report_button" type="button" class="btn btn_add_report" (click)="loginCheck()">Aggiungi Segnalazione</button>        <ng-template #other_content>
             <button id="cancel_report_button" type="button" class="btn btn-primary btn-circle" (click)="cancel()"><i class="fas fa-trash-alt"></i> Annulla </button>
             <button id="add_report_button" type="button" class="btn btn-primary btn-circle" (click)="formView()"><i class="fas fa-check"></i> Conferma </button>
         </ng-template>
     </div>
+    <img *ngIf="!visible" class="overlay" height="80" width="40" src="../../assets/icon.svg" />
 </div>

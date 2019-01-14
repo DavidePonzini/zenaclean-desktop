@@ -323,7 +323,7 @@ describe('workspace-project App', () => {
         const demoPage = await homePage.goToDemo();
         const popup = await demoPage.clickAddReportNotLogged();
 
-        expect(popup.getMessageText()).toEqual('Occore essere registrati per compiere questa azione.');
+        expect(popup.getMessageText()).toEqual('Occorre essere registrati per compiere questa azione.');
 
         popup.closePopup();
 
