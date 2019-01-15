@@ -1,4 +1,4 @@
-import {ReportMapPagePo} from './PageObjects/reportMap.po';
+import {ReportMapPagePo} from './PageObjects/ReportMap.po';
 import {by, element} from 'protractor';
 
 describe('report geo-lookup tests', () => {
