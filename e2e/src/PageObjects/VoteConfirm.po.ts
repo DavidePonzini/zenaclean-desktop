@@ -1,5 +1,5 @@
 import {by, element} from 'protractor';
-import {PopupPo} from './popup.po';
+import {PopupPo} from './Popup.po';
 
 export class VoteConfirmPo {
     async ConfirmVote() {

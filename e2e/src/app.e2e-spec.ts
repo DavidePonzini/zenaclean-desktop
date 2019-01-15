@@ -1,8 +1,8 @@
-import { HomePagePo } from './PageObjects/home.po';
+import { HomePagePo } from './PageObjects/Home.po';
 import * as WebRequest from 'web-request';
 import Config from '../../config.secret';
 
-import {SignupFormPo} from './PageObjects/signup-form.po';
+import {SignupFormPo} from './PageObjects/Signup-form.po';
 const path = require('path');
 
 describe('workspace-project App', () => {

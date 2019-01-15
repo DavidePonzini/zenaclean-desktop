@@ -1,8 +1,8 @@
 import { browser, by, element } from 'protractor';
-import {InsertFormPo} from './insert-form.po';
-import {SingleReportViewPo} from './singleReportView.po';
-import {HomePagePo} from './home.po';
-import {PopupPo} from './popup.po';
+import {InsertFormPo} from './Insert-form.po';
+import {SingleReportViewPo} from './SingleReportView.po';
+import {HomePagePo} from './Home.po';
+import {PopupPo} from './Popup.po';
 import {ProfilePagePo} from './ProfilePage.po';
 
 export class ReportMapPagePo {
