@@ -10,15 +10,29 @@
             <img id="report-image"
                 src="{{ report.url ? report.url : '/assets/default_pic.png'}}">
         </div>
-        <hr>
 
+        <hr>
         <p>{{report.date}}, {{report.time}}</p>
-        <hr>
 
+        <hr>
         <p>Segnalato in {{report.address}}</p>
-        <hr>
 
+        <hr>
         <p id="modal_report_description">{{report.description}}</p>
+
+        <hr>
+        <div class="row">
+            <div class="col-md button-vote-col">
+                <button id="button-vote-positive" (click)="votePositive()" class="btn {{this.hasUserVotedNegative() || this.doesUserOwnReport() ? 'btn-disabled' : 'btn-success'}} button-vote">
+                    <i class="fa fa-thumbs-up"></i>
+                </button>
+            </div>
+            <div class="col-md button-vote-col">
+                <button id="button-vote-negative" (click)="voteNegative()" class="btn {{this.hasUserVotedPositive() || this.doesUserOwnReport() ? 'btn-disabled' : 'btn-danger'}} button-vote">
+                    <i class="fa fa-thumbs-down"></i>
+                </button>
+            </div>
+        </div>
 
     </div>
     <div class="modal-footer">

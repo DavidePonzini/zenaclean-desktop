@@ -14,6 +14,7 @@ export class APIService {
     _onReportAdd = new Subject<any>();          // show reports added by current user without refreshing page
     _onReportsUpdate = new Subject<any>();      // show reports when repeating search in a given zone on the map
     _onMoveMap = new Subject<any>();
+    _onReportVoteUpdate = new Subject<any>();
     logged = false;
     viewProfile = false;
     user: any;
@@ -82,6 +83,10 @@ export class APIService {
         params = params.append('sw_lat', sw_lat);
         params = params.append('sw_lng', sw_lng);
 
+        if (this.user) {
+            params = params.append('user', this.user.id);
+        }
+
         return this.httpClient.get(`${this.API_URL + 'reports'}`, {params: params});
     }
 
@@ -114,6 +119,22 @@ export class APIService {
 
     logoutSession() {
         return this.httpClient.post(`${this.API_URL + 'users/logout'}`, {}, {withCredentials: true});
+    }
+
+    voteReport(reportId, isVotePositive) {
+        return this.httpClient.post(`${this.API_URL + 'reports/vote'}`, {
+            user: this.user.id,
+            report: reportId,
+            vote: isVotePositive ? 1 : 0
+        });
+    }
+
+    onReportVoteUpdate(): Observable<any> {
+        return this._onReportVoteUpdate.asObservable();
+    }
+
+    updateVote(reportId, vote) {
+        this._onReportVoteUpdate.next({id: reportId, vote: vote});
     }
 
 }

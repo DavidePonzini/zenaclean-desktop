@@ -52,3 +52,20 @@ img {
     color: white;
 }
 
+.vote-positive {
+    color: lime;
+}
+
+.vote-negative {
+    color: red;
+}
+
+.button-vote {
+    width: 50%;
+    border-radius: 25px;
+}
+
+.button-vote-col {
+    display: flex;
+    justify-content: center;
+}

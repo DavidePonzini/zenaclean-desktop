@@ -25,6 +25,19 @@ export class ReportsListComponent implements OnInit {
       this.apiService.onReportsUpdate().subscribe(reports => {
           this.displayReports(reports);
       });
+
+      this.apiService.onReportVoteUpdate().subscribe(data => {
+          const id = data.id;
+          const isVotePositive = data.vote;
+
+          const report = this.reports.find(rep => rep._id === id);
+
+          if (isVotePositive) {
+              report.voted_positive = true;
+          } else {
+              report.voted_negative = true;
+          }
+      });
   }
 
   displayReports(reports) {

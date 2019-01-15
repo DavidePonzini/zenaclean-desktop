@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 import {InsertFormPo} from './insert-form.po';
-import {SingleReportView} from './singleReportView.po';
+import {SingleReportViewPo} from './singleReportView.po';
 import {HomePagePo} from './home.po';
 import {PopupPo} from './popup.po';
 import {ProfilePagePo} from './ProfilePage.po';
@@ -30,7 +30,13 @@ export class ReportMapPagePo {
         const report = await element.all(by.className('report_title')).get(0);
         await report.click();
 
-        return new SingleReportView();
+        return new SingleReportViewPo();
+    }
+
+    async openListElementByTitle(title) {
+        await element.all(by.cssContainingText('.report_title', title)).get(0).click();
+
+        return new SingleReportViewPo();
     }
 
     async getTitleFirstListElement() {

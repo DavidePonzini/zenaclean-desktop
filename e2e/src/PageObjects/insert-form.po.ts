@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import { by, element } from 'protractor';
 import {PopupPo} from './popup.po';
 
 export class InsertFormPo {

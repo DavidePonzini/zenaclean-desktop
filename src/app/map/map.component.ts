@@ -45,6 +45,20 @@ export class MapComponent implements OnInit {
             this.zoom = 18;
             this.updateReports();
         });
+
+        this.apiService.onReportVoteUpdate().subscribe(data => {
+            const id = data.id;
+            const isVotePositive = data.vote;
+
+            const report = this.reports.find(rep => rep._id === id);
+
+            if (isVotePositive) {
+                report.voted_positive = true;
+            } else {
+                report.voted_negative = true;
+            }
+        });
+
     }
 
 
@@ -85,6 +99,7 @@ export class MapComponent implements OnInit {
         // this.mapLatitude = coords.lat;
         // this.mapLongitude = coords.lng;
     }
+
     closeOthers(info) {
         if (this.lastOpen != null) {
             this.lastOpen.close();
