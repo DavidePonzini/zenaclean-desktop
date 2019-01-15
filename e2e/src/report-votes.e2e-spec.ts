@@ -3,9 +3,7 @@ import {SignupFormPo} from './PageObjects/Signup-form.po';
 import * as WebRequest from 'web-request';
 import Config from '../../config.secret';
 import {ReportMapPagePo} from './PageObjects/ReportMap.po';
-import {browser} from 'protractor';
 
-const path = require('path');
 
 describe('report voting tests', () => {
     let homePage: HomePagePo;

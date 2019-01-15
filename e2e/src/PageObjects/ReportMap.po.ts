@@ -1,8 +1,8 @@
-import { browser, by, element } from 'protractor';
+import {browser, by, element, protractor} from 'protractor';
 import {InsertFormPo} from './Insert-form.po';
 import {SingleReportViewPo} from './SingleReportView.po';
-import {HomePagePo} from './Home.po';
 import {PopupPo} from './Popup.po';
+
 import {ProfilePagePo} from './ProfilePage.po';
 
 export class ReportMapPagePo {
@@ -37,6 +37,10 @@ export class ReportMapPagePo {
         await element.all(by.cssContainingText('.report_title', title)).get(0).click();
 
         return new SingleReportViewPo();
+    }
+
+    async getListElementByTitle(title) {
+        return await element.all(by.cssContainingText('.report_title', title)).get(0);
     }
 
     async getTitleFirstListElement() {
@@ -74,5 +78,20 @@ export class ReportMapPagePo {
     async clickProfileButton() {
         await element(by.id('profileButton')).click();
         return new ProfilePagePo();
+    }
+
+    async searchForLocation(location) {
+        const searchBar = await element(by.id('searchbar'));
+        await searchBar.sendKeys(location);
+        await browser.driver.sleep(200);
+        await browser.actions().sendKeys(protractor.Key.ARROW_DOWN).perform();
+        await browser.actions().sendKeys(protractor.Key.ENTER).perform();
+
+        await browser.driver.sleep(100);
+
+        // don't know why, but without this I can't get the button by id
+        browser.ignoreSynchronization = true;
+
+        return await element(by.id('update-reports-button')).click();
     }
 }
