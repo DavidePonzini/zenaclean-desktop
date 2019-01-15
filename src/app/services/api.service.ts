@@ -106,6 +106,8 @@ export class APIService {
     }
 
     postReports(body) {
+        body.id = this.user.id;
+
         return this.httpClient.post(`${this.API_URL + 'reports'}`, body);
     }
 

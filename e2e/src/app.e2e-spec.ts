@@ -83,8 +83,8 @@ describe('workspace-project App', () => {
         const reportTitle = await reportMapPage.getTitleLastListElement();
         const reportDescription = await reportMapPage.getDescriptionLastListElement();
 
-        expect(await reportTitle).toEqual('divano abbandonato');
-        expect(await reportDescription).toEqual('fortunatamente e` molto comodo!');
+        expect(await reportTitle).toEqual('Frigo vuoto');
+        expect(await reportDescription).toEqual('hanno abbandonato un frigo e non ci hann...');
     });
 
     it ('should appear popup for single report view, when i click on list element', async() => {

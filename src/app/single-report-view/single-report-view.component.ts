@@ -40,9 +40,10 @@ export class SingleReportViewComponent {
             return false;
         }
 
-        console.log(this.report);
+        // console.log('report:', this.report.user_id);
+        // console.log('user:', this.apiService.getUser().id);
 
-        return this.report.user_id === this.apiService.getUser();
+        return this.report.user_id === this.apiService.getUser().id;
     }
 
     voteReport(isVotePositive) {
