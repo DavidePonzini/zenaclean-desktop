@@ -23,10 +23,10 @@ describe('report geo-lookup tests', () => {
     });
 
     it('should display a report when I search for a place which contains it', async () => {
-        await reportMap.searchForLocation('Belvedere Edoardo Firpo, 2, Genoa, Metropolitan City of Genoa, Italy');
+        await reportMap.searchForLocation('Via Roma, Casale Monferrato, Province of Alessandria, Italy');
 
         const text = await reportMap.getTitleLastListElement();
 
-        expect(text).toBe('gatto per strada');
+        expect(text).toBe('Test Geolocation');
     });
 });
