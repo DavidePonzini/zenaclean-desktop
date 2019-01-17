@@ -1,8 +1,8 @@
-import { HomePagePo } from './PageObjects/home.po';
+import { HomePagePo } from './PageObjects/Home.po';
 import * as WebRequest from 'web-request';
 import Config from '../../config.secret';
 
-import {SignupFormPo} from './PageObjects/signup-form.po';
+import {SignupFormPo} from './PageObjects/Signup-form.po';
 const path = require('path');
 
 describe('workspace-project App', () => {
@@ -100,7 +100,7 @@ describe('workspace-project App', () => {
         const modalDescr = await singleReportView.getDescription();
 
         expect(await reportTitle).toEqual(await modalTitle);
-        expect(await reportDescription).toEqual(await modalDescr);
+        expect(await reportDescription.substring(0, 40)).toEqual(await modalDescr.substring(0, 40));
     });
 
     it ('should see a report in the list that i have just added', async() => {

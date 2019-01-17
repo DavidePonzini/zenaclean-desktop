@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
-import {ReportMapPagePo} from './reportMap.po';
-import {PopupPo} from './popup.po';
+import {ReportMapPagePo} from './ReportMap.po';
+import {PopupPo} from './Popup.po';
 
 export class HomePagePo {
 

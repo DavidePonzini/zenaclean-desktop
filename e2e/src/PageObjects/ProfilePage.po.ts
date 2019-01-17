@@ -1,5 +1,5 @@
 import { by, element } from 'protractor';
-import {HomePagePo} from './home.po';
+import {HomePagePo} from './Home.po';
 
 export class ProfilePagePo {
 
@@ -7,4 +7,9 @@ export class ProfilePagePo {
         await element(by.id('logoutButton')).click();
         return new HomePagePo();
     }
+
+    async checkLogoutIsPresent() {
+        return await element(by.id('logoutButton')).isPresent();
+    }
+
 }

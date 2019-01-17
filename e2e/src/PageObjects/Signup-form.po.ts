@@ -1,5 +1,5 @@
 import { browser, by, element } from 'protractor';
-import {PopupPo} from './popup.po';
+import {PopupPo} from './Popup.po';
 
 export class SignupFormPo {
     async navigateTo() {

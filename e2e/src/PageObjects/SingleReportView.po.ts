@@ -1,6 +1,6 @@
 import {by, element} from 'protractor';
-import {VoteConfirmPo} from './voteConfirm.po';
-import {PopupPo} from './popup.po';
+import {VoteConfirmPo} from './VoteConfirm.po';
+import {PopupPo} from './Popup.po';
 
 
 

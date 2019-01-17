@@ -1,11 +1,9 @@
-import {HomePagePo} from './PageObjects/home.po';
-import {SignupFormPo} from './PageObjects/signup-form.po';
+import {HomePagePo} from './PageObjects/Home.po';
+import {SignupFormPo} from './PageObjects/Signup-form.po';
 import * as WebRequest from 'web-request';
 import Config from '../../config.secret';
-import {ReportMapPagePo} from './PageObjects/reportMap.po';
-import {browser} from 'protractor';
+import {ReportMapPagePo} from './PageObjects/ReportMap.po';
 
-const path = require('path');
 
 describe('report voting tests', () => {
     let homePage: HomePagePo;

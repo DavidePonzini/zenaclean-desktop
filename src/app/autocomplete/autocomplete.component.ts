@@ -42,7 +42,7 @@ export class AutocompleteComponent implements OnInit {
                     const coords = {
                         lat: autocomplete.getPlace().geometry.location.lat(),
                         lng: autocomplete.getPlace().geometry.location.lng()
-                    }
+                    };
                     this.apiService.moveMap(coords);
                 });
             });
