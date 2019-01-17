@@ -7,8 +7,9 @@
   <div id="scrollable">
 
     <ul *ngIf="reports.length>0; else other_content">
-      <li *ngFor="let report of reports" (click)="open(report)">
-        <div class="title_single_report">
+      <li *ngFor="let report of reports; let first = first;" (click)="open(report)">
+        <!--<div class="title_single_report">-->
+        <div [ngClass]=" (newReport && first) ? 'title_new_report' : 'title_single_report'">
           <h4 class = "report_title">{{ report.title }} </h4>
         </div>
         <div class="row content_info">

@@ -82,6 +82,17 @@ img {
   padding:12px;
 }
 
+.title_new_report {
+  background-color: dodgerblue;
+  padding:12px;
+  animation-duration: 400ms;
+  animation-name: blink;
+  animation-iteration-count: 10;
+  animation-direction: alternate;
+}
+
+
+
 .date {
   margin: 0;
   vertical-align: bottom;
@@ -94,6 +105,15 @@ img {
 
 .info_date {
   height: 20%;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /*f4a152*/

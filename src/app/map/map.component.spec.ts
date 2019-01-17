@@ -9,7 +9,8 @@ import {FixtureApiService} from '../services/fixture.api.service';
 import {ReportsListComponent} from '../reports-list/reports-list.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -17,11 +18,15 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapComponent ],
+      declarations: [
+          MapComponent,
+          AutocompleteComponent
+      ],
             imports: [
                 BrowserModule,
                 NgbModule,
                 FormsModule,
+                ReactiveFormsModule,
                 AgmCoreModule.forRoot({
                     apiKey: config.googleMapsApiKey,
                 }),

@@ -11,12 +11,13 @@ export class ProfileComponent implements OnInit {
   constructor(private apiService: APIService) {
   }
 
+
   ngOnInit() {
+
   }
 
   getUser() {
     return this.apiService.getUser();
-
   }
 
 }

@@ -8,7 +8,7 @@ import {SingleReportViewComponent} from './single-report-view/single-report-view
 import {PopupComponent} from './popup/popup.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AgmCoreModule} from '@agm/core';
 import config from '../../config.secret';
 import {HttpClientModule} from '@angular/common/http';
@@ -18,6 +18,8 @@ import {PopupMultipleComponent} from './popup-multiple/popup-multiple.component'
 import {SignupFormComponent} from './signup-form/signup-form.component';
 import {LoginFormComponent} from './login-form/login-form.component';
 import {LogoutComponent} from './logout/logout.component';
+import {AutocompleteComponent} from './autocomplete/autocomplete.component';
+import {ProfileComponent} from './profile/profile.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -35,7 +37,9 @@ describe('AppComponent', () => {
             LoginFormComponent,
             NavbarComponent,
             HomepageComponent,
-            LogoutComponent
+            LogoutComponent,
+            AutocompleteComponent,
+            ProfileComponent
         ],
         imports: [
             BrowserModule,
@@ -44,7 +48,8 @@ describe('AppComponent', () => {
             AgmCoreModule.forRoot({
                 apiKey: config.googleMapsApiKey,
             }),
-            HttpClientModule
+            HttpClientModule,
+            ReactiveFormsModule
         ],
         providers: []
     }).compileComponents();

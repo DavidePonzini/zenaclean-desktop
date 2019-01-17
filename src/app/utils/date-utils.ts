@@ -12,7 +12,15 @@ const timestampToItalianDate = (timestamp) => {
 
     const hours = datetime.getHours();
     const minutes = datetime.getMinutes();
-    const time = (hours + ':' + minutes);
+
+    let time = '';
+
+    if (minutes < 10) {
+        time = (hours + ':0' + minutes );
+    } else {
+        time = (hours + ':' + minutes);
+    }
+
     return { date, time };
 };
 

@@ -1,7 +1,11 @@
 
 <div id="wrapper">
     <agm-map [latitude]="initialLatitude" [longitude]="initialLongitude" [zoom]="zoom" (mapReady)="mapReady($event)" (centerChange)="centerChange($event)" (zoomChange)="zoomChange($event)" >
-        <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude" [visible]="visible" >            <agm-info-window  #info >
+        <agm-marker (markerClick)="closeOthers(info)"*ngFor="let report of reports" [latitude]="report.latitude" [longitude]="report.longitude" [visible]="visible" >
+            <agm-info-window  #info
+                [isOpen]="isInfoWindowOpen(report.title)"
+                [latitude]="report.latitude"
+                [longitude]="report.longitude">
                 <div class="marker-callout" (click)="markerClick(report)" >
                     <div class="callout-info-container">
                         <div class="callout-title">{{ report.title }}</div>
@@ -17,7 +21,7 @@
 
     <div class="over_map_top_left">
         <app-autocomplete></app-autocomplete>
-        <button placement="right" ngbTooltip="Localizzami" (click)="locateAndMoveMap()" ><i class="fa fa-location-arrow" aria-hidden="true"></i></button>
+        <button id="geolocation_button" placement="right" ngbTooltip="Localizzami" (click)="locateAndMoveMap()" ><i class="fa fa-location-arrow" aria-hidden="true"></i></button>
     </div>
     <div class="over_map_top_right">
         <button id="update_reports_button" type="button" class="btn btn-danger" (click)="updateReports()">

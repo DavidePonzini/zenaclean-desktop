@@ -14,8 +14,10 @@ import {HomepageComponent} from '../homepage/homepage.component';
 import {LoginFormComponent} from '../login-form/login-form.component';
 import {LogoutComponent} from '../logout/logout.component';
 import {SignupFormComponent} from '../signup-form/signup-form.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
+import {ProfileComponent} from '../profile/profile.component';
 
 describe('ReportsBoardComponent', () => {
   let component: ReportsBoardComponent;
@@ -32,13 +34,16 @@ describe('ReportsBoardComponent', () => {
             HomepageComponent,
             LoginFormComponent,
             LogoutComponent,
-            SignupFormComponent
+            SignupFormComponent,
+            AutocompleteComponent,
+            ProfileComponent
         ],
         imports: [
             BrowserModule,
             NgbModule,
             FormsModule,
             CommonModule,
+            ReactiveFormsModule,
             AgmCoreModule.forRoot({
                 apiKey: config.googleMapsApiKey,
             }),

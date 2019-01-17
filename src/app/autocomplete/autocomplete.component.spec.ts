@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AutocompleteComponent } from './autocomplete.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {AgmCoreModule} from '@agm/core';
+import config from '../../../config.secret';
 
 describe('AutocompleteComponent', () => {
   let component: AutocompleteComponent;
@@ -8,7 +12,15 @@ describe('AutocompleteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AutocompleteComponent ]
+      declarations: [ AutocompleteComponent],
+        imports: [
+            FormsModule,
+            ReactiveFormsModule,
+            HttpClientModule,
+            AgmCoreModule.forRoot({
+                apiKey: config.googleMapsApiKey,
+            }),
+        ]
     })
     .compileComponents();
   }));

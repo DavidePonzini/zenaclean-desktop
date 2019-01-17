@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SingleReportViewComponent} from '../single-report-view/single-report-view.component';
 import {APIService} from '../services/api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -8,9 +8,9 @@ import dateUtils from '../utils/date-utils';
 
 // @ts-ignore
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+    selector: 'app-map',
+    templateUrl: './map.component.html',
+    styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
     zoom = 12;
@@ -23,6 +23,10 @@ export class MapComponent implements OnInit {
     newReport: any;
     visible = true;
 
+    // TODO Used in html and in onReportAdd(); change with report.id (once the server answer with report.id when adding a new report)
+    //  and change also the reset in updateReports
+    openedWindow = '';
+
     protected map: any;
 
     protected mapReady(map) {
@@ -31,9 +35,21 @@ export class MapComponent implements OnInit {
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.onReportAdd().subscribe((data) => {
-            // this.reports.push(data);
+            this.reports.push(data);
             this.visible = true;
-            this.updateReports();
+
+            // this.updateReports();
+            // coords.lat + coords.lng
+            console.log(JSON.stringify(data));
+            this.map.setCenter({lat: data.latitude, lng: data.longitude});
+
+            if (this.zoom < 15) {
+                this.zoom = 19;
+            } else {
+                this.zoom += 1;
+            }
+
+            this.openWindow(data.title);
         });
 
         this.apiService.onReportsUpdate().subscribe(reports => {
@@ -66,7 +82,7 @@ export class MapComponent implements OnInit {
         this.apiService.getReports(44.4741594739302, 9.082056335564403, 44.332348787411924, 8.858215264435557)
             .subscribe((data: object) => {
                 this.reports = Object.values(data);
-                this.reports.forEach(function(report) {
+                this.reports.forEach(function (report) {
                     const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
                     report.date = date;
                     report.time = time;
@@ -74,15 +90,24 @@ export class MapComponent implements OnInit {
             });
     }
 
+    openWindow(title) {
+        this.openedWindow = title;
+    }
+
+    isInfoWindowOpen(title) {
+        return this.openedWindow === title;
+    }
+
     locateAndMoveMap() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                this.showPosition(position);
-            });
-        } else {
-            const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Occorre essere registrati per compiere questa azione.';
-            popup.componentInstance.btnText = 'Registrati';
+                    this.showPosition(position);
+                },
+                (err) => {
+                    const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+                    popup.componentInstance.message = 'La localizzazione non è attiva sul tuo dispositivo.';
+                    popup.componentInstance.btnText = 'Ok';
+                });
         }
     }
 
@@ -124,8 +149,8 @@ export class MapComponent implements OnInit {
             this.setMarker();
         } else {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
-            popup.componentInstance.message = 'Localizzazione non attiva sul tuo dispositivo';
-            popup.componentInstance.btnText = 'Ok';
+            popup.componentInstance.message = 'Occorre essere registrati per compiere questa azione.';
+            popup.componentInstance.btnText = 'Registrati';
         }
     }
 
@@ -208,6 +233,10 @@ export class MapComponent implements OnInit {
 
         this.apiService.getReports(boundaries.ne_lat, boundaries.ne_lng, boundaries.sw_lat, boundaries.sw_lng)
             .subscribe(reports => this.apiService.updateReports(reports));
+
+        this.openedWindow = '';
+
+        return this.reports;
     }
 
 
