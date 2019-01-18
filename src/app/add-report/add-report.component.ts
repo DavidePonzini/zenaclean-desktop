@@ -24,7 +24,7 @@ export class AddReportComponent implements OnInit {
 
     ngOnInit() {
         this.model = new NewReport('', '', null, this.geolocation.address, this.geolocation.latitude,
-                                        this.geolocation.longitude, new Date());
+                                        this.geolocation.longitude, new Date(), '');
         this.submitted = false;
     }
 
@@ -58,7 +58,7 @@ export class AddReportComponent implements OnInit {
             longitude: this.model.longitude,
             url: this.model.url,
             timestamp: this.model.ts,
-            address: this.model.address
+            address: this.model.address,
         };
 
         // const dot_separator = data.url.split('.');
@@ -69,8 +69,9 @@ export class AddReportComponent implements OnInit {
         popupMultiple.componentInstance.message = 'Vuoi procedere?';
         popupMultiple.result.then(function () {
             self.apiService.postReports(data).subscribe(res => {
+                // res.report_id is correct (it takes the argument from a json)
                 const new_report = new NewReport(data.title, data.description, data.url, data.address,
-                                                    data.latitude, data.longitude, data.timestamp);
+                                                    data.latitude, data.longitude, data.timestamp, (res as any)._id);
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Segnalazione aggiunta!';
                 popup.componentInstance.btnText = 'Fatto';

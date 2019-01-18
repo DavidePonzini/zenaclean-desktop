@@ -23,8 +23,6 @@ export class MapComponent implements OnInit {
     newReport: any;
     visible = true;
 
-    // TODO Used in html and in onReportAdd(); change with report.id (once the server answer with report.id when adding a new report)
-    //  and change also the reset in updateReports
     openedWindow = '';
 
     protected map: any;
@@ -47,7 +45,8 @@ export class MapComponent implements OnInit {
                 this.zoom += 1;
             }
 
-            this.openWindow(data.title);
+            console.log(data);
+            this.openWindow(data._id);
         });
 
         this.apiService.onReportsUpdate().subscribe(reports => {
