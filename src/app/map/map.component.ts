@@ -35,12 +35,10 @@ export class MapComponent implements OnInit {
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.onReportAdd().subscribe((data) => {
-            this.reports.push(data);
+            // this.reports.push(data);
             this.visible = true;
 
-            // this.updateReports();
-            // coords.lat + coords.lng
-            console.log(JSON.stringify(data));
+            this.updateReports();
             this.map.setCenter({lat: data.latitude, lng: data.longitude});
 
             if (this.zoom < 15) {
@@ -53,13 +51,14 @@ export class MapComponent implements OnInit {
         });
 
         this.apiService.onReportsUpdate().subscribe(reports => {
+            // Aggiorna mappa
             this.reports = reports;
         });
 
         this.apiService.onMoveMap().subscribe(coords => {
             this.map.setCenter(coords);
             this.zoom = 18;
-            this.updateReports();
+            // this.updateReports();
         });
 
         this.apiService.onReportVoteUpdate().subscribe(data => {
@@ -112,8 +111,6 @@ export class MapComponent implements OnInit {
     }
 
     async showPosition(position) {
-        // console.log('Latitude:' + position.coords.latitude +
-        //    ' Longitude: ' + position.coords.longitude);
 
         const coords = {
             lat: position.coords.latitude,
@@ -121,8 +118,6 @@ export class MapComponent implements OnInit {
         };
 
         this.apiService.moveMap(coords);
-        // this.mapLatitude = coords.lat;
-        // this.mapLongitude = coords.lng;
     }
 
     closeOthers(info) {
@@ -130,10 +125,6 @@ export class MapComponent implements OnInit {
             this.lastOpen.close();
         }
         this.lastOpen = info;
-    }
-
-    locateAndCenter() {
-
     }
 
     markerClick(report) {
@@ -186,8 +177,6 @@ export class MapComponent implements OnInit {
 
     cancel() {
         this.visible = true;
-        // this.map.setCenter({lat: this.initialLatitude , lng: this.initialLongitude});
-        // this.map.zoom = this.zoom;
     }
 
     centerChange(event: any) {
@@ -236,7 +225,6 @@ export class MapComponent implements OnInit {
 
         this.openedWindow = '';
 
-        return this.reports;
     }
 
 

@@ -71,7 +71,6 @@ export class APIService {
     }
 
     moveMap(coords: any) {
-        // console.log('MOVEMAP' + coords.lat + coords.lng);
         this._onMoveMap.next(coords);
     }
 

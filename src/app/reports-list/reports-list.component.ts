@@ -24,24 +24,13 @@ export class ReportsListComponent implements OnInit {
             // Facendo unshift sono sicuro che  l'ultima segnalazione sia la prima in lista
             this.reports.unshift(data);
             this.newReport = true;
-            // if (this.newReportAdded) {
-            // console.log('last report added:' + JSON.stringify(data.ts));
-            // }
-
-
-
-            /* const listOfReportTitles = document.getElementsByClassName('title_single_report');
-            for (const title in listOfReportTitles) {
-                console.log(title);
-            } */
-
 
         });
 
         this.apiService.onReportsUpdate().subscribe(reports => {
+            // Aggiorna lista di reports
             this.displayReports(reports);
             this.newReport = false;
-
         });
 
         this.apiService.onReportVoteUpdate().subscribe(data => {
@@ -60,7 +49,7 @@ export class ReportsListComponent implements OnInit {
 
     displayReports(reports) {
         this.reports = reports;
-        // console.log(this.reports);
+
         this.reports.forEach(function (report) {
             const {date, time} = dateUtils.timestampToItalianDate(report.timestamp);
             report.date = date;
