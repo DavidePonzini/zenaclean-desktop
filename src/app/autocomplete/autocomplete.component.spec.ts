@@ -19,6 +19,7 @@ describe('AutocompleteComponent', () => {
             HttpClientModule,
             AgmCoreModule.forRoot({
                 apiKey: config.googleMapsApiKey,
+                libraries: ['places']
             }),
         ]
     })

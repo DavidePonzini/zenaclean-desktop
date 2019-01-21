@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FixtureApiService} from '../services/fixture.api.service';
 import {APIService} from '../services/api.service';
 import {FixtureApiEmptyService} from '../services/fixture.api.empty.service';
+import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
 
 describe('ReportsListComponent', () => {
   let component: ReportsListComponent;
@@ -21,7 +22,6 @@ describe('ReportsListComponent', () => {
             }),
             HttpClientModule
         ]
-        // providers: [ ReportsListComponent, { provide: APIService, useValue: FixtureApiService } ]
     })
     .compileComponents();
   }));
@@ -36,15 +36,16 @@ describe('ReportsListComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    /*it('should have the correct number of reports',
-     async (done) => {
-         await FixtureApiService.getReports().subscribe(reports => {
-             const expectedCount = Object.keys(reports).length;
-             const count = component.reports.length;
-             expect(count).toEqual(expectedCount);
-             done();
-         });
-   });
+    it('should have the correct number of reports',
+        async (done) => {
+            await FixtureApiService.getReports(1, 2, 3, 4).subscribe(reports => {
+                const expectedCount = Object.keys(reports).length;
+                expect(1).toEqual(expectedCount);
+                done();
+            });
+        });
+
+    /*
 
    });
 

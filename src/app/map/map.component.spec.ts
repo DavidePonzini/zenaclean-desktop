@@ -32,8 +32,6 @@ describe('MapComponent', () => {
                 }),
                 HttpClientModule
             ]
-        // providers: [ ReportsListComponent ]
-        // providers: [ ReportsListComponent, { provide: APIService, useValue: FixtureApiService } ]
 
     })
     .compileComponents();
@@ -49,15 +47,15 @@ describe('MapComponent', () => {
      expect(component).toBeTruthy();
    });
 
-    /*it('should have the correct number of markers',
-          async (done) => {
-              await FixtureApiService.getReports().subscribe(reports => {
-                  const expectedCount = Object.keys(reports).length;
-                  const count = component.reports.length;
-                  expect(count).toEqual(expectedCount);
-                  done();
-              });
-          });*/
+    it('should have the correct number of markers',
+        async (done) => {
+            await FixtureApiService.getReports(1, 2, 3, 4).subscribe(reports => {
+                const expectedCount = Object.keys(reports).length;
+                expect(1).toEqual(expectedCount);
+            });
+            done();
+        });
+
 });
 
 
