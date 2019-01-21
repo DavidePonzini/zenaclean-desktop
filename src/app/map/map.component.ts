@@ -33,10 +33,10 @@ export class MapComponent implements OnInit {
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.onReportAdd().subscribe((data) => {
-            // this.reports.push(data);
+            this.reports.push(data);
             this.visible = true;
 
-            this.updateReports();
+            // this.updateReports();
             this.map.setCenter({lat: data.latitude, lng: data.longitude});
 
             if (this.zoom < 15) {
@@ -45,7 +45,7 @@ export class MapComponent implements OnInit {
                 this.zoom += 1;
             }
 
-            console.log(data);
+            // console.log(data);
             this.openWindow(data._id);
         });
 
@@ -88,12 +88,12 @@ export class MapComponent implements OnInit {
             });
     }
 
-    openWindow(title) {
-        this.openedWindow = title;
+    openWindow(report_id) {
+        this.openedWindow = report_id;
     }
 
-    isInfoWindowOpen(title) {
-        return this.openedWindow === title;
+    isInfoWindowOpen(report_id) {
+        return this.openedWindow === report_id;
     }
 
     locateAndMoveMap() {

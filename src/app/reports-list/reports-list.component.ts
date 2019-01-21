@@ -24,13 +24,12 @@ export class ReportsListComponent implements OnInit {
             // Facendo unshift sono sicuro che  l'ultima segnalazione sia la prima in lista
             this.reports.unshift(data);
             this.newReport = true;
-
         });
 
         this.apiService.onReportsUpdate().subscribe(reports => {
             // Aggiorna lista di reports
-            this.displayReports(reports);
             this.newReport = false;
+            this.displayReports(reports);
         });
 
         this.apiService.onReportVoteUpdate().subscribe(data => {
@@ -58,6 +57,8 @@ export class ReportsListComponent implements OnInit {
         if (this.reports.length === 0) {
             this.resultString = 'Nessuna segnalazione trovata';
         }
+
+        // this.newReport = false;
     }
 
     ngOnInit() {
