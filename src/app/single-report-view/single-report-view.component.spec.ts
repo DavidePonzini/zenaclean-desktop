@@ -42,4 +42,5 @@ describe('SingleReportViewComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

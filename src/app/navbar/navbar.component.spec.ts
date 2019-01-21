@@ -10,6 +10,7 @@ import config from '../../../config.secret';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginFormComponent} from '../login-form/login-form.component';
 import {LogoutComponent} from '../logout/logout.component';
+import {ProfileComponent} from '../profile/profile.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -17,15 +18,12 @@ describe('NavbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavbarComponent, LoginFormComponent, LogoutComponent ],
+      declarations: [ NavbarComponent, LoginFormComponent, LogoutComponent, ProfileComponent ],
         imports: [
             BrowserModule,
             NgbModule,
             FormsModule,
             CommonModule,
-            AgmCoreModule.forRoot({
-                apiKey: config.googleMapsApiKey,
-            }),
             HttpClientModule
         ]
     })

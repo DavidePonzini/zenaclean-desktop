@@ -34,18 +34,12 @@ describe('LoginFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginFormComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-    /*it('success login with correct credential',  () => {
-        component.model.email = 'indirizzo@email.com';
-        component.model.password = 'password';
-        component.onSubmit();
-        expect(component.submitted).toEqual(true);
-    });*/
 
 });

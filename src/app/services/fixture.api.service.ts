@@ -5,7 +5,10 @@ export const fixtureMarkers: any = [{title: 'Test',
     description: 'Description Test',
     timestamp: '2017-08-19T12:17:55 -04:00',
     latitude: 44,
-    longitude: 8}];
+    longitude: 8,
+    user_id: '1'}];
+
+export const user: any = {id: '1', email: 'test@test.com'};
 
 
 @Injectable({
@@ -14,48 +17,113 @@ export const fixtureMarkers: any = [{title: 'Test',
 
 export class FixtureApiService {
 
-    private static _listners: Subject<any>;
-    private static logged = false;
-    private static user: string;
-    private static demo = false;
-
-    constructor(myobservable: Observable<any>) {}
-
-    static isLogged() {
-        return this.logged;
+    constructor(myobservable: Observable<any>) {
     }
 
-    static setAuth(auth) {
-        this.logged = auth;
-    }
+    _onReportAdd = new Subject<any>();          // show reports added by current user without refreshing page
+    _onReportsUpdate = new Subject<any>();      // show reports when repeating search in a given zone on the map
+    _onMoveMap = new Subject<any>();
+    _onReportVoteUpdate = new Subject<any>();
+    logged = false;
+    viewProfile = false;
+    user = user;
+    demo = false;
 
-    static setUser(user) {
-        this.user = user;
-    }
-
-    static showDemo(demo) {
-        this.demo = demo;
-    }
-
-    static listen(): Observable<any> {
-        return; // this._onReportAdd.asObservable();
-    }
-
-    static update(data: any) {
-        this._listners.next(data);
-    }
-
-    static getReports() {
+    static getReports(ne_lat, ne_lng, sw_lat, sw_lng) {
         return new Observable(function (observer) {
             observer.next(fixtureMarkers);
         });
     }
 
-
-    static postReports(body) {
-        return true;
+    static getUser() {
+        return user;
     }
 
+    isLogged() {
+        return this.logged;
+    }
+
+    getViewProfile() {
+        return this.viewProfile;
+    }
+
+    setViewProfile() {
+        this.viewProfile = !this.viewProfile;
+    }
+
+    setAuth(auth) {
+        this.logged = auth;
+    }
+
+    setUser(user) {
+        this.user = user;
+    }
+
+    showDemo(demo) {
+        this.demo = demo;
+    }
+
+    onReportAdd(): Observable<any> {
+        return this._onReportAdd.asObservable();
+    }
+
+    showNewReport(data: any) {
+        this._onReportAdd.next(data);
+    }
+
+    onReportsUpdate(): Observable<any> {
+        return this._onReportsUpdate.asObservable();
+    }
+
+    updateReports(reports: any) {
+        this._onReportsUpdate.next(reports);
+    }
+
+    onMoveMap(): Observable<any> {
+        return this._onMoveMap.asObservable();
+    }
+
+    moveMap(coords: any) {
+        this._onMoveMap.next(coords);
+    }
+
+    getAddress(lat, lng) {
+        return 'Genova';
+    }
+
+    checkSession() {
+        return;
+    }
+
+    postReports(body) {
+        body.id = this.user.id;
+
+        return;
+    }
+
+    postSignup(body) {
+        return;
+    }
+
+    postLogin(body) {
+        return;
+    }
+
+    logoutSession() {
+        return;
+    }
+
+    voteReport(reportId, isVotePositive) {
+        return;
+    }
+
+    onReportVoteUpdate(): Observable<any> {
+        return this._onReportVoteUpdate.asObservable();
+    }
+
+    updateVote(reportId, vote) {
+        this._onReportVoteUpdate.next({id: reportId, vote: vote});
+    }
 
 }
 
