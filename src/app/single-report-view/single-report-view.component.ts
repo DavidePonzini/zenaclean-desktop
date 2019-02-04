@@ -15,6 +15,10 @@ export class SingleReportViewComponent {
     @Input() report;
     constructor(public activeModal: NgbActiveModal, public apiService: APIService, public modalService: NgbModal) {}
 
+    isReportApproved() {
+        return this.report.approved_positive || this.report.approved_negative;
+    }
+
     hasUserAlreayVoted() {
         return this.hasUserVotedPositive() || this.hasUserVotedNegative();
     }
@@ -39,9 +43,6 @@ export class SingleReportViewComponent {
         if (!this.apiService.isLogged()) {
             return false;
         }
-
-        // console.log('report:', this.report.user_id);
-        // console.log('user:', this.apiService.getUser().id);
 
         return this.report.user_id === this.apiService.getUser().id;
     }

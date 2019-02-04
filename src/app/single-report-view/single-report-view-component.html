@@ -21,14 +21,23 @@
         <p id="modal_report_description">{{report.description}}</p>
 
         <hr>
-        <div class="row">
+
+        <div id="report-approval-status" class="row" *ngIf="isReportApproved()">
+            <div id="report-approved-positive" *ngIf="report.approved_positive" class="alert alert-primary report-status">Report is legit</div>
+            <div id="report-approved-negative" *ngIf="report.approved_negative" class="alert alert-danger report-status">Report is made up</div>
+        </div>
+        <div id='vote-buttons' class="row" *ngIf="!isReportApproved()">
             <div class="col-md button-vote-col">
-                <button id="button-vote-positive" (click)="votePositive()" class="btn {{this.hasUserVotedNegative() || this.doesUserOwnReport() ? 'btn-disabled' : 'btn-success'}} button-vote">
+                <button id="button-vote-positive"
+                        (click)="votePositive()"
+                        class="btn {{this.hasUserVotedNegative() || this.doesUserOwnReport() ? 'btn-disabled' : 'btn-success'}} button-vote">
                     <i class="fa fa-thumbs-up"></i>
                 </button>
             </div>
             <div class="col-md button-vote-col">
-                <button id="button-vote-negative" (click)="voteNegative()" class="btn {{this.hasUserVotedPositive() || this.doesUserOwnReport() ? 'btn-disabled' : 'btn-danger'}} button-vote">
+                <button id="button-vote-negative"
+                        (click)="voteNegative()"
+                        class="btn {{this.hasUserVotedPositive() || this.doesUserOwnReport() ? 'btn-disabled' : 'btn-danger'}} button-vote">
                     <i class="fa fa-thumbs-down"></i>
                 </button>
             </div>

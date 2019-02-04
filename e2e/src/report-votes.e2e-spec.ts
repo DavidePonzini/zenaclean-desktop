@@ -19,6 +19,18 @@ describe('report voting tests', () => {
         password: 'password'
     };
 
+    const user3 = {
+        email: 'report-votes-3@test.test',
+        password: 'password'
+    };
+
+    const user4 = {
+        email: 'report-votes-4@test.test',
+        password: 'password'
+    };
+
+    const users = [user2, user3, user4];
+
     async function login(user) {
         await homePage.navigateTo();
 
@@ -39,6 +51,15 @@ describe('report voting tests', () => {
         const popup = await add_report.submitForm();
 
         return await popup.closePopup();
+    }
+
+    async function loginVoteLogout(user, title: string, positive: boolean) {
+        const map = await login(user);
+        const report = await map.openListElementByTitle(title);
+        const confirm = positive ? await report.votePositive() : await report.voteNegative();
+        await confirm.ConfirmVote();
+
+        await homePage.navigateTo();
     }
 
     beforeEach(() => {
@@ -166,5 +187,43 @@ describe('report voting tests', () => {
         popup = await report.voteNegativeFail();
         expect(popup.getMessageText()).toBe('Votazione già effettuata');
         await popup.closePopup();
+    });
+
+    it('should display status for approved reports (status=positive)', async () => {
+        const title = 'test-vote-3';
+
+        let map = await login(user1);
+        await postReport(map, title);
+        await homePage.navigateTo();
+
+        await loginVoteLogout(user2, title, true);
+        await loginVoteLogout(user3, title, true);
+        await loginVoteLogout(user4, title, true);
+
+        map = await login(user2);
+        const report = await map.openListElementByTitle(title);
+
+        const status = await report.getStatusPositive();
+
+        expect(status).toBeTruthy();
+    });
+
+    it('should display status for approved reports (status=negative)', async () => {
+        const title = 'test-vote-31';
+
+        let map = await login(user1);
+        await postReport(map, title);
+        await homePage.navigateTo();
+
+        await loginVoteLogout(user2, title, false);
+        await loginVoteLogout(user3, title, false);
+        await loginVoteLogout(user4, title, false);
+
+        map = await login(user2);
+        const report = await map.openListElementByTitle(title);
+
+        const status = await report.getStatusNegative();
+
+        expect(status).toBeTruthy();
     });
 });

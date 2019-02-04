@@ -37,4 +37,11 @@ export class SingleReportViewPo {
         return new PopupPo();
     }
 
+    async getStatusPositive() {
+        return await element(by.id('report-approved-positive'));
+    }
+
+    async getStatusNegative() {
+        return await element(by.id('report-approved-negative'));
+    }
 }

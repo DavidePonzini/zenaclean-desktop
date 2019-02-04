@@ -69,3 +69,8 @@ img {
     display: flex;
     justify-content: center;
 }
+
+.report-status {
+    width: 100%;
+    text-align: center;
+}
