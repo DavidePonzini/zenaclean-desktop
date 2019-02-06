@@ -24,7 +24,7 @@ export class AddReportComponent implements OnInit {
 
     ngOnInit() {
         this.model = new NewReport('', '', null, this.geolocation.address, this.geolocation.latitude,
-                                        this.geolocation.longitude, new Date(), '');
+                                        this.geolocation.longitude, new Date(), '', this.apiService.getUser().id);
         this.submitted = false;
     }
 
