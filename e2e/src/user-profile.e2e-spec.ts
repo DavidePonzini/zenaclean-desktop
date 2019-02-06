@@ -21,10 +21,6 @@ describe('profile tests', () => {
         return await homePage.doCorrectLogin(user.email, user.password);
     }
 
-    async function profile(mapPage: ReportMapPagePo) {
-        return await mapPage.clickProfileButton();
-    }
-
     beforeEach(() => {
         homePage = new HomePagePo();
     });
@@ -40,6 +36,4 @@ describe('profile tests', () => {
         const profilePage = await mapPage.clickProfileButton();
         expect(profilePage.checkLogoutIsPresent());
     });
-
-
 });

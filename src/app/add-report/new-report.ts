@@ -12,7 +12,8 @@ export class NewReport {
         public latitude: number,
         public longitude: number,
         public ts: Date,
-        public _id: string
+        public _id: string,
+        public user_id: string
     ) {
 
         const {date, time} = dateUtils.timestampToItalianDate(this.ts.toISOString());

@@ -1,4 +1,4 @@
-import {by, element} from 'protractor';
+import {$, browser, by, element, protractor} from 'protractor';
 
 export class PopupPo {
     async getMessageText() {

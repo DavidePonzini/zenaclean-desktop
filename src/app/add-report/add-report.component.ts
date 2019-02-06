@@ -70,8 +70,9 @@ export class AddReportComponent implements OnInit {
         popupMultiple.result.then(function () {
             self.apiService.postReports(data).subscribe(res => {
                 // res.report_id is correct (it takes the argument from a json)
-                const new_report = new NewReport(data.title, data.description, data.url, data.address,
-                                                    data.latitude, data.longitude, data.timestamp, (res as any)._id);
+                const new_report = new NewReport(data.title, data.description, data.url,
+                    data.address, data.latitude, data.longitude, data.timestamp, (res as any)._id,
+                    self.apiService.getUser().id);
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Segnalazione aggiunta!';
                 popup.componentInstance.btnText = 'Fatto';

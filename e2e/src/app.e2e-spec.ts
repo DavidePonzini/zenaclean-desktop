@@ -3,6 +3,7 @@ import * as WebRequest from 'web-request';
 import Config from '../../config.secret';
 
 import {SignupFormPo} from './PageObjects/Signup-form.po';
+import {browser} from 'protractor';
 const path = require('path');
 
 describe('workspace-project App', () => {
@@ -73,7 +74,11 @@ describe('workspace-project App', () => {
 
         const popup = await form.submitForm();
 
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(100);
         expect(await popup.getMessageText()).toEqual('Segnalazione aggiunta!');
+        browser.waitForAngularEnabled(true);
+
     });
 
     it ('should appear particular existing report in list', async() => {
@@ -83,8 +88,8 @@ describe('workspace-project App', () => {
         const reportTitle = await reportMapPage.getTitleLastListElement();
         const reportDescription = await reportMapPage.getDescriptionLastListElement();
 
-        expect(await reportTitle).toEqual('Frigo vuoto');
-        expect(await reportDescription).toEqual('hanno abbandonato un frigo e non ci hann...');
+        expect(await reportTitle).toEqual('Rumenta');
+        expect(await reportDescription).toEqual('non si passa piu` per la strada!');
     });
 
     it ('should appear popup for single report view, when i click on list element', async() => {
@@ -116,7 +121,11 @@ describe('workspace-project App', () => {
 
         const popup = await form.submitForm();
 
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(100);
+
         await popup.closePopup();
+        browser.waitForAngularEnabled(true);
 
         await homePage.navigateTo();
         reportMapPage = await homePage.goToDemo();

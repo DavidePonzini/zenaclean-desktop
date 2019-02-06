@@ -3,6 +3,7 @@ import {SignupFormPo} from './PageObjects/Signup-form.po';
 import * as WebRequest from 'web-request';
 import Config from '../../config.secret';
 import {ReportMapPagePo} from './PageObjects/ReportMap.po';
+import {browser} from 'protractor';
 
 
 describe('report voting tests', () => {
@@ -38,19 +39,26 @@ describe('report voting tests', () => {
     }
 
     async function logout(mapPage: ReportMapPagePo) {
-        const profile = await mapPage.clickProfileButton();
+        await browser.waitForAngularEnabled(false);
 
-        return await profile.clickLogout();
+        const profile = await mapPage.clickProfileButton();
+        await profile.clickLogout();
+
+        await browser.waitForAngularEnabled(true);
     }
 
     async function postReport(map, title) {
+
         const add_report = await map.clickAddReportLogged();
 
         await add_report.writeTitle(title);
         await add_report.writeDescription('Test');
         const popup = await add_report.submitForm();
 
-        return await popup.closePopup();
+        await browser.waitForAngularEnabled(false);
+        await browser.sleep(5000);
+        await popup.closePopup();
+        await browser.waitForAngularEnabled(true);
     }
 
     async function loginVoteLogout(user, title: string, positive: boolean) {
@@ -124,15 +132,22 @@ describe('report voting tests', () => {
 
         await postReport(map, title);
 
+        await browser.waitForAngularEnabled(false);
+        await browser.sleep(100);
         const report = await map.openListElementByTitle(title);
 
         let popup = await report.votePositiveFail();
         expect(popup.getMessageText()).toBe('Non puoi votare le tue segnalazioni');
+        await browser.sleep(100);
         await popup.closePopup();
 
+        await browser.sleep(100);
         popup = await report.voteNegativeFail();
         expect(popup.getMessageText()).toBe('Non puoi votare le tue segnalazioni');
+        await browser.sleep(100);
         await popup.closePopup();
+
+        await browser.waitForAngularEnabled(true);
     });
 
     it('should not allow users to change their vote on the same report after logging in back again (vote=positive)', async () => {
