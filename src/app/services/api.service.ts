@@ -30,8 +30,12 @@ export class APIService {
         return this.viewProfile;
     }
 
-    setViewProfile() {
-        this.viewProfile = !this.viewProfile;
+    setViewProfile(newVal?: boolean) {
+        if (newVal) {
+            this.viewProfile = newVal;
+        } else {
+            this.viewProfile = !this.viewProfile;
+        }
     }
 
     setAuth(auth) {

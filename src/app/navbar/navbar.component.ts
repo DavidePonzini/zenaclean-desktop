@@ -8,8 +8,6 @@ import {APIService} from '../services/api.service';
 })
 export class NavbarComponent implements OnInit {
 
-    profileView = false;
-
     constructor(private apiService: APIService) {
     }
 
@@ -18,11 +16,10 @@ export class NavbarComponent implements OnInit {
     }
 
     getViewProfile() {
-        return this.profileView;
+        return this.apiService.getViewProfile();
     }
 
     setViewProfile() {
-        this.profileView = !this.profileView;
         this.apiService.setViewProfile();
     }
 
@@ -31,11 +28,6 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-    }
-
-    toProfile() {
-        // location.href = '/';
-
     }
 
 }

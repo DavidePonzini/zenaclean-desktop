@@ -92,6 +92,8 @@ export class ReportMapPagePo {
         // don't know why, but without this I can't get the button by id
         browser.ignoreSynchronization = true;
 
-        return await element(by.id('update-reports-button')).click();
+        await element(by.id('update-reports-button')).click();
+
+        await browser.sleep(200);
     }
 }

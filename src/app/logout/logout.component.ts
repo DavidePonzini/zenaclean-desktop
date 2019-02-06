@@ -17,7 +17,7 @@ export class LogoutComponent implements OnInit {
       // location.href = '/';
       this.apiService.setAuth(false);
       this.apiService.setUser(null);
-      this.apiService.setViewProfile();
+      this.apiService.setViewProfile(false);
       this.apiService.logoutSession().subscribe();
   }
 
