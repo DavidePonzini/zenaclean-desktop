@@ -93,6 +93,14 @@ export class APIService {
         return this.httpClient.get(`${this.API_URL + 'reports'}`, {params: params});
     }
 
+    getBalance() {
+        let params = new HttpParams();
+
+        params = params.append('addr', this.user.eth_address);
+
+        return this.httpClient.get(`${this.API_URL + 'users/balance'}`, {params: params});
+    }
+
     getAddress(lat, lng) {
         const that = this;
         return new Observable(function (observer) {

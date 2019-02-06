@@ -12,4 +12,8 @@ export class ProfilePagePo {
         return await element(by.id('logoutButton')).isPresent();
     }
 
+    async getBalance() {
+        return await element(by.id('profile-user-balance')).getText();
+    }
+
 }

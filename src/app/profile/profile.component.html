@@ -1,14 +1,21 @@
 <img src="../../assets/user.png" alt="user_logo" class="user_logo">
 
-<p>Codice Fiscale</p>
-<p class = "user-ssn"> {{getUser().ssn}} </p>
-
-<div class="form-group">
-    <label class="required">Email</label>
-    <input type="email" class="form-control user-mail" id="" required rows="1" value="{{ getUser().email}}"
-               name="user-mail" disabled/>
+<div class="group">
+    <h3>Codice Fiscale</h3>
+    <p id="profile-user-ssn">{{getUser().ssn}}</p>
 </div>
-
+<hr>
+<div class="group">
+    <h3>Bilancio</h3>
+    <p id='profile-user-balance'><i class="fas fa-coins"></i> {{balance}} palanche</p>
+    <a id='profile-user-wallet-link' href="{{eth_url}}"><i class="fas fa-wallet"></i> Vai al wallet</a>
+</div>
+<hr>
+<div class="group">
+    <h3>Email</h3>
+    <p id="profile-user-mail">{{getUser().email}}</p>
+</div>
+<hr>
 <div class="btn-logout">
     <app-logout></app-logout>
 </div>

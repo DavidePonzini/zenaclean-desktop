@@ -36,4 +36,12 @@ describe('profile tests', () => {
         const profilePage = await mapPage.clickProfileButton();
         expect(profilePage.checkLogoutIsPresent());
     });
+
+    it('should display the correct balance for a user', async () => {
+       const map = await login(user1);
+       const profile = await map.clickProfileButton();
+       const balance = await profile.getBalance();
+
+       expect(balance).toEqual('100 palanche');
+    });
 });
