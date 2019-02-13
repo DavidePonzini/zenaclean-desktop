@@ -33,7 +33,7 @@ export class MapComponent implements OnInit {
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.onReportAdd().subscribe((data) => {
-            this.reports.push(data);
+            // this.reports.push(data);
             this.visible = true;
 
             // this.updateReports();
