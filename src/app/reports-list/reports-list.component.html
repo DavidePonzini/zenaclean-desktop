@@ -13,7 +13,7 @@
           <h4 class = "report_title">{{ report.title }} </h4>
         </div>
         <div class="row content_info">
-          <div class="info col-6">
+          <div class="info col-7">
             <div class = "info_details col-sm-12">
               <p> {{ report.address}}</p>
               <p class="report_description"> {{ report.description.length>40? report.description.substring(0,40)+'...' : report.description }}</p>
@@ -22,7 +22,7 @@
               <p class="date">{{report.date}}</p>
             </div>
           </div>
-          <div class="photo col-6">
+          <div class="photo col-5">
             <img alt="Immagine non trovata" src="{{ report.url ? report.url : '/assets/default_pic.png'}}"/>
           </div>
         </div>
