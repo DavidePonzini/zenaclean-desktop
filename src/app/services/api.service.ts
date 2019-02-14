@@ -122,6 +122,14 @@ export class APIService {
         return this.httpClient.post(`${this.API_URL + 'reports'}`, body);
     }
 
+    uploadPhoto(file, reportId) {
+        const uploadData = new FormData();
+        uploadData.append('photo', file);
+        uploadData.append('id', reportId);
+        uploadData.append('userId', this.user.id);
+        return this.httpClient.post(`${this.API_URL + 'reports/uploadPhoto'}`, uploadData);
+    }
+
     postSignup(body) {
         return this.httpClient.post(`${this.API_URL + 'users/register'}`, body);
     }

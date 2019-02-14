@@ -16,6 +16,7 @@ export class AddReportComponent implements OnInit {
     model: any;
     submitted: any;
     reports: any;
+    file: any = null;
 
     @Input() geolocation;
 
@@ -31,8 +32,8 @@ export class AddReportComponent implements OnInit {
     checkSize(event) {
         const dot_separator = this.model.url.split('.');
         const type = dot_separator[dot_separator.length - 1];
-
-        if (type !== 'png' && type !== 'jpg' && type !== '') {
+        this.file = null;
+        if (type !== 'png' && type !== 'jpg' && type !== '' && type !== 'jpeg' && type !== 'bmp') {
             const popup = this.modalService.open(PopupComponent, {size: 'sm'});
             popup.componentInstance.message = 'Formato immagine non corretto.';
             popup.componentInstance.btnText = 'Chiudi';
@@ -46,6 +47,8 @@ export class AddReportComponent implements OnInit {
             /*popup.componentInstance.btnColor = 'dodgerblue';
             popup.componentInstance.btnBorderColor = 'white';*/
             this.model.url = null;
+        } else {
+            this.file = event.target.files[0];
         }
     }
 
@@ -56,9 +59,9 @@ export class AddReportComponent implements OnInit {
             description: this.model.description,
             latitude: this.model.latitude,
             longitude: this.model.longitude,
-            url: this.model.url,
             timestamp: this.model.ts,
             address: this.model.address,
+            url: null
         };
 
         // const dot_separator = data.url.split('.');
@@ -70,16 +73,14 @@ export class AddReportComponent implements OnInit {
         popupMultiple.result.then(function () {
             self.apiService.postReports(data).subscribe(res => {
                 // res.report_id is correct (it takes the argument from a json)
-                const new_report = new NewReport(data.title, data.description, data.url,
-                    data.address, data.latitude, data.longitude, data.timestamp, (res as any)._id,
-                    self.apiService.getUser().id);
-                const popup = self.modalService.open(PopupComponent, {size: 'sm'});
-                popup.componentInstance.message = 'Segnalazione aggiunta!';
-                popup.componentInstance.btnText = 'Fatto';
-                /*popup.componentInstance.btnColor = 'dodgerblue';
-                popup.componentInstance.btnBorderColor = 'white';*/
-                self.activeModal.close();
-                self.apiService.showNewReport(new_report);
+                if (self.file != null) {
+                    self.apiService.uploadPhoto(self.file, (res as any)._id).subscribe(result => {
+                        data.url = (result as any).url;
+                        self.displayNewReport(data, (result as any)._id);
+                    });
+                } else {
+                    self.displayNewReport(data, (res as any)._id);
+                }
             }, error => {
                 const popup = self.modalService.open(PopupComponent, {size: 'sm'});
                 popup.componentInstance.message = 'Errore durante invio, riprova.';
@@ -92,5 +93,18 @@ export class AddReportComponent implements OnInit {
         });
 
         this.submitted = true;
+    }
+
+    displayNewReport(data, id) {
+        const new_report = new NewReport(data.title, data.description, data.url,
+          data.address, data.latitude, data.longitude, data.timestamp, id,
+          this.apiService.getUser().id);
+        const popup = this.modalService.open(PopupComponent, {size: 'sm'});
+        popup.componentInstance.message = 'Segnalazione aggiunta!';
+        popup.componentInstance.btnText = 'Fatto';
+        /*popup.componentInstance.btnColor = 'dodgerblue';
+        popup.componentInstance.btnBorderColor = 'white';*/
+        this.activeModal.close();
+        this.apiService.showNewReport(new_report);
     }
 }
