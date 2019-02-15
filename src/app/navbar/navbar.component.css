@@ -1,8 +1,6 @@
 .navbar {
     background-color: #3F51B5;
-    max-height:7vh;
-    height: 7vh;
-    min-height: 70px;
+    height: 9vh;
     padding: 0 1rem;
 }
 
