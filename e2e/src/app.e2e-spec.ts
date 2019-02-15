@@ -1,6 +1,7 @@
 import { HomePagePo } from './PageObjects/Home.po';
 import * as WebRequest from 'web-request';
 import Config from '../../config.secret';
+import {APIService} from '../../src/app/services/api.service';
 
 import {SignupFormPo} from './PageObjects/Signup-form.po';
 import {browser} from 'protractor';
@@ -9,6 +10,9 @@ const path = require('path');
 describe('workspace-project App', () => {
     let homePage: HomePagePo;
     let signupPage: SignupFormPo;
+
+    const standardUsername = 'a@a.com';
+    const standardPassword = '00000000';
 
     function getRandomString() {
         let string = '';
@@ -30,13 +34,11 @@ describe('workspace-project App', () => {
     afterEach(async () => {
         const result = await WebRequest.get(Config.apiUrl + 'reports/cleanup');
         const result_2 =  await WebRequest.get(Config.apiUrl + 'users/cleanup');
-
-        // console.log(result.content);
     });
 
     it('should check for confirm popUp is not opened if title is missing', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
         const form = await reportMapPage.clickAddReportLogged();
 
@@ -47,11 +49,16 @@ describe('workspace-project App', () => {
         await form.clickConfirmButton();
 
         expect(await form.isConfirmPopUpOpened()).toBe(false);
+
+        await form.closeForm();
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
+
     });
 
     it('should check for confirm popUp is not opened if description is missing', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
         const form = await reportMapPage.clickAddReportLogged();
         // TODO set location: via Dodecaneso 35
@@ -61,11 +68,15 @@ describe('workspace-project App', () => {
         await form.clickConfirmButton();
 
         expect(await form.isConfirmPopUpOpened()).toBe(false);
+
+        await form.closeForm();
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
     });
 
     it('should display a message when adding a new report', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
         const form = await reportMapPage.clickAddReportLogged();
 
@@ -75,26 +86,40 @@ describe('workspace-project App', () => {
         const popup = await form.submitForm();
 
         browser.waitForAngularEnabled(false);
-        await browser.sleep(100);
+        await browser.sleep(500);
         expect(await popup.getMessageText()).toEqual('Segnalazione aggiunta!');
-        browser.waitForAngularEnabled(true);
+
+        await popup.closePopup();
+
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
 
     });
 
     it ('should appear particular existing report in list', async() => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
-        const reportTitle = await reportMapPage.getTitleLastListElement();
-        const reportDescription = await reportMapPage.getDescriptionLastListElement();
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
+
+        const reportTitle = await reportMapPage.getMyReportTitle('Rumenta');
+        const reportDescription = await reportMapPage.getMyReportDescription('NON CANCELLARE! Serve per i test!');
 
         expect(await reportTitle).toEqual('Rumenta');
-        expect(await reportDescription).toEqual('non si passa piu` per la strada!');
+        expect(await reportDescription).toEqual('NON CANCELLARE! Serve per i test!');
+
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
     });
 
     it ('should appear popup for single report view, when i click on list element', async() => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
+
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
+        browser.waitForAngularEnabled(true);
 
         const reportTitle = await reportMapPage.getTitleFirstListElement();
         const reportDescription = await reportMapPage.getDescriptionFirstListElement();
@@ -106,11 +131,16 @@ describe('workspace-project App', () => {
 
         expect(await reportTitle).toEqual(await modalTitle);
         expect(await reportDescription.substring(0, 40)).toEqual(await modalDescr.substring(0, 40));
+
+        singleReportView.closePopup();
+
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
     });
 
     it ('should see a report in the list that i have just added', async() => {
         await homePage.navigateTo();
-        let reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
         const form = await reportMapPage.clickAddReportLogged();
 
@@ -122,13 +152,12 @@ describe('workspace-project App', () => {
         const popup = await form.submitForm();
 
         browser.waitForAngularEnabled(false);
-        await browser.sleep(100);
+        await browser.sleep(500);
 
         await popup.closePopup();
-        browser.waitForAngularEnabled(true);
 
-        await homePage.navigateTo();
-        reportMapPage = await homePage.goToDemo();
+        // await homePage.navigateTo();
+        // reportMapPage = await homePage.goToDemo();
 
         // check that string is present in list
         const reportTitle = await reportMapPage.getMyReportTitle(randomTitle);
@@ -137,12 +166,16 @@ describe('workspace-project App', () => {
         expect(await reportTitle).toEqual(randomTitle);
         expect(await reportDescription).toEqual('Test');
 
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
     });
 
     it('should display an error message when adding a url too big', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
         const form = await reportMapPage.clickAddReportLogged();
 
         await form.writeTitle('Test');
@@ -154,12 +187,20 @@ describe('workspace-project App', () => {
         const popup = form.getPopupError();
 
         expect(await popup.getMessageText()).toEqual('Immagine troppo grande.');
+
+        await popup.closePopup();
+        await form.closeForm();
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
     });
+
 
     it('should display an error message when adding a file that is not a image', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
         const form = await reportMapPage.clickAddReportLogged();
 
         await form.writeTitle('Test');
@@ -171,6 +212,11 @@ describe('workspace-project App', () => {
         const popup = form.getPopupError();
 
         expect(await popup.getMessageText()).toEqual('Formato immagine non corretto.');
+
+        await popup.closePopup();
+        await form.closeForm();
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
     });
 
     it('should open the map demo page when clicking on demo button', async () => {
@@ -182,20 +228,33 @@ describe('workspace-project App', () => {
 
     it('should login when providing correct credentials', async () => {
         await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
+
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
 
         expect(await reportMapPage.isProfileButtonPresent()).toBe(true);
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
     });
 
     it('should not login and display an error message when providing wrong email', async () => {
         await homePage.navigateTo();
-        const popup = await homePage.doWrongLogin('wrong@email.com', 'password');
+        const popup = await homePage.doWrongLogin('wrong@email.com', standardPassword);
+
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
+
         expect(await popup.getMessageText()).toEqual('Email e/o password errati');
     });
 
     it('should not login and display an error message when providing wrong password', async () => {
         await homePage.navigateTo();
-        const popup = await homePage.doWrongLogin('indirizzo@email.com', 'wrongpassword');
+        const popup = await homePage.doWrongLogin(standardUsername, 'wrongpassword');
+
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
+
         expect(await popup.getMessageText()).toEqual('Email e/o password errati');
     });
 
@@ -209,37 +268,26 @@ describe('workspace-project App', () => {
 
         const popup = await signupPage.clickOnSignup();
 
-        expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
-
-        await homePage.navigateTo();
-        const reportMapPage = await homePage.doCorrectLogin(email, password);
-
-        expect(await reportMapPage.isProfileButtonPresent()).toBe(true);
-
-    });
-
-    it('should signup to website when providing correct parameters and then be able to login', async () =>  {
-        const email = 'test@test.com';
-        const password = 'password1';
-
-        await signupPage.navigateTo();
-        await signupPage.compileSignupForm('ABCDEF00A99A000Z', email, password, password);
-        await signupPage.acceptPrivacy();
-
-        const popup = await signupPage.clickOnSignup();
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
 
         expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(email, password);
 
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
+
         expect(await reportMapPage.isProfileButtonPresent()).toBe(true);
 
+        const profilePage = await homePage.clickProfileButton();
+        await profilePage.clickLogout();
     });
 
     it ('should give error when trying to signup with already existing email', async() => {
 
-        /* First registration */
+        // First registration
         const email = 'test@test.com';
         const password = 'password1';
         let SSN = 'ABCDEF00A99A000Z';
@@ -250,22 +298,28 @@ describe('workspace-project App', () => {
 
         let popup = await signupPage.clickOnSignup();
 
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
+
         expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
-        /* Second registration  */
+        // Second registration
         SSN = 'ABCDEF00A99A000U';
         await signupPage.navigateTo();
         await signupPage.compileSignupForm(SSN, email, password, password);
         await signupPage.acceptPrivacy();
         popup = await signupPage.clickOnSignup();
+
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
+
         expect(await popup.getMessageText()).toEqual('Utente o codice fiscale già registrato');
 
     });
 
-
     it ('should give error when trying to signup with already existing SSN', async() => {
 
-        /* First registration */
+        // First registration
         let email = 'test@test.com';
         const password = 'password1';
         const SSN = 'ABCDEF00A99A000Z';
@@ -275,35 +329,36 @@ describe('workspace-project App', () => {
         await signupPage.acceptPrivacy();
 
         let popup = await signupPage.clickOnSignup();
-
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
         expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
-        /* third registration  */
+        // third registration
         email =  'test2@test.com';
         await signupPage.navigateTo();
         await signupPage.compileSignupForm(SSN, email, password, password);
         await signupPage.acceptPrivacy();
         popup = await signupPage.clickOnSignup();
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
         expect(await popup.getMessageText()).toEqual('Utente o codice fiscale già registrato');
     });
 
     it ('should give error when trying to signup password and confirmation are different', async() => {
-        /* First registration */
+        // First registration
         const email = 'test@test.com';
         const password = 'password1';
         const confirm_password = 'password2';
         const SSN = 'ABCDEF00A99A000Z';
         await signupPage.navigateTo();
         await signupPage.compileSignupForm(SSN, email, password, confirm_password);
-
         await signupPage.acceptPrivacy();
         await signupPage.clickOnSignup();
-
         expect(await signupPage.getErrorConfirmationPassword()).toEqual('Le password non combaciano.');
     });
 
     it ('should give error when trying to signup with password shorter then 8 chars', async() => {
-        /* First registration */
+        // First registration
         const email = 'test@test.com';
         const password = 'passw';
         const SSN = 'ABCDEF00A99A000Z';
@@ -312,17 +367,19 @@ describe('workspace-project App', () => {
         await signupPage.compileSignupForm(SSN, email, password, password);
         await signupPage.acceptPrivacy();
         await signupPage.clickOnSignup();
-
         expect(await signupPage.getErrorLengthPassword()).toEqual('Lunghezza minima: 8 caratteri.');
     });
 
     it ('should redirect to homepage after logout, be able to login, not able to view profile', async () => {
         await homePage.navigateTo();
 
-        const reportMapPage = await homePage.doCorrectLogin('indirizzo@email.com', 'password');
+        const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
         const profilePage = await reportMapPage.clickProfileButton();
         const homePageNew = await profilePage.clickLogout();
-
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
         expect(homePageNew.isProfileButtonPresent()).toEqual(false);
         expect(homePageNew.isLoginButtonPresent()).toEqual(true);
     });
@@ -339,4 +396,5 @@ describe('workspace-project App', () => {
 
         expect(homePage.isLoginButtonPresent()).toEqual(true);
     });
+
 });

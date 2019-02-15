@@ -42,4 +42,8 @@ export class InsertFormPo {
     async closeForm() {
         return await element(by.id('close-new-report-form')).click();
     }
+
+    async clickLogout() {
+        return await element(by.id('logoutButton')).click();
+    }
 }

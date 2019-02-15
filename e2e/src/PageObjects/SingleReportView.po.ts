@@ -44,4 +44,8 @@ export class SingleReportViewPo {
     async getStatusNegative() {
         return await element(by.id('report-approved-negative'));
     }
+
+    async closePopup() {
+        return await element(by.id('close-single-report-view')).click();
+    }
 }

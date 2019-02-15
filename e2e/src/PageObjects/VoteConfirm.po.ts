@@ -11,4 +11,8 @@ export class VoteConfirmPo {
     async DontConfirmVote() {
         return await element(by.id('popup-no-button')).click();
     }
+
+    async clickLogout() {
+        return await element(by.id('logoutButton')).click();
+    }
 }

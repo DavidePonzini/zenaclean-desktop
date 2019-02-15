@@ -1,5 +1,5 @@
 import {ReportMapPagePo} from './PageObjects/ReportMap.po';
-import {by, element} from 'protractor';
+import {browser, by, element} from 'protractor';
 
 describe('report geo-lookup tests', () => {
     let reportMap: ReportMapPagePo;
@@ -18,15 +18,14 @@ describe('report geo-lookup tests', () => {
         await reportMap.searchForLocation('New York Avenue Northwest, Washington, DC, USA');
 
         const text = await element(by.id('scrollable')).getText();
-
         expect(text).toBe('Nessuna segnalazione trovata');
     });
 
     it('should display a report when I search for a place which contains it', async () => {
-        await reportMap.searchForLocation('Via Roma, Casale Monferrato, Province of Alessandria, Italy');
+        await reportMap.searchForLocation('Largo Ernesto Jurse, Genova, GE, Italia');
 
         const text = await reportMap.getTitleLastListElement();
 
-        expect(text).toBe('Test Geolocation');
+        expect(text).toBe('Rumenta');
     });
 });

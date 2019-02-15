@@ -33,10 +33,9 @@ export class MapComponent implements OnInit {
 
     constructor(private apiService: APIService, private modalService: NgbModal) {
         this.apiService.onReportAdd().subscribe((data) => {
-            // this.reports.push(data);
             this.visible = true;
 
-            // this.updateReports();
+            this.updateReports();
             this.map.setCenter({lat: data.latitude, lng: data.longitude});
 
             if (this.zoom < 15) {
@@ -57,7 +56,7 @@ export class MapComponent implements OnInit {
         this.apiService.onMoveMap().subscribe(coords => {
             this.map.setCenter(coords);
             this.zoom = 18;
-            // this.updateReports();
+            this.updateReports();
         });
 
         this.apiService.onReportVoteUpdate().subscribe(data => {

@@ -15,5 +15,4 @@ export class ProfilePagePo {
     async getBalance() {
         return await element(by.id('profile-user-balance')).getText();
     }
-
 }

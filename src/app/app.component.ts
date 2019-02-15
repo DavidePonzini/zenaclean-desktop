@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
     title = 'ADoSS';
 
     constructor(private apiService: APIService) {
-
     }
 
     isLogged() {
@@ -19,6 +18,11 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.apiService.checkSession().subscribe( res => {
+            if (res['status'] === 'ok') {
+                this.apiService.setAuth(true);
+            }
+        });
     }
 }
 

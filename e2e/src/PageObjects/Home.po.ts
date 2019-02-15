@@ -1,6 +1,7 @@
 import { browser, by, element } from 'protractor';
 import {ReportMapPagePo} from './ReportMap.po';
 import {PopupPo} from './Popup.po';
+import {ProfilePagePo} from './ProfilePage.po';
 
 export class HomePagePo {
 
@@ -33,5 +34,10 @@ export class HomePagePo {
 
     async isLoginButtonPresent() {
         return await element(by.id('login-button')).isPresent();
+    }
+
+    async clickProfileButton() {
+        await element(by.id('profileButton')).click();
+        return new ProfilePagePo();
     }
 }

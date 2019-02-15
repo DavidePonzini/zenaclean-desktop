@@ -49,4 +49,8 @@ export class SignupFormPo {
         return await element(by.id('pwdLengthError')).getText();
     }
 
+    async clickLogout() {
+        return await element(by.id('logoutButton')).click();
+    }
+
 }
