@@ -92,13 +92,13 @@ export class ReportMapPagePo {
         // don't know why, but without this I can't get the button by id
         // browser.ignoreSynchronization = true;
 
-
         browser.waitForAngularEnabled(false);
         await browser.sleep(1000);
 
         await element(by.id('update-reports-button')).click();
 
-        await browser.sleep(200);
+        browser.waitForAngularEnabled(false);
+        await browser.sleep(1000);
     }
 
 }
