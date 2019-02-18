@@ -25,6 +25,11 @@ describe('workspace-project App', () => {
         return string;
     }
 
+    async function myExplicitWait() {
+        await browser.waitForAngularEnabled(false);
+        await browser.sleep(500);
+    }
+
     beforeEach(() => {
         homePage = new HomePagePo();
         signupPage = new SignupFormPo();
@@ -85,8 +90,7 @@ describe('workspace-project App', () => {
 
         const popup = await form.submitForm();
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         expect(await popup.getMessageText()).toEqual('Segnalazione aggiunta!');
 
         await popup.closePopup();
@@ -100,8 +104,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         const reportTitle = await reportMapPage.getMyReportTitle('Rumenta');
         const reportDescription = await reportMapPage.getMyReportDescription('NON CANCELLARE! Serve per i test!');
@@ -117,9 +120,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
-        browser.waitForAngularEnabled(true);
+        await myExplicitWait();
 
         const reportTitle = await reportMapPage.getTitleFirstListElement();
         const reportDescription = await reportMapPage.getDescriptionFirstListElement();
@@ -142,6 +143,8 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
+        await myExplicitWait();
+
         const form = await reportMapPage.clickAddReportLogged();
 
         const randomTitle = getRandomString();
@@ -151,8 +154,7 @@ describe('workspace-project App', () => {
 
         const popup = await form.submitForm();
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         await popup.closePopup();
 
@@ -174,8 +176,8 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
+
         const form = await reportMapPage.clickAddReportLogged();
 
         await form.writeTitle('Test');
@@ -199,8 +201,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         const form = await reportMapPage.clickAddReportLogged();
 
         await form.writeTitle('Test');
@@ -230,8 +231,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         expect(await reportMapPage.isProfileButtonPresent()).toBe(true);
         const profilePage = await homePage.clickProfileButton();
@@ -242,8 +242,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const popup = await homePage.doWrongLogin('wrong@email.com', standardPassword);
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         expect(await popup.getMessageText()).toEqual('Email e/o password errati');
     });
@@ -252,8 +251,7 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
         const popup = await homePage.doWrongLogin(standardUsername, 'wrongpassword');
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         expect(await popup.getMessageText()).toEqual('Email e/o password errati');
     });
@@ -268,16 +266,14 @@ describe('workspace-project App', () => {
 
         const popup = await signupPage.clickOnSignup();
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
         await homePage.navigateTo();
         const reportMapPage = await homePage.doCorrectLogin(email, password);
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         expect(await reportMapPage.isProfileButtonPresent()).toBe(true);
 
@@ -298,8 +294,7 @@ describe('workspace-project App', () => {
 
         let popup = await signupPage.clickOnSignup();
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
@@ -310,8 +305,7 @@ describe('workspace-project App', () => {
         await signupPage.acceptPrivacy();
         popup = await signupPage.clickOnSignup();
 
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         expect(await popup.getMessageText()).toEqual('Utente o codice fiscale già registrato');
 
@@ -329,8 +323,7 @@ describe('workspace-project App', () => {
         await signupPage.acceptPrivacy();
 
         let popup = await signupPage.clickOnSignup();
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         expect(await popup.getMessageText()).toEqual('Registrazione effettuata con successo, effettua il login in alto a destra');
 
         // third registration
@@ -339,8 +332,8 @@ describe('workspace-project App', () => {
         await signupPage.compileSignupForm(SSN, email, password, password);
         await signupPage.acceptPrivacy();
         popup = await signupPage.clickOnSignup();
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
+
         expect(await popup.getMessageText()).toEqual('Utente o codice fiscale già registrato');
     });
 
@@ -374,12 +367,12 @@ describe('workspace-project App', () => {
         await homePage.navigateTo();
 
         const reportMapPage = await homePage.doCorrectLogin(standardUsername, standardPassword);
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
+
         const profilePage = await reportMapPage.clickProfileButton();
         const homePageNew = await profilePage.clickLogout();
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
+
         expect(homePageNew.isProfileButtonPresent()).toEqual(false);
         expect(homePageNew.isLoginButtonPresent()).toEqual(true);
     });

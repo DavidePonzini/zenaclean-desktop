@@ -37,15 +37,18 @@ describe('report voting tests', () => {
         return await homePage.doCorrectLogin(user.email, user.password);
     }
 
-    async function logout(mapPage: ReportMapPagePo) {
+    async function myExplicitWait() {
         await browser.waitForAngularEnabled(false);
-        browser.sleep(500);
+        await browser.sleep(500);
+    }
+
+    async function logout(mapPage: ReportMapPagePo) {
+        await myExplicitWait();
 
         const profile = await mapPage.clickProfileButton();
         await profile.clickLogout();
 
-        await browser.waitForAngularEnabled(false);
-        browser.sleep(500);
+        await myExplicitWait();
     }
 
     async function postReport(map, title) {
@@ -55,22 +58,19 @@ describe('report voting tests', () => {
         await add_report.writeDescription('Test');
         const popup = await add_report.submitForm();
 
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await popup.closePopup();
-        // await browser.waitForAngularEnabled(true);
     }
 
     async function loginVoteLogout(user, title: string, positive: boolean) {
         const map = await login(user);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
 
         const report = await map.openListElementByTitle(title);
         const confirm = positive ? await report.votePositive() : await report.voteNegative();
         const popup = await confirm.ConfirmVote();
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
+
         await popup.closePopup();
         await report.closePopup();
 
@@ -92,20 +92,16 @@ describe('report voting tests', () => {
         const title = 'test-vote-0';
 
         let map = await login(user1);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
         await postReport(map, title);
         await logout(map);
 
         map = await login(user2);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         const report = await map.openListElementByTitle(title);
 
         const confirm = await report.votePositive();
         const popupOk = await confirm.ConfirmVote();
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await popupOk.closePopup();
 
         let popup = await report.votePositiveFail();
@@ -125,20 +121,17 @@ describe('report voting tests', () => {
         const title = 'test-vote-01';
 
         let map = await login(user1);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await postReport(map, title);
         await logout(map);
 
         map = await login(user2);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         const report = await map.openListElementByTitle(title);
 
         const confirm = await report.voteNegative();
         const popupOk = await confirm.ConfirmVote();
-        browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await popupOk.closePopup();
 
         let popup = await report.votePositiveFail();
@@ -157,23 +150,21 @@ describe('report voting tests', () => {
         const title = 'test-vote-1';
 
         const map = await login(user1);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await postReport(map, title);
 
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(100);
+        await myExplicitWait();
         const report = await map.openListElementByTitle(title);
 
         let popup = await report.votePositiveFail();
         expect(popup.getMessageText()).toBe('Non puoi votare le tue segnalazioni');
-        await browser.sleep(100);
+        await myExplicitWait();
         await popup.closePopup();
 
-        await browser.sleep(100);
+        await myExplicitWait();
         popup = await report.voteNegativeFail();
         expect(popup.getMessageText()).toBe('Non puoi votare le tue segnalazioni');
-        await browser.sleep(100);
+        await myExplicitWait();
         await popup.closePopup();
         await report.closePopup();
         await logout(map);
@@ -183,27 +174,23 @@ describe('report voting tests', () => {
         const title = 'test-vote-2';
 
         let map = await login(user1);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await postReport(map, title);
         await logout(map);
 
         map = await login(user2);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         let report = await map.openListElementByTitle(title);
 
         const confirm = await report.votePositive();
         let popup = await confirm.ConfirmVote();
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await popup.closePopup();
         await report.closePopup();
         await logout(map);
 
         await login(user2);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         report = await map.openListElementByTitle(title);
 
         popup = await report.votePositiveFail();
@@ -218,27 +205,23 @@ describe('report voting tests', () => {
         const title = 'test-vote-21';
 
         let map = await login(user1);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await postReport(map, title);
         await logout(map);
 
         map = await login(user2);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         let report = await map.openListElementByTitle(title);
 
         const confirm = await report.voteNegative();
         let popup = await confirm.ConfirmVote();
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await popup.closePopup();
         await report.closePopup();
         await logout(map);
 
         await login(user2);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         report = await map.openListElementByTitle(title);
 
         popup = await report.votePositiveFail();
@@ -256,8 +239,7 @@ describe('report voting tests', () => {
         const title = 'test-vote-3';
 
         let map = await login(user1);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         await postReport(map, title);
         await logout(map);
 
@@ -266,12 +248,13 @@ describe('report voting tests', () => {
         await loginVoteLogout(user4, title, true);
 
         map = await login(user2);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         const report = await map.openListElementByTitle(title);
 
         const status = await report.getStatusPositive();
         expect(status).toBeTruthy();
+
+        await myExplicitWait();
         await report.closePopup();
         await logout(map);
 
@@ -281,8 +264,8 @@ describe('report voting tests', () => {
         const title = 'test-vote-31';
 
         let map = await login(user1);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
+
         await postReport(map, title);
         await logout(map);
 
@@ -291,8 +274,7 @@ describe('report voting tests', () => {
         await loginVoteLogout(user4, title, false);
 
         map = await login(user2);
-        await browser.waitForAngularEnabled(false);
-        await browser.sleep(500);
+        await myExplicitWait();
         const report = await map.openListElementByTitle(title);
 
         const status = await report.getStatusNegative();
