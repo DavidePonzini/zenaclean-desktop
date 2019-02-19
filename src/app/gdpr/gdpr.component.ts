@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import config from '../../../config.secret';
 
 @Component({
   selector: 'app-gdpr',
@@ -7,6 +8,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./gdpr.component.css']
 })
 export class GdprComponent implements OnInit {
+    url = config.apiUrl;
 
     constructor(public activeModal: NgbActiveModal) {
     }
