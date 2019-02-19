@@ -8,7 +8,7 @@ export const fixtureMarkers: any = [{title: 'Test',
     longitude: 8,
     user_id: '1'}];
 
-export const user: any = {id: '1', email: 'test@test.com'};
+export const user: any = {id: '1', email: 'test@test.com', eth_address: 'test_address'};
 
 
 @Injectable({
@@ -17,7 +17,7 @@ export const user: any = {id: '1', email: 'test@test.com'};
 
 export class FixtureApiService {
 
-    constructor(myobservable: Observable<any>) {
+    constructor() {
     }
 
     _onReportAdd = new Subject<any>();          // show reports added by current user without refreshing page
@@ -35,7 +35,11 @@ export class FixtureApiService {
         });
     }
 
-    static getUser() {
+    getUser() {
+        return this.user;
+    }
+
+    static staticGetUser() {
         return user;
     }
 
