@@ -158,9 +158,6 @@ describe('workspace-project App', () => {
 
         await popup.closePopup();
 
-        // await homePage.navigateTo();
-        // reportMapPage = await homePage.goToDemo();
-
         // check that string is present in list
         const reportTitle = await reportMapPage.getMyReportTitle(randomTitle);
         const reportDescription = await reportMapPage.getMyReportDescription('Test');

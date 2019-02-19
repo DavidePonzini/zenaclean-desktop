@@ -23,12 +23,12 @@ export class ReportsListComponent implements OnInit {
         this.apiService.onReportAdd().subscribe((data) => {
             // Facendo unshift sono sicuro che  l'ultima segnalazione sia la prima in lista
             this.reports.unshift(data);
+            this.apiService.updateReports(this.reports);
             this.newReport = true;
         });
 
         this.apiService.onReportsUpdate().subscribe(reports => {
-            // Aggiorna lista di reports
-            this.newReport = false;
+            // Aggiorna lista di report
             this.displayReports(reports);
         });
 
@@ -58,7 +58,7 @@ export class ReportsListComponent implements OnInit {
             this.resultString = 'Nessuna segnalazione trovata';
         }
 
-        // this.newReport = false;
+        this.newReport = false;
     }
 
     ngOnInit() {
@@ -66,7 +66,6 @@ export class ReportsListComponent implements OnInit {
             .subscribe((data: object) => {
                 this.displayReports(data);
             });
-
     }
 
     open(report) {
