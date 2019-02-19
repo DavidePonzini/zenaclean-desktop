@@ -35,7 +35,6 @@ export class MapComponent implements OnInit {
         this.apiService.onReportAdd().subscribe((data) => {
             this.visible = true;
 
-            this.updateReports();
             this.map.setCenter({lat: data.latitude, lng: data.longitude});
 
             if (this.zoom < 15) {
