@@ -43,12 +43,10 @@ export class APIService {
     }
 
     setUser(user) {
-        console.log('PLUTO' + JSON.stringify(user));
         this.user = user;
     }
 
     getUser() {
-        console.log('PIPPO' + JSON.stringify(this.user));
         return this.user;
     }
 
