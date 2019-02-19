@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
         this.apiService.checkSession().subscribe( res => {
             if (res['status'] === 'ok') {
                 this.apiService.setAuth(true);
+                this.apiService.setUser(res['user']);
             }
         });
     }

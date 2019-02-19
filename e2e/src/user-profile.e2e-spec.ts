@@ -50,7 +50,7 @@ describe('profile tests', () => {
         const profile = await map.clickProfileButton();
         await myExplicitWait();
         const balance = await profile.getBalance();
-        expect(balance).toEqual('0 palanche');
+        expect(balance).toEqual('1 palanche');
         await profile.clickLogout();
     });
 });
