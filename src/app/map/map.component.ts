@@ -44,6 +44,7 @@ export class MapComponent implements OnInit {
             }
 
             // console.log(data);
+            this.updateReports();
             this.openWindow(data._id);
         });
 

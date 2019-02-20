@@ -23,8 +23,8 @@
         <hr>
 
         <div id="report-approval-status" class="row" *ngIf="isReportApproved()">
-            <div id="report-approved-positive" *ngIf="report.approved_positive" class="alert alert-primary report-status">Report is legit</div>
-            <div id="report-approved-negative" *ngIf="report.approved_negative" class="alert alert-danger report-status">Report is made up</div>
+            <div id="report-approved-positive" *ngIf="report.approved_positive" class="alert alert-primary report-status">Questa segnalazione è stata approvata!</div>
+            <div id="report-approved-negative" *ngIf="report.approved_negative" class="alert alert-danger report-status">Questa segnalazione ha ricevuto troppi voti negativi!</div>
         </div>
         <div id='vote-buttons' class="row" *ngIf="!isReportApproved()">
             <div class="col-md button-vote-col">

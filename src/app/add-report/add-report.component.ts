@@ -4,7 +4,6 @@ import {NewReport} from './new-report';
 import {APIService} from '../services/api.service';
 import {PopupComponent} from '../popup/popup.component';
 import {PopupMultipleComponent} from '../popup-multiple/popup-multiple.component';
-import dateUtils from '../utils/date-utils';
 
 @Component({
     selector: 'app-add-report-modal',
